@@ -27,10 +27,16 @@ body {
     overflow-x: hidden;
     position: relative;
     line-height: 1.6;
+    visibility: hidden;
 }
 
 html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
+    scroll-behavior: auto !important;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
 }
 
 /* Fade-in Animation */
