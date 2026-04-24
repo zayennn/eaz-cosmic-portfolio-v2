@@ -11,11 +11,9 @@
 </head>
 
 <body>
-    <canvas id="starCanvas"></canvas>
 
     @include('partials.navbar')
 
-    <!-- Konten Utama -->
     <main>
         @yield('content')
     </main>
