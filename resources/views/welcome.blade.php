@@ -69,7 +69,7 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-grid">
             <div class="about-left">
-                <h3 class="about-heading">About Me</h3>
+                <h3 class="about-heading">I'm a passionate web developer</h3>
                 <p>
                     As a passionate Fullstack Web Developer, I specialize in building scalable,
                     responsive, and user-friendly web applications. I work with a modern tech stack
