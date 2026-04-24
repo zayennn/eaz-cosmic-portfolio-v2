@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- ==================== HERO SECTION ==================== -->
 <section id="home" class="hero fade-in">
     <div class="hero-grid">
-        <!-- Kolom Kiri -->
         <div class="hero-left">
             <p class="hero-availability">
                 <span class="status-dot"></span> Available for work
@@ -30,7 +28,6 @@
             </div>
         </div>
         
-        <!-- Kolom Kanan - Code Container dengan Java -->
         <div class="hero-right">
             <div class="code-container">
                 <div class="code-header">
@@ -46,7 +43,7 @@
     <span class="keyword">private</span> <span class="type">String[]</span> <span class="variable">skills</span> = {
         <span class="string">"React.js"</span>, <span class="string">"Laravel"</span>, <span class="string">"JavaScript"</span>, <span class="string">"PHP"</span>,
         <span class="string">"Python"</span>, <span class="string">"Flask"</span>, <span class="string">"Django"</span>, <span class="string">"MySQL"</span>,
-        <span class="string">"Framer Motion"</span>, <span class="string">"Tailwind CSS"</span>
+        <span class="string">"Java"</span>, <span class="string">"Git"</span>, <span class="string">"Github"</span>{{-- <span class="string">"Tailwind CSS"</span> --}}
     };
     <span class="keyword">private</span> <span class="type">String</span> <span class="variable">passion</span> = <span class="string">"Creating exceptional digital experiences"</span>;
 
@@ -62,18 +59,15 @@
         </div>
     </div>
     
-    <!-- Scroll Down Indicator -->
     <a href="#about" class="scroll-down">
         <span>Scroll Down</span>
         <i class="fas fa-chevron-down"></i>
     </a>
 </section>
 
-<!-- ==================== ABOUT SECTION ==================== -->
 <section id="about" class="about fade-in">
     <h2 class="section-title">About Me</h2>
     <div class="about-grid">
-        <!-- Kolom Kiri -->
         <div class="about-left">
             <h3 class="about-heading">About Me</h3>
             <p>
@@ -112,7 +106,6 @@
             <a href="#" class="cta-btn primary">Download CV</a>
         </div>
         
-        <!-- Kolom Kanan - Image -->
         <div class="about-right">
             <div class="about-image-wrapper">
                 <img src="{{ asset('images/hero-vector.svg') }}" alt="Elang Atha Zahran">
@@ -122,10 +115,8 @@
     </div>
 </section>
 
-<!-- ==================== EDUCATION & EXPERIENCE SECTION ==================== -->
 <section id="education-experience" class="edu-exp fade-in">
     <div class="edu-exp-grid">
-        <!-- Kolom Kiri - Education -->
         <div class="education-column">
             <h2 class="section-title">Education</h2>
             
@@ -150,7 +141,6 @@
             </div>
         </div>
         
-        <!-- Kolom Kanan - Experience -->
         <div class="experience-column">
             <h2 class="section-title">Experience</h2>
             
