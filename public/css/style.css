@@ -688,6 +688,12 @@ html {
     }
 }
 
+@media (max-width: 630px) {
+    .code-container {
+        display: none;
+    }
+}
+
 @media (max-width: 576px) {
     .hero-name {
         font-size: 2rem;
