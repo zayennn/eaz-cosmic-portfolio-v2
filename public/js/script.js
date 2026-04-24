@@ -298,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function generateStars() {
         const container = document.getElementById('star-field');
 
-        // tinggi full halaman (dinamis)
         const pageHeight = document.documentElement.scrollHeight;
 
         container.style.height = pageHeight + 'px';
