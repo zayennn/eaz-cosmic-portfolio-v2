@@ -54,9 +54,6 @@ html {
     transform: translateY(0);
 }
 
-/* ============================================
-   NAVBAR - Glassmorphism Blur
-   ============================================ */
 .navbar {
     position: fixed;
     top: 0;
