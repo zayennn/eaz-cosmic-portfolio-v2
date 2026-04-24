@@ -378,11 +378,9 @@ document.addEventListener('DOMContentLoaded', function () {
         star.style.left = startX + 'px';
         star.style.top = startY + 'px';
 
-        // sudut random (diagonal realistic)
         const angle = Math.random() * 60 + 20; // 20° - 80°
         const rad = angle * (Math.PI / 180);
 
-        // jarak gerak
         const distance = Math.random() * 400 + 300;
 
         const moveX = Math.cos(rad) * distance;
