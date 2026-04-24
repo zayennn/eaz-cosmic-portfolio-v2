@@ -1,38 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ============================================
-    // GSAP SMOOTH SCROLL (INERTIA / MOMENTUM)
-    // ============================================
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // Setup Smooth Scrolling dengan efek inersia
     const smoother = {
         target: window,
         current: 0,
         target: 0,
-        ease: 0.075, // Nilai kecil = lebih banyak inersia (0.05 - 0.1 recommended)
+        ease: 0.020,
         isScrolling: false,
 
         init: function() {
-            // Set initial position
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
 
-            // RAF loop untuk smooth scrolling
             this.raf();
             
-            // Event listeners
             this.bindEvents();
         },
 
         raf: function() {
-            // Hitung posisi dengan lerp (linear interpolation)
             smoother.current += (smoother.target - smoother.current) * smoother.ease;
             
-            // Apply posisi ke window
             window.scrollTo(0, smoother.current);
             
-            // Check if still scrolling
             if (Math.abs(smoother.target - smoother.current) > 0.5) {
                 smoother.isScrolling = true;
             } else {
@@ -44,22 +34,17 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function() {
-            // Track wheel event untuk custom smooth scroll
             window.addEventListener('wheel', (e) => {
                 e.preventDefault();
                 
-                // Get scroll amount
                 const delta = e.deltaY;
                 
-                // Update target position
                 smoother.target += delta;
                 
-                // Clamp target
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             }, { passive: false });
 
-            // Track touch events untuk mobile
             let touchStartY = 0;
             let touchMoveY = 0;
             let touchVelocity = 0;
@@ -77,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 touchMoveY = e.touches[0].clientY;
                 const delta = touchStartY - touchMoveY;
                 
-                // Calculate velocity
                 const now = Date.now();
                 const dt = now - lastTouchTime;
                 if (dt > 0) {
@@ -88,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 smoother.target += delta * 0.5;
                 
-                // Clamp
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
                 
@@ -96,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, { passive: true });
 
             window.addEventListener('touchend', () => {
-                // Add momentum after touch end
                 const momentum = touchVelocity * 100;
                 smoother.target += momentum;
                 
@@ -106,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 touchVelocity = 0;
             });
 
-            // Track keyboard navigation
             window.addEventListener('keydown', (e) => {
                 const keys = {
                     'ArrowDown': 100,
@@ -125,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Reset scroll position on page load
             window.addEventListener('load', () => {
                 smoother.target = 0;
                 smoother.current = 0;
@@ -133,15 +113,13 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         scrollTo: function(targetY, duration = 1.5) {
-            // Animate target untuk smooth scroll ke section
             const startTarget = this.target;
             const startTime = performance.now();
             
             const animate = (currentTime) => {
-                const elapsed = (currentTime - startTime) / 1000; // in seconds
+                const elapsed = (currentTime - startTime) / 1000;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                // Ease in-out
                 const ease = progress < 0.5 
                     ? 2 * progress * progress 
                     : -1 + (4 - 2 * progress) * progress;
@@ -157,15 +135,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // Inisialisasi smooth scroll
     smoother.init();
 
-    // ============================================
-    // NAVBAR SCROLL EFFECT
-    // ============================================
     const navbar = document.getElementById('navbar');
     
-    // Update navbar state menggunakan ScrollTrigger
     ScrollTrigger.create({
         start: 50,
         end: 99999,
@@ -173,9 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
         onLeaveBack: () => navbar.classList.remove('scrolled')
     });
 
-    // ============================================
-    // HAMBURGER MENU
-    // ============================================
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
 
@@ -191,9 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ============================================
-    // SMOOTH SCROLL TO SECTION (ANCHOR LINKS)
-    // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
@@ -203,18 +170,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (target) {
                 e.preventDefault();
                 
-                // Calculate target position with offset for navbar
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
                 
-                // Use custom smooth scroll
                 smoother.scrollTo(targetPosition, 1.2);
             }
         });
     });
 
-    // ============================================
-    // TYPING EFFECT
-    // ============================================
     const typingText = document.getElementById('typing-text');
     const roles = [
         'Web Developer',
@@ -257,9 +219,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     typeEffect();
 
-    // ============================================
-    // GSAP FADE-IN ANIMATIONS ON SCROLL
-    // ============================================
     const fadeElements = document.querySelectorAll('.fade-in, .timeline-item, .hero-left > *, .hero-right');
 
     fadeElements.forEach((element, index) => {
@@ -277,9 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     trigger: element,
                     start: "top 85%",
                     toggleActions: "play none none none",
-                    // Gunakan scroller proxy untuk smooth scroll
                     onRefresh: (self) => {
-                        // Adjust for smooth scroll offset
                     }
                 },
                 delay: index * 0.05
@@ -287,9 +244,6 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     });
 
-    // ============================================
-    // PARALLAX EFFECT UNTUK CODE CONTAINER
-    // ============================================
     const codeContainer = document.querySelector('.code-container');
     
     if (codeContainer) {
@@ -305,7 +259,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Reset on mouse leave
         codeContainer.addEventListener('mouseleave', () => {
             gsap.to(codeContainer, {
                 rotateX: 0,
@@ -316,9 +269,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ============================================
-    // SCROLL PROGRESS INDICATOR (OPTIONAL)
-    // ============================================
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
         position: fixed;
@@ -332,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     document.body.appendChild(progressBar);
 
-    // Update progress bar menggunakan GSAP ticker
     gsap.ticker.add(() => {
         const scrollTop = smoother.current;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -340,12 +289,8 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.style.width = Math.min(scrollPercent, 100) + '%';
     });
 
-    // ============================================
-    // INITIAL LOAD - PREVENT FLASH
-    // ============================================
     document.body.style.visibility = 'visible';
     
-    // Trigger initial scroll position
     smoother.target = 0;
     smoother.current = 0;
     window.scrollTo(0, 0);
