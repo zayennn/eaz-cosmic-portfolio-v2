@@ -115,7 +115,7 @@
         <!-- Kolom Kanan - Image -->
         <div class="about-right">
             <div class="about-image-wrapper">
-                <img src="{{ asset('images/profile.jpg') }}" alt="Elang Atha Zahran">
+                <img src="{{ asset('images/hero-vector.svg') }}" alt="Elang Atha Zahran">
                 <div class="image-glow"></div>
             </div>
         </div>
