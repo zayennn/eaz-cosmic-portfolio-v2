@@ -502,8 +502,8 @@ html {
 .section-devider {
     width: 100px;
     height: 2px;
-    background: linear-gradient(to right, var(--accent-purple), var(--accent-blue) #00cec9);
-    margin: 30px auto 0px;
+    background: linear-gradient(to right, var(--accent-blue), #00cec9);
+    margin: 30px auto 50px auto;
 }
 
 /* ============================================

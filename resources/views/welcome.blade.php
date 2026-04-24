@@ -124,6 +124,7 @@
         <h2 class="section-title">
             Education & <span>Experience</span>
         </h2>
+        <div class="section-devider"></div>
         <div class="edu-exp-grid">
             <div class="education-column">
                 <div class="timeline-item">
