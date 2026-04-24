@@ -20,6 +20,8 @@
 
 <body>
 
+    <div id="star-field"></div>
+
     @include('partials.navbar')
 
     <main>

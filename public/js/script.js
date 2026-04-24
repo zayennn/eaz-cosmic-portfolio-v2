@@ -9,38 +9,38 @@ document.addEventListener('DOMContentLoaded', function () {
         ease: 0.030,
         isScrolling: false,
 
-        init: function() {
+        init: function () {
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
 
             this.raf();
-            
+
             this.bindEvents();
         },
 
-        raf: function() {
+        raf: function () {
             smoother.current += (smoother.target - smoother.current) * smoother.ease;
-            
+
             window.scrollTo(0, smoother.current);
-            
+
             if (Math.abs(smoother.target - smoother.current) > 0.5) {
                 smoother.isScrolling = true;
             } else {
                 smoother.isScrolling = false;
                 smoother.current = smoother.target;
             }
-            
+
             requestAnimationFrame(smoother.raf);
         },
 
-        bindEvents: function() {
+        bindEvents: function () {
             window.addEventListener('wheel', (e) => {
                 e.preventDefault();
-                
+
                 const delta = e.deltaY;
-                
+
                 smoother.target += delta;
-                
+
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             }, { passive: false });
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('touchmove', (e) => {
                 touchMoveY = e.touches[0].clientY;
                 const delta = touchStartY - touchMoveY;
-                
+
                 const now = Date.now();
                 const dt = now - lastTouchTime;
                 if (dt > 0) {
@@ -69,22 +69,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 lastTouchY = touchMoveY;
                 lastTouchTime = now;
-                
+
                 smoother.target += delta * 0.5;
-                
+
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-                
+
                 touchStartY = touchMoveY;
             }, { passive: true });
 
             window.addEventListener('touchend', () => {
                 const momentum = touchVelocity * 100;
                 smoother.target += momentum;
-                
+
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-                
+
                 touchVelocity = 0;
             });
 
@@ -112,25 +112,25 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         },
 
-        scrollTo: function(targetY, duration = 1.5) {
+        scrollTo: function (targetY, duration = 1.5) {
             const startTarget = this.target;
             const startTime = performance.now();
-            
+
             const animate = (currentTime) => {
                 const elapsed = (currentTime - startTime) / 1000;
                 const progress = Math.min(elapsed / duration, 1);
-                
-                const ease = progress < 0.5 
-                    ? 2 * progress * progress 
+
+                const ease = progress < 0.5
+                    ? 2 * progress * progress
                     : -1 + (4 - 2 * progress) * progress;
-                
+
                 this.target = startTarget + (targetY - startTarget) * ease;
-                
+
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 }
             };
-            
+
             requestAnimationFrame(animate);
         }
     };
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
     smoother.init();
 
     const navbar = document.getElementById('navbar');
-    
+
     ScrollTrigger.create({
         start: 50,
         end: 99999,
@@ -169,9 +169,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
-                
+
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                
+
                 smoother.scrollTo(targetPosition, 1.2);
             }
         });
@@ -245,12 +245,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const codeContainer = document.querySelector('.code-container');
-    
+
     if (codeContainer) {
         document.addEventListener('mousemove', (e) => {
             const xAxis = (window.innerWidth / 2 - e.clientX) / 50;
             const yAxis = (window.innerHeight / 2 - e.clientY) / 50;
-            
+
             gsap.to(codeContainer, {
                 rotateX: yAxis * 0.3,
                 rotateY: xAxis * 0.3,
@@ -290,9 +290,148 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.body.style.visibility = 'visible';
-    
+
     smoother.target = 0;
     smoother.current = 0;
     window.scrollTo(0, 0);
 
+    function generateStars() {
+        const container = document.getElementById('star-field');
+
+        // tinggi full halaman (dinamis)
+        const pageHeight = document.documentElement.scrollHeight;
+
+        container.style.height = pageHeight + 'px';
+
+        const totalStars = 300;
+
+        const sizeConfig = [
+            { class: 'size-lg', speed: 0.1 },
+            { class: 'size-md', speed: 0.25 },
+            { class: 'size-sm', speed: 0.4 },
+            { class: 'size-xs', speed: 0.6 }
+        ];
+
+        const stars = [];
+
+        for (let i = 0; i < totalStars; i++) {
+            const star = document.createElement('div');
+
+            const config = sizeConfig[Math.floor(Math.random() * sizeConfig.length)];
+
+            star.classList.add('star', config.class);
+
+            const top = Math.random() * pageHeight;
+            const left = Math.random() * window.innerWidth;
+
+            star.style.top = top + 'px';
+            star.style.left = left + 'px';
+
+            container.appendChild(star);
+
+            stars.push({
+                el: star,
+                speed: config.speed,
+                baseY: top
+            });
+        }
+
+        return stars;
+    }
+
+    const stars = generateStars();
+
+    function handleParallax() {
+        const scrollY = window.scrollY;
+
+        stars.forEach(star => {
+            const offset = scrollY * star.speed;
+
+            star.el.style.transform = `translateY(${offset}px)`;
+        });
+
+        requestAnimationFrame(handleParallax);
+    }
+
+    handleParallax();
+
+    window.addEventListener('resize', () => {
+        const container = document.getElementById('star-field');
+        container.innerHTML = '';
+
+        const newStars = generateStars();
+        stars.length = 0;
+        stars.push(...newStars);
+    });
+
+    function createShootingStar() {
+        const container = document.getElementById('star-field');
+
+        const star = document.createElement('div');
+        star.classList.add('shooting-star');
+
+        const pageHeight = document.documentElement.scrollHeight;
+        const pageWidth = window.innerWidth;
+
+        // posisi random full body
+        const startX = Math.random() * pageWidth;
+        const startY = Math.random() * pageHeight * 0.7; // agak atas biar jatuh ke bawah
+
+        star.style.left = startX + 'px';
+        star.style.top = startY + 'px';
+
+        // sudut random (diagonal realistic)
+        const angle = Math.random() * 60 + 20; // 20° - 80°
+        const rad = angle * (Math.PI / 180);
+
+        // jarak gerak
+        const distance = Math.random() * 400 + 300;
+
+        const moveX = Math.cos(rad) * distance;
+        const moveY = Math.sin(rad) * distance;
+
+        // rotate biar arah sama
+        star.style.transform = `rotate(${angle}deg)`;
+
+        // animasi
+        const duration = (Math.random() * 0.8 + 0.6).toFixed(2);
+
+        star.animate(
+            [
+                {
+                    transform: `translate(0,0) rotate(${angle}deg) scale(0.7)`,
+                    opacity: 0
+                },
+                {
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${moveX}px, ${moveY}px) rotate(${angle}deg) scale(1.2)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration: duration * 1000,
+                easing: "ease-out",
+                fill: "forwards"
+            }
+        );
+
+        container.appendChild(star);
+
+        setTimeout(() => {
+            star.remove();
+        }, duration * 1000);
+    }
+
+    function shootingStarLoop() {
+        const delay = Math.random() * 1000 + 1000;
+
+        setTimeout(() => {
+            createShootingStar();
+            shootingStarLoop();
+        }, delay);
+    }
+
+    shootingStarLoop();
 });
