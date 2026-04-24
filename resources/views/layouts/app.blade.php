@@ -20,25 +20,19 @@
 
 <body>
 
-    <div id="smooth-wrapper">
-        <div id="smooth-content">
+    @include('partials.navbar')
 
-            @include('partials.navbar')
+    <main>
+        @yield('content')
+    </main>
 
-            <main>
-                @yield('content')
-            </main>
-
-            @include('partials.footer')
-
-        </div>
-    </div>
+    @include('partials.footer')
 
     {{-- GSAP --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    
+
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 
