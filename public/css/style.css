@@ -488,6 +488,12 @@ html {
     filter: blur(20px);
 }
 
+@media (max-width: 768px) {
+    .about-left {
+        order: 2;
+    }
+}
+
 /* ============================================
    EDUCATION & EXPERIENCE
    ============================================ */
