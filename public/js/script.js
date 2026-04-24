@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         target: window,
         current: 0,
         target: 0,
-        ease: 0.020,
+        ease: 0.030,
         isScrolling: false,
 
         init: function() {

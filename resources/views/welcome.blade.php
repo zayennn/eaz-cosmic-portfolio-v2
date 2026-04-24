@@ -69,6 +69,7 @@
         <h2 class="section-title">
             About <span>Me</span>
         </h2>
+        <div class="section-devider"></div>
         <div class="about-grid">
             <div class="about-left">
                 <h3 class="about-heading">
