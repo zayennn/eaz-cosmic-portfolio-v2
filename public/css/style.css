@@ -424,41 +424,62 @@ html {
 }
 
 .hero-social {
-    display: flex;
+    display: flex !important;
     gap: 1rem;
     margin-top: 0.5rem;
 }
 
 .social {
     position: relative;
-}
-
-.instagram {
-    background-color: #ff00cc;
+    text-decoration: none;
+    color: #fff !important;
     width: 45px;
     height: 45px;
     border-radius: 50%;
 }
 
-.hero-social a {
-    color: var(--text-muted);
-    font-size: 1.3rem;
-    transition: color 0.3s, text-shadow 0.3s;
+.instagram {
+    background-color: #ff00cc;
+}
+
+.instagram i {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
 }
 
-.hero-social a:hover {
-    color: var(--accent-purple);
-    text-shadow: 0 0 10px var(--accent-purple);
+.tiktok {
+    background-color: #000000;
 }
 
-.hero-social a {
-    color: var(--accent-purple);
-    text-shadow: 0 0 10px var(--accent-purple);
+.tiktok i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.linkedin {
+    background-color: #0033ff;
+}
+
+.linkedin i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.github {
+    background-color: #2b2b2b;
+}
+
+.github i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hero-right {
