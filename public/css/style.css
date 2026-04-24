@@ -406,6 +406,7 @@ html {
 
 .about-heading {
     font-size: 2rem;
+    font-family: "orbitron";
     color: var(--text-primary);
     margin-bottom: 1.5rem;
 }
