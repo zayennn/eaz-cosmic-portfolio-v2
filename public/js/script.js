@@ -372,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const pageHeight = document.documentElement.scrollHeight;
         const pageWidth = window.innerWidth;
 
-        // posisi random full body
         const startX = Math.random() * pageWidth;
         const startY = Math.random() * pageHeight * 0.7; // agak atas biar jatuh ke bawah
 
