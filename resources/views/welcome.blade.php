@@ -23,22 +23,22 @@
                     <a href="#experience" class="cta-btn secondary">View Projects</a>
                 </div>
                 <div class="hero-social">
-                    <div class="social instagram">
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
-                    <div class="social tiktok">
-                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                    <div class="social linkedin">
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <div class="social github">
-                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social instagram">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="" target="_blank" rel="noopener noreferrer" class="social tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="" target="_blank" rel="noopener noreferrer" class="social linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="" target="_blank" rel="noopener noreferrer" class="social github">
+                        <i class="fab fa-github"></i>
+                        <i class="fab fa-github"></i>
+                    </a>
                 </div>
             </div>
 
