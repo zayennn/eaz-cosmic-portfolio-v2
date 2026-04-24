@@ -434,9 +434,9 @@ html {
 }
 
 .instagram {
-    background-color: #db18b4;
-    width: 40px;
-    height: 40px;
+    background-color: #ff00cc;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
 }
 
@@ -445,12 +445,18 @@ html {
     font-size: 1.3rem;
     transition: color 0.3s, text-shadow 0.3s;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
+    color: #fff;
 }
 
 .hero-social a:hover {
+    color: var(--accent-purple);
+    text-shadow: 0 0 10px var(--accent-purple);
+}
+
+.hero-social a {
     color: var(--accent-purple);
     text-shadow: 0 0 10px var(--accent-purple);
 }
