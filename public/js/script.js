@@ -386,10 +386,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const moveX = Math.cos(rad) * distance;
         const moveY = Math.sin(rad) * distance;
 
-        // rotate biar arah sama
         star.style.transform = `rotate(${angle}deg)`;
 
-        // animasi
         const duration = (Math.random() * 0.8 + 0.6).toFixed(2);
 
         star.animate(
