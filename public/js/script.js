@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const pageWidth = window.innerWidth;
 
         const startX = Math.random() * pageWidth;
-        const startY = Math.random() * pageHeight * 0.7; // agak atas biar jatuh ke bawah
+        const startY = Math.random() * pageHeight * 0.7;
 
         star.style.left = startX + 'px';
         star.style.top = startY + 'px';
