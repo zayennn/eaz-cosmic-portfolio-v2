@@ -1,62 +1,35 @@
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-brand">
-            <h3>EAZ</h3>
-            <p class="footer-description">
-                Junior Fullstack Developer passionate about creating exceptional 
-                digital experiences. Let's build something amazing together.
-            </p>
-        </div>
-        
-        <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#home">Me, Basically</a></li>
-                <li><a href="#about">What I Use</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#behind-code">Behind the Code</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-contact">
-            <h4>Get In Touch</h4>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>athazahranel@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Indonesia, West Java</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+62 8778 8612 930</span>
-                </div>
+<footer id="footer" class="footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h3 class="footer-logo">EAZ</h3>
+                <p>Junior Fullstack Developer passionate about creating exceptional digital experiences. Let's build
+                    something amazing together.</p>
             </div>
-            <a href="mailto:athazahranel@gmail.com" class="btn-send-email">
-                <i class="fas fa-paper-plane"></i> Send Email
-            </a>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">Me, Basically</a></li>
+                    <li><a href="#about">What I Use</a></li>
+                    <li><a href="#experience">Projects</a></li>
+                    <li><a href="#about">Behind the Code</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Get In Touch</h4>
+                <p><i class="fas fa-envelope"></i> athazahranel@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Indonesia, West Java</p>
+                <p><i class="fas fa-phone"></i> +62 8778 8612 930</p>
+                <a href="mailto:athazahranel@gmail.com" class="send-email-btn">Send Email</a>
+            </div>
         </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <div class="footer-copyright">
-            © 2026 Elang Atha Zahran. All rights reserved.
+        <div class="footer-built">
+            <p>Built with: React Js • Framer Motion • CSS3 • JavaScript • Git • GitHub • Vercel</p>
         </div>
-        <div class="footer-tech">
-            Built with:
-            <i class="fab fa-react"></i> React Js
-            <i class="fas fa-moon"></i> Framer Motion
-            <i class="fab fa-css3-alt"></i> CSS3
-            <i class="fab fa-js"></i> JavaScript
-            <i class="fab fa-git-alt"></i> Git
-            <i class="fab fa-github"></i> GitHub
-            <i class="fas fa-cloud"></i> Vercel
-        </div>
-        <div class="footer-made-with">
-            Made with <span class="heart">❤</span> and ☕
+        <div class="footer-bottom">
+            <p>&copy; 2026 Elang Atha Zahran. All rights reserved.</p>
+            <p>Made with ❤️ and ☕</p>
         </div>
     </div>
 </footer>
