@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Kosmik</title>
+    <title>Elang Atha Zahran — Portfolio Kosmik</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <!-- Canvas untuk efek partikel bintang -->
     <canvas id="starCanvas"></canvas>
 
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#hero" class="nav-logo">NamaKamu</a>
-            <div class="nav-menu" id="navMenu">
-                <a href="#hero" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#experience" class="nav-link">Experience</a>
-            </div>
+            <a href="#hero" class="nav-logo">
+                <span class="glare-text">EAZ</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="nav-link">Me, Basically</a></li>
+                <li><a href="#about-tech" class="nav-link">What I Use</a></li>
+                <li><a href="#projects" class="nav-link">What I've Built</a></li>
+                <li><a href="#interests" class="nav-link">What I'm Into</a></li>
+                <li><a href="#behind-code" class="nav-link">Behind the Code</a></li>
+                <li><a href="#contact" class="nav-link">Get in Touch</a></li>
+            </ul>
+            <a href="#" class="btn-download-cv">Download CV</a>
             <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
             </div>
         </div>
     </nav>
 
-    <!-- Konten Utama -->
     <main>
         @yield('content')
     </main>
@@ -36,12 +37,38 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
-            <p>&copy; 2026 NamaKamu. All rights reserved.</p>
-            <div class="social-icons">
-                <a href="#" aria-label="GitHub"><i class="icon-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
-                <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+            <div class="footer-brand">
+                <h3 class="footer-logo">EAZ</h3>
+                <p>Junior Fullstack Developer passionate about creating exceptional digital experiences. Let's build something amazing together.</p>
             </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">Me, Basically</a></li>
+                    <li><a href="#about-tech">What I Use</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#behind-code">Behind the Code</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Get In Touch</h4>
+                <p>athazahranel@gmail.com</p>
+                <p>Indonesia, West Java</p>
+                <p>+62 8778 8612 930</p>
+                <a href="mailto:athazahranel@gmail.com" class="btn-send-email">Send Email</a>
+            </div>
+            <div class="footer-tech">
+                <h4>Built with</h4>
+                <ul>
+                    <li>React Js</li><li>Framer Motion</li><li>CSS3</li>
+                    <li>JavaScript</li><li>Git</li><li>GitHub</li><li>Vercel</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Elang Atha Zahran. All rights reserved.</p>
+            <p class="footer-heart">Made with ❤️ and ☕</p>
         </div>
     </footer>
 
