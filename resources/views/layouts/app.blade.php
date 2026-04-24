@@ -13,14 +13,14 @@
 <body>
     <canvas id="starCanvas"></canvas>
 
-    
+    @include('partials.navbar')
 
     <!-- Konten Utama -->
     <main>
         @yield('content')
     </main>
 
-    
+    @include('partials.footer')
 
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
