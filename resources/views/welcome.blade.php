@@ -116,10 +116,9 @@
     </section>
 
     <section id="education-experience" class="edu-exp fade-in">
+        <h2 class="section-title">Education & Experience</h2>
         <div class="edu-exp-grid">
             <div class="education-column">
-                <h2 class="section-title">Education</h2>
-
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
@@ -145,8 +144,6 @@
             </div>
 
             <div class="experience-column">
-                <h2 class="section-title">Experience</h2>
-
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
