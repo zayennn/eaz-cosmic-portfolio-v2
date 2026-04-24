@@ -9,11 +9,12 @@
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#about">Me, Basically</a></li>
-                    <li><a href="#about">What I Use</a></li>
-                    <li><a href="#experience">Projects</a></li>
-                    <li><a href="#about">Behind the Code</a></li>
-                    <li><a href="#footer">Contact</a></li>
+                    <li><a href="/">Me, Basically</a></li>
+                    <li><a href="/">What I Use</a></li>
+                    <li><a href="/">What I've Built</a></li>
+                    <li><a href="/">What I'm Into</a></li>
+                    <li><a href="/">Behind the Code</a></li>
+                    <li><a href="/">Get In Touch</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
@@ -25,7 +26,7 @@
             </div>
         </div>
         <div class="footer-built">
-            <p>Built with: React Js • Framer Motion • CSS3 • JavaScript • Git • GitHub • Vercel</p>
+            <p>Built with: Laravel 10 • GSAP • CSS3 • JavaScript</p>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Elang Atha Zahran. All rights reserved.</p>
