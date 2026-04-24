@@ -751,22 +751,24 @@ html {
 }
 
 .timeline-content h3 {
-    font-size: 1.2rem;
-    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-family: "audiowide";
+    color: var(--accent-blue);
     margin-bottom: 0.2rem;
 }
 
 .timeline-major,
 .timeline-company {
-    color: var(--accent-purple);
+    color: var(--accent-cyan) !important;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
+    font-family: "orbitron";
     margin-bottom: 0.5rem;
 }
 
 .timeline-content p {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     line-height: 1.7;
 }
 
