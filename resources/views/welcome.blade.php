@@ -66,7 +66,9 @@
     </section>
 
     <section id="about" class="about fade-in">
-        <h2 class="section-title">About Me</h2>
+        <h2 class="section-title">
+            About <span>Me</span>
+        </h2>
         <div class="about-grid">
             <div class="about-left">
                 <h3 class="about-heading">
@@ -118,7 +120,9 @@
     </section>
 
     <section id="education-experience" class="edu-exp fade-in">
-        <h2 class="section-title">Education & Experience</h2>
+        <h2 class="section-title">
+            Education & <span>Experience</span>
+        </h2>
         <div class="edu-exp-grid">
             <div class="education-column">
                 <div class="timeline-item">

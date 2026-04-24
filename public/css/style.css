@@ -12,6 +12,7 @@
     --bg-secondary: #0f172a;
     --accent-blue: #3b82f6;
     --accent-purple: #6366f1;
+    --accent-orange: rgb(248, 174, 36);
     --text-primary: #e2e8f0;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
@@ -383,10 +384,15 @@ html {
     font-family: "audiowide";
     text-align: center;
     margin-bottom: 2.5rem;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: var(--text-primary);
+    /* background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; */
+}
+
+.section-title span {
+    color: var(--accent-purple);
 }
 
 /* ============================================
@@ -409,6 +415,10 @@ html {
     font-family: "orbitron";
     color: var(--text-primary);
     margin-bottom: 1.5rem;
+}
+
+.about-heading span {
+    color: var(--accent-orange);
 }
 
 .about-left p {
