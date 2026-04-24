@@ -8,7 +8,9 @@
                     <span class="status-dot"></span> Available for work
                 </p>
                 <p class="hero-greeting">Hello, I'm</p>
-                <h1 class="hero-name">Elang Atha Zahran</h1>
+                <h1 class="hero-name">
+                    Elang Atha <span>Zahran</span>
+                </h1>
                 <p class="hero-role">
                     <span id="typing-text"></span><span class="cursor">|</span>
                 </p>
