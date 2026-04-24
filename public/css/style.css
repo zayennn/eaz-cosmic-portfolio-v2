@@ -315,7 +315,6 @@ html {
     text-shadow: 0 0 10px var(--accent-purple);
 }
 
-/* Hero Right - Code Container */
 .hero-right {
     display: flex;
     justify-content: center;
@@ -363,16 +362,14 @@ html {
     line-height: 1.8;
     color: #e2e8f0;
 }
-/* Java Syntax Colors */
-.keyword { color: #c792ea; }      /* purple */
-.class-name { color: #ffcb6b; }   /* yellow/orange */
-.type { color: #82aaff; }         /* blue */
-.variable { color: #e2e8f0; }     /* white */
-.string { color: #c3e88d; }       /* green */
-.comment { color: #546e7a; }      /* grey */
-.method { color: #82aaff; }       /* blue */
+.keyword { color: #c792ea; }
+.class-name { color: #ffcb6b; }
+.type { color: #82aaff; }
+.variable { color: #e2e8f0; }
+.string { color: #c3e88d; }
+.comment { color: #546e7a; }
+.method { color: #82aaff; }
 
-/* Scroll Down */
 .scroll-down {
     display: flex;
     flex-direction: column;
