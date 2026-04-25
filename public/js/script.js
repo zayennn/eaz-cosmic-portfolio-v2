@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ========== TYPING EFFECT ==========
+    // typing
     const typingText = document.getElementById('typing-text');
     const roles = [
         'Web Developer',
@@ -276,7 +276,6 @@ document.addEventListener('DOMContentLoaded', function () {
     smoother.current = 0;
     window.scrollTo(0, 0);
 
-    // ========== STAR SYSTEM ==========
     let stars = [];
     let activeBlackholes = []; // Track active blackholes for singularity effect
 
@@ -339,10 +338,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     stars = generateStars();
 
-    // ========== SINGULARITY SYSTEM ==========
     function updateSingularityEffect(timestamp) {
         if (activeBlackholes.length === 0) {
-            // No blackholes, reset all stars to normal
             stars.forEach(star => {
                 if (star.isSucked) {
                     resetStar(star);
@@ -360,7 +357,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let closestDistance = Infinity;
             let strongestForce = 0;
 
-            // Calculate gravitational pull from all active blackholes
             activeBlackholes.forEach(bh => {
                 if (!bh.el || !bh.el.isConnected) return;
 
@@ -379,12 +375,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (distance < bh.gravityRadius) {
                     isAffectedByAny = true;
                     
-                    // Inverse square law for gravity: F = G * M / r²
-                    // Larger stars (more mass) get pulled harder
                     const G = 10000; // Gravitational constant
                     const forceMagnitude = (G * star.mass) / (distance * distance);
                     
-                    // Normalize direction
                     const dirX = dx / distance;
                     const dirY = dy / distance;
                     
@@ -396,7 +389,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         strongestForce = forceMagnitude;
                     }
 
-                    // If very close to event horizon, start sucking in
                     if (distance < bh.eventHorizonRadius) {
                         if (!star.isSucked) {
                             star.isSucked = true;
@@ -411,7 +403,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (isAffectedByAny) {
-                // Apply gravitational pull
                 const currentTransform = star.el.style.transform || '';
                 const translateMatch = currentTransform.match(/translate\(([^)]+)\)/);
                 
@@ -424,14 +415,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     currentY = parts[1] || 0;
                 }
 
-                // Apply force with mass-dependent damping
                 const damping = 0.1 / star.mass; // Larger mass = less damping = faster movement
                 const newX = currentX + totalForceX * damping;
                 const newY = currentY + totalForceY * damping;
 
                 star.el.style.transform = `translate(${newX}px, ${newY}px)`;
 
-                // Add color shift towards orange when near blackhole
                 const intensity = Math.min(strongestForce / 50, 1);
                 if (intensity > 0.3) {
                     const r = 255;
@@ -442,20 +431,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            // Handle stars being sucked into blackhole (spiraling in)
             if (star.isSucked && star.suckStartTime > 0) {
                 const elapsed = (timestamp - star.suckStartTime) / 1000; // seconds
                 star.suckProgress = Math.min(elapsed / 2, 1); // 2 seconds to fully sucked
 
-                // Spiral inward with increasing speed
                 star.orbitAngle += (star.orbitSpeed * (1 + star.suckProgress)) * 0.05;
                 star.orbitRadius *= (1 - star.suckProgress * 0.1);
                 
-                // Apply spiral movement
                 const spiralX = Math.cos(star.orbitAngle) * star.orbitRadius;
                 const spiralY = Math.sin(star.orbitAngle) * star.orbitRadius;
 
-                // Scale down as it gets closer (spaghettification effect)
                 const scale = 1 - star.suckProgress;
                 const stretchX = 1 + star.suckProgress * 0.5; // Stretch horizontally
                 const stretchY = 1 - star.suckProgress * 0.7; // Compress vertically
@@ -463,26 +448,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 star.el.style.transform = `translate(${spiralX}px, ${spiralY}px) scale(${stretchX}, ${stretchY})`;
                 star.el.style.opacity = Math.max(0, 1 - star.suckProgress);
                 
-                // Add glow effect as it gets closer
                 if (star.suckProgress > 0.5) {
                     star.el.style.backgroundColor = `rgb(255, ${Math.floor(200 - star.suckProgress * 200)}, 0)`;
                     star.el.style.boxShadow = `0 0 ${star.suckProgress * 15}px ${star.suckProgress * 3}px rgba(255, 100, 0, 0.8)`;
                 }
 
-                // Create trail particles for larger stars
                 if (star.mass > 1 && star.suckProgress > 0.3 && Math.random() < 0.3) {
                     createSuckTrail(star);
                 }
 
-                // Remove star when fully sucked
                 if (star.suckProgress >= 1) {
                     if (star.el.isConnected) {
-                        // Create a small flash when star is consumed
                         createConsumptionFlash(star);
                         star.el.remove();
                     }
                     
-                    // Remove from stars array
                     const index = stars.indexOf(star);
                     if (index > -1) {
                         stars.splice(index, 1);
@@ -503,7 +483,6 @@ document.addEventListener('DOMContentLoaded', function () {
         star.el.style.backgroundColor = '';
         star.el.style.boxShadow = '';
         
-        // Clean up trail particles
         star.trailParticles.forEach(p => {
             if (p.isConnected) p.remove();
         });
@@ -532,7 +511,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.appendChild(trail);
 
-        // Animate and remove
         trail.animate([
             { opacity: 0.8, transform: 'scale(1)' },
             { opacity: 0, transform: 'scale(0) translate(-20px, -20px)' }
@@ -546,7 +524,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         star.trailParticles.push(trail);
         
-        // Limit trail particles per star
         if (star.trailParticles.length > 10) {
             const oldTrail = star.trailParticles.shift();
             if (oldTrail.isConnected) oldTrail.remove();
@@ -580,15 +557,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 500);
     }
 
-    // ========== PARALLAX + SINGULARITY LOOP ==========
     function animationLoop(timestamp) {
-        // Regular parallax for stars not affected by blackholes
         const scrollY = window.pageYOffset;
 
         stars.forEach(star => {
             if (!star.el.isConnected || star.isSucked) return;
             
-            // Only apply parallax if not being pulled by blackhole
             const hasBlackholeEffect = activeBlackholes.some(bh => {
                 if (!bh.el || !bh.el.isConnected) return false;
                 const bhRect = bh.el.getBoundingClientRect();
@@ -605,10 +579,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Update singularity effects
         updateSingularityEffect(timestamp);
 
-        // Clean up destroyed blackholes
         activeBlackholes = activeBlackholes.filter(bh => bh.el && bh.el.isConnected);
 
         requestAnimationFrame(animationLoop);
@@ -692,7 +664,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     shootingStarLoop();
 
-    // ========== BLACKHOLE SYSTEM WITH SINGULARITY ==========
     function initBlackholeSystem() {
         const container = document.getElementById('star-field');
         if (!container) {
@@ -755,7 +726,6 @@ document.addEventListener('DOMContentLoaded', function () {
             blackhole.style.left = `${x}px`;
             blackhole.style.top = `${y}px`;
 
-            // Add all visual components
             const lensing = document.createElement('div');
             lensing.classList.add('lensing');
             blackhole.appendChild(lensing);
@@ -806,7 +776,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 blackhole.appendChild(particle);
             }
 
-            // Add Hawking radiation flash
             const hawkingFlash = document.createElement('div');
             hawkingFlash.style.cssText = `
                 position: absolute;
@@ -822,13 +791,11 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             blackhole.appendChild(hawkingFlash);
 
-            // Entrance animation
             blackhole.style.transform = `scale(0)`;
             blackhole.style.opacity = '0';
             
             container.appendChild(blackhole);
 
-            // Create blackhole data object
             const bhData = {
                 el: blackhole,
                 config: config,
@@ -837,7 +804,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 mass: config.mass * config.size
             };
 
-            // Add to active blackholes
             activeBlackholes.push(bhData);
 
             requestAnimationFrame(() => {
@@ -846,9 +812,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 blackhole.style.opacity = '1';
             });
 
-            // Exit sequence
             setTimeout(() => {
-                // Remove from active blackholes before exit animation
                 const index = activeBlackholes.indexOf(bhData);
                 if (index > -1) {
                     activeBlackholes.splice(index, 1);
