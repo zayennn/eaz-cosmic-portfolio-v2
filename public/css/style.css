@@ -441,42 +441,28 @@ html {
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease;
 }
 
 .instagram {
     background-color: #ff00cc;
 }
 
-.instagram i {
-    transform: translate(-50%, -50%);
-}
-
 .tiktok {
     background-color: #000000;
-}
-
-.tiktok i {
-    transform: translate(-50%, -50%);
 }
 
 .linkedin {
     background-color: #0033ff;
 }
 
-.linkedin i {
-    transform: translate(-50%, -50%);
-}
-
 .github {
     background-color: #2b2b2b;
 }
 
-.github i {
-    transform: translate(-50%, -50%);
-}
-
 .social:hover .instagram i:nth-child(1) {
-    
+    top: 100%;
 }
 
 .hero-right {
