@@ -437,14 +437,17 @@ html {
     border-radius: 50%;
 }
 
+.social i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
 .instagram {
     background-color: #ff00cc;
 }
 
 .instagram i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -453,9 +456,6 @@ html {
 }
 
 .tiktok i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -464,9 +464,6 @@ html {
 }
 
 .linkedin i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -475,10 +472,11 @@ html {
 }
 
 .github i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.social:hover .instagram i:nth-child(1) {
+    
 }
 
 .hero-right {
