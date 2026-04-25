@@ -277,8 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.scrollTo(0, 0);
 
     let stars = [];
-    let activeBlackholes = []; // Track active blackholes for singularity effect
-
+    let activeBlackholes = [];
     function generateStars() {
         const container = document.getElementById('star-field');
         if (!container) return [];
@@ -288,10 +287,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const totalStars = 300;
         const sizeConfig = [
-            { class: 'size-lg', speed: 0.1, mass: 4 }, // Large stars = heavy mass
-            { class: 'size-md', speed: 0.25, mass: 2 }, // Medium stars
-            { class: 'size-sm', speed: 0.4, mass: 1 },  // Small stars
-            { class: 'size-xs', speed: 0.6, mass: 0.5 } // Tiny stars = light mass
+            { class: 'size-lg', speed: 0.1, mass: 4 },
+            { class: 'size-md', speed: 0.25, mass: 2 },
+            { class: 'size-sm', speed: 0.4, mass: 1 },
+            { class: 'size-xs', speed: 0.6, mass: 0.5 }
         ];
 
         const newStars = [];
