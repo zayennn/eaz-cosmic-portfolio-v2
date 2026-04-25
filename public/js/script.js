@@ -323,12 +323,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 originalTop: top,
                 originalLeft: left,
                 isSucked: false,
-                suckProgress: 0, // 0 = normal, 1 = inside blackhole
+                suckProgress: 0,
                 suckStartTime: 0,
                 orbitAngle: Math.random() * Math.PI * 2,
                 orbitSpeed: 0,
                 orbitRadius: 0,
-                trailParticles: [] // For trail effect when being sucked
+                trailParticles: []
             });
         }
 
