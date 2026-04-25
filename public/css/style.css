@@ -389,8 +389,19 @@ html {
 }
 
 .social:hover {
-    transform: translateY(-5px) scale(1.05);
     transition: 0.3s ease;
+}
+
+.social.instagram:hover {
+    background-color: #fff !important;
+}
+
+.social.instagram:hover i:nth-child(1) {
+    background: linear-gradient(45deg, #ff00cc, #ff6a00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }
 
 .hero-right {
