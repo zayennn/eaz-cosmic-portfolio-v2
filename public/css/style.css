@@ -36,100 +36,6 @@ html {
     width: 0px;
 }
 
-/* particles */
-#star-field {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.star {
-    position: absolute;
-    border-radius: 50%;
-    background: white;
-    will-change: transform;
-}
-
-.star.size-lg {
-    width: 1.5px;
-    height: 1.5px;
-    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.9);
-}
-
-.star.size-md {
-    width: 1px;
-    height: 1px;
-    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.6);
-}
-
-.star.size-sm {
-    width: 0.5px;
-    height: 0.5px;
-    box-shadow: 0 0 3px 0.5px rgba(255, 255, 255, 0.4);
-}
-
-.star.size-xs {
-    width: 0.3px;
-    height: 0.3px;
-    box-shadow: 0 0 2px 0.2px rgba(255, 255, 255, 0.2);
-}
-
-/* animasi kedip */
-@keyframes twinkle {
-
-    0%,
-    100% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-}
-
-/* shooting star */
-.shooting-star {
-    position: absolute;
-    height: 2px;
-    width: 120px;
-    pointer-events: none;
-    opacity: 0;
-    transform-origin: left center;
-}
-
-/* garis utama (tail) */
-.shooting-star::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right,
-            rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0.3),
-            rgba(255, 255, 255, 0.6));
-}
-
-/* kepala meteor (yang paling terang) */
-.shooting-star::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    transform: translateY(-50%);
-    box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.9);
-}
-
 /* Fade-in Animation */
 .fade-in {
     opacity: 0;
@@ -429,7 +335,6 @@ html {
     margin-top: 1rem;
 }
 
-/* container icon */
 .social {
     position: relative;
     width: 55px;
@@ -440,7 +345,6 @@ html {
     text-decoration: none;
 }
 
-/* semua icon */
 .social i {
     position: absolute;
     left: 50%;
@@ -450,27 +354,24 @@ html {
     transition: all 0.4s ease;
 }
 
-/* posisi awal */
 .social i:nth-child(1) {
-    top: -100%; /* di atas (hidden) */
+    top: -100%;
 }
 
 .social i:nth-child(2) {
     top: 50%;
-    transform: translate(-50%, -50%); /* di tengah */
+    transform: translate(-50%, -50%);
 }
 
-/* HOVER EFFECT */
 .social:hover i:nth-child(1) {
     top: 50%;
     transform: translate(-50%, -50%);
 }
 
 .social:hover i:nth-child(2) {
-    top: 150%; /* turun keluar */
+    top: 150%;
 }
 
-/* WARNA */
 .instagram {
     background: linear-gradient(45deg, #ff00cc, #ff6a00);
 }
@@ -487,7 +388,6 @@ html {
     background: #2b2b2b;
 }
 
-/* BONUS biar ga kaku */
 .social:hover {
     transform: translateY(-5px) scale(1.05);
     transition: 0.3s ease;

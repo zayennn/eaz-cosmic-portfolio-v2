@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     const smoother = {
-        target: window,
         current: 0,
         target: 0,
         ease: 0.030,
@@ -12,9 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         init: function () {
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
-
             this.raf();
-
             this.bindEvents();
         },
 
@@ -30,23 +27,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 smoother.current = smoother.target;
             }
 
-            requestAnimationFrame(smoother.raf);
+            requestAnimationFrame(() => smoother.raf());
         },
 
         bindEvents: function () {
             window.addEventListener('wheel', (e) => {
                 e.preventDefault();
-
                 const delta = e.deltaY;
-
                 smoother.target += delta;
-
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             }, { passive: false });
 
             let touchStartY = 0;
-            let touchMoveY = 0;
             let touchVelocity = 0;
             let lastTouchY = 0;
             let lastTouchTime = 0;
@@ -59,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, { passive: true });
 
             window.addEventListener('touchmove', (e) => {
-                touchMoveY = e.touches[0].clientY;
+                const touchMoveY = e.touches[0].clientY;
                 const delta = touchStartY - touchMoveY;
 
                 const now = Date.now();
@@ -71,20 +64,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 lastTouchTime = now;
 
                 smoother.target += delta * 0.5;
-
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-
                 touchStartY = touchMoveY;
             }, { passive: true });
 
             window.addEventListener('touchend', () => {
                 const momentum = touchVelocity * 100;
                 smoother.target += momentum;
-
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-
                 touchVelocity = 0;
             });
 
@@ -105,11 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
                 }
             });
-
-            window.addEventListener('load', () => {
-                smoother.target = 0;
-                smoother.current = 0;
-            });
         },
 
         scrollTo: function (targetY, duration = 1.5) {
@@ -119,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const animate = (currentTime) => {
                 const elapsed = (currentTime - startTime) / 1000;
                 const progress = Math.min(elapsed / duration, 1);
-
                 const ease = progress < 0.5
                     ? 2 * progress * progress
                     : -1 + (4 - 2 * progress) * progress;
@@ -137,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     smoother.init();
 
+    // navbar
     const navbar = document.getElementById('navbar');
 
     ScrollTrigger.create({
@@ -169,14 +153,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
-
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-
                 smoother.scrollTo(targetPosition, 1.2);
             }
         });
     });
 
+    // ========== TYPING EFFECT ==========
     const typingText = document.getElementById('typing-text');
     const roles = [
         'Web Developer',
@@ -235,9 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 scrollTrigger: {
                     trigger: element,
                     start: "top 85%",
-                    toggleActions: "play none none none",
-                    onRefresh: (self) => {
-                    }
+                    toggleActions: "play none none none"
                 },
                 delay: index * 0.05
             }
@@ -295,27 +276,29 @@ document.addEventListener('DOMContentLoaded', function () {
     smoother.current = 0;
     window.scrollTo(0, 0);
 
+    // ========== STAR SYSTEM ==========
+    let stars = [];
+    let activeBlackholes = []; // Track active blackholes for singularity effect
+
     function generateStars() {
         const container = document.getElementById('star-field');
+        if (!container) return [];
 
         const pageHeight = document.documentElement.scrollHeight;
-
         container.style.height = pageHeight + 'px';
 
         const totalStars = 300;
-
         const sizeConfig = [
-            { class: 'size-lg', speed: 0.1 },
-            { class: 'size-md', speed: 0.25 },
-            { class: 'size-sm', speed: 0.4 },
-            { class: 'size-xs', speed: 0.6 }
+            { class: 'size-lg', speed: 0.1, mass: 4 }, // Large stars = heavy mass
+            { class: 'size-md', speed: 0.25, mass: 2 }, // Medium stars
+            { class: 'size-sm', speed: 0.4, mass: 1 },  // Small stars
+            { class: 'size-xs', speed: 0.6, mass: 0.5 } // Tiny stars = light mass
         ];
 
-        const stars = [];
+        const newStars = [];
 
         for (let i = 0; i < totalStars; i++) {
             const star = document.createElement('div');
-
             const config = sizeConfig[Math.floor(Math.random() * sizeConfig.length)];
 
             star.classList.add('star', config.class);
@@ -326,45 +309,326 @@ document.addEventListener('DOMContentLoaded', function () {
             star.style.top = top + 'px';
             star.style.left = left + 'px';
 
+            const twinkleDuration = 2 + Math.random() * 4;
+            const twinkleDelay = Math.random() * 5;
+            star.style.animation = `twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite`;
+            star.style.opacity = 0.3 + Math.random() * 0.7;
+
             container.appendChild(star);
 
-            stars.push({
+            newStars.push({
                 el: star,
                 speed: config.speed,
-                baseY: top
+                mass: config.mass,
+                baseY: top,
+                baseX: left,
+                originalTop: top,
+                originalLeft: left,
+                isSucked: false,
+                suckProgress: 0, // 0 = normal, 1 = inside blackhole
+                suckStartTime: 0,
+                orbitAngle: Math.random() * Math.PI * 2,
+                orbitSpeed: 0,
+                orbitRadius: 0,
+                trailParticles: [] // For trail effect when being sucked
             });
         }
 
-        return stars;
+        return newStars;
     }
 
-    const stars = generateStars();
+    stars = generateStars();
 
-    function handleParallax() {
-        const scrollY = window.scrollY;
+    // ========== SINGULARITY SYSTEM ==========
+    function updateSingularityEffect(timestamp) {
+        if (activeBlackholes.length === 0) {
+            // No blackholes, reset all stars to normal
+            stars.forEach(star => {
+                if (star.isSucked) {
+                    resetStar(star);
+                }
+            });
+            return;
+        }
 
         stars.forEach(star => {
-            const offset = scrollY * star.speed;
+            if (!star.el.isConnected) return;
 
-            star.el.style.transform = `translateY(${offset}px)`;
+            let totalForceX = 0;
+            let totalForceY = 0;
+            let isAffectedByAny = false;
+            let closestDistance = Infinity;
+            let strongestForce = 0;
+
+            // Calculate gravitational pull from all active blackholes
+            activeBlackholes.forEach(bh => {
+                if (!bh.el || !bh.el.isConnected) return;
+
+                const bhRect = bh.el.getBoundingClientRect();
+                const bhCenterX = bhRect.left + bhRect.width / 2;
+                const bhCenterY = bhRect.top + bhRect.height / 2;
+
+                const starRect = star.el.getBoundingClientRect();
+                const starCenterX = starRect.left + starRect.width / 2;
+                const starCenterY = starRect.top + starRect.height / 2;
+
+                const dx = bhCenterX - starCenterX;
+                const dy = bhCenterY - starCenterY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < bh.gravityRadius) {
+                    isAffectedByAny = true;
+                    
+                    // Inverse square law for gravity: F = G * M / r²
+                    // Larger stars (more mass) get pulled harder
+                    const G = 10000; // Gravitational constant
+                    const forceMagnitude = (G * star.mass) / (distance * distance);
+                    
+                    // Normalize direction
+                    const dirX = dx / distance;
+                    const dirY = dy / distance;
+                    
+                    totalForceX += dirX * forceMagnitude;
+                    totalForceY += dirY * forceMagnitude;
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        strongestForce = forceMagnitude;
+                    }
+
+                    // If very close to event horizon, start sucking in
+                    if (distance < bh.eventHorizonRadius) {
+                        if (!star.isSucked) {
+                            star.isSucked = true;
+                            star.suckStartTime = timestamp;
+                            star.suckProgress = 0;
+                            star.orbitAngle = Math.atan2(dy, dx);
+                            star.orbitRadius = distance;
+                            star.orbitSpeed = (2 + star.mass) * 0.5; // Faster orbit for larger stars
+                        }
+                    }
+                }
+            });
+
+            if (isAffectedByAny) {
+                // Apply gravitational pull
+                const currentTransform = star.el.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)\)/);
+                
+                let currentX = 0;
+                let currentY = 0;
+                
+                if (translateMatch) {
+                    const parts = translateMatch[1].split(',').map(s => parseFloat(s.trim()));
+                    currentX = parts[0] || 0;
+                    currentY = parts[1] || 0;
+                }
+
+                // Apply force with mass-dependent damping
+                const damping = 0.1 / star.mass; // Larger mass = less damping = faster movement
+                const newX = currentX + totalForceX * damping;
+                const newY = currentY + totalForceY * damping;
+
+                star.el.style.transform = `translate(${newX}px, ${newY}px)`;
+
+                // Add color shift towards orange when near blackhole
+                const intensity = Math.min(strongestForce / 50, 1);
+                if (intensity > 0.3) {
+                    const r = 255;
+                    const g = Math.floor(255 - (200 * intensity));
+                    const b = Math.floor(255 - (255 * intensity));
+                    star.el.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+                    star.el.style.boxShadow = `0 0 ${4 + intensity * 10}px ${1 + intensity * 2}px rgba(255, ${Math.floor(100 - intensity * 100)}, 0, ${0.5 + intensity * 0.5})`;
+                }
+            }
+
+            // Handle stars being sucked into blackhole (spiraling in)
+            if (star.isSucked && star.suckStartTime > 0) {
+                const elapsed = (timestamp - star.suckStartTime) / 1000; // seconds
+                star.suckProgress = Math.min(elapsed / 2, 1); // 2 seconds to fully sucked
+
+                // Spiral inward with increasing speed
+                star.orbitAngle += (star.orbitSpeed * (1 + star.suckProgress)) * 0.05;
+                star.orbitRadius *= (1 - star.suckProgress * 0.1);
+                
+                // Apply spiral movement
+                const spiralX = Math.cos(star.orbitAngle) * star.orbitRadius;
+                const spiralY = Math.sin(star.orbitAngle) * star.orbitRadius;
+
+                // Scale down as it gets closer (spaghettification effect)
+                const scale = 1 - star.suckProgress;
+                const stretchX = 1 + star.suckProgress * 0.5; // Stretch horizontally
+                const stretchY = 1 - star.suckProgress * 0.7; // Compress vertically
+
+                star.el.style.transform = `translate(${spiralX}px, ${spiralY}px) scale(${stretchX}, ${stretchY})`;
+                star.el.style.opacity = Math.max(0, 1 - star.suckProgress);
+                
+                // Add glow effect as it gets closer
+                if (star.suckProgress > 0.5) {
+                    star.el.style.backgroundColor = `rgb(255, ${Math.floor(200 - star.suckProgress * 200)}, 0)`;
+                    star.el.style.boxShadow = `0 0 ${star.suckProgress * 15}px ${star.suckProgress * 3}px rgba(255, 100, 0, 0.8)`;
+                }
+
+                // Create trail particles for larger stars
+                if (star.mass > 1 && star.suckProgress > 0.3 && Math.random() < 0.3) {
+                    createSuckTrail(star);
+                }
+
+                // Remove star when fully sucked
+                if (star.suckProgress >= 1) {
+                    if (star.el.isConnected) {
+                        // Create a small flash when star is consumed
+                        createConsumptionFlash(star);
+                        star.el.remove();
+                    }
+                    
+                    // Remove from stars array
+                    const index = stars.indexOf(star);
+                    if (index > -1) {
+                        stars.splice(index, 1);
+                    }
+                }
+            }
         });
-
-        requestAnimationFrame(handleParallax);
     }
 
-    handleParallax();
+    function resetStar(star) {
+        star.isSucked = false;
+        star.suckProgress = 0;
+        star.suckStartTime = 0;
+        star.orbitRadius = 0;
+        star.orbitSpeed = 0;
+        star.el.style.transform = '';
+        star.el.style.opacity = 0.3 + Math.random() * 0.7;
+        star.el.style.backgroundColor = '';
+        star.el.style.boxShadow = '';
+        
+        // Clean up trail particles
+        star.trailParticles.forEach(p => {
+            if (p.isConnected) p.remove();
+        });
+        star.trailParticles = [];
+    }
+
+    function createSuckTrail(star) {
+        const container = document.getElementById('star-field');
+        if (!container) return;
+
+        const trail = document.createElement('div');
+        trail.style.cssText = `
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, ${100 + Math.random() * 100}, 0, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 0 6px 2px rgba(255, 100, 0, 0.6);
+        `;
+
+        const starRect = star.el.getBoundingClientRect();
+        trail.style.left = starRect.left + starRect.width / 2 + 'px';
+        trail.style.top = starRect.top + starRect.height / 2 + 'px';
+
+        container.appendChild(trail);
+
+        // Animate and remove
+        trail.animate([
+            { opacity: 0.8, transform: 'scale(1)' },
+            { opacity: 0, transform: 'scale(0) translate(-20px, -20px)' }
+        ], {
+            duration: 500 + Math.random() * 500,
+            easing: 'ease-out',
+            fill: 'forwards'
+        }).onfinish = () => {
+            if (trail.isConnected) trail.remove();
+        };
+
+        star.trailParticles.push(trail);
+        
+        // Limit trail particles per star
+        if (star.trailParticles.length > 10) {
+            const oldTrail = star.trailParticles.shift();
+            if (oldTrail.isConnected) oldTrail.remove();
+        }
+    }
+
+    function createConsumptionFlash(star) {
+        const container = document.getElementById('star-field');
+        if (!container) return;
+
+        const flash = document.createElement('div');
+        const starRect = star.el.getBoundingClientRect();
+        
+        flash.style.cssText = `
+            position: absolute;
+            width: ${10 + star.mass * 5}px;
+            height: ${10 + star.mass * 5}px;
+            left: ${starRect.left + starRect.width / 2}px;
+            top: ${starRect.top + starRect.height / 2}px;
+            background: radial-gradient(circle, rgba(255, 200, 100, 1) 0%, rgba(255, 100, 0, 0.6) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 4;
+            animation: consumption-flash 0.5s ease-out forwards;
+        `;
+
+        container.appendChild(flash);
+
+        setTimeout(() => {
+            if (flash.isConnected) flash.remove();
+        }, 500);
+    }
+
+    // ========== PARALLAX + SINGULARITY LOOP ==========
+    function animationLoop(timestamp) {
+        // Regular parallax for stars not affected by blackholes
+        const scrollY = window.pageYOffset;
+
+        stars.forEach(star => {
+            if (!star.el.isConnected || star.isSucked) return;
+            
+            // Only apply parallax if not being pulled by blackhole
+            const hasBlackholeEffect = activeBlackholes.some(bh => {
+                if (!bh.el || !bh.el.isConnected) return false;
+                const bhRect = bh.el.getBoundingClientRect();
+                const starRect = star.el.getBoundingClientRect();
+                const dx = bhRect.left + bhRect.width / 2 - starRect.left - starRect.width / 2;
+                const dy = bhRect.top + bhRect.height / 2 - starRect.top - starRect.height / 2;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                return distance < bh.gravityRadius;
+            });
+
+            if (!hasBlackholeEffect) {
+                const offset = scrollY * star.speed;
+                star.el.style.transform = `translateY(${offset}px)`;
+            }
+        });
+
+        // Update singularity effects
+        updateSingularityEffect(timestamp);
+
+        // Clean up destroyed blackholes
+        activeBlackholes = activeBlackholes.filter(bh => bh.el && bh.el.isConnected);
+
+        requestAnimationFrame(animationLoop);
+    }
+
+    requestAnimationFrame(animationLoop);
 
     window.addEventListener('resize', () => {
         const container = document.getElementById('star-field');
+        if (!container) return;
+        
         container.innerHTML = '';
-
-        const newStars = generateStars();
-        stars.length = 0;
-        stars.push(...newStars);
+        activeBlackholes = [];
+        stars = generateStars();
     });
 
+    // shooting stars
     function createShootingStar() {
         const container = document.getElementById('star-field');
+        if (!container) return;
 
         const star = document.createElement('div');
         star.classList.add('shooting-star');
@@ -380,7 +644,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const angle = Math.random() * 60 + 20;
         const rad = angle * (Math.PI / 180);
-
         const distance = Math.random() * 400 + 300;
 
         const moveX = Math.cos(rad) * distance;
@@ -388,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         star.style.transform = `rotate(${angle}deg)`;
 
-        const duration = (Math.random() * 0.8 + 0.6).toFixed(2);
+        const duration = (Math.random() * 0.8 + 0.6);
 
         star.animate(
             [
@@ -397,7 +660,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     opacity: 0
                 },
                 {
-                    opacity: 1
+                    opacity: 1,
+                    offset: 0.1
                 },
                 {
                     transform: `translate(${moveX}px, ${moveY}px) rotate(${angle}deg) scale(1.2)`,
@@ -414,13 +678,12 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(star);
 
         setTimeout(() => {
-            star.remove();
+            if (star.isConnected) star.remove();
         }, duration * 1000);
     }
 
     function shootingStarLoop() {
-        const delay = Math.random() * 1000 + 1000;
-
+        const delay = Math.random() * 2000 + 1000;
         setTimeout(() => {
             createShootingStar();
             shootingStarLoop();
@@ -428,4 +691,220 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     shootingStarLoop();
+
+    // ========== BLACKHOLE SYSTEM WITH SINGULARITY ==========
+    function initBlackholeSystem() {
+        const container = document.getElementById('star-field');
+        if (!container) {
+            console.log('Star field container not found');
+            return;
+        }
+
+        console.log('Initializing blackhole system with singularity...');
+
+        const blackholeConfigs = {
+            small: {
+                size: 0.6,
+                duration: 6000,
+                hasJet: false,
+                particleCount: 2,
+                distortionWaves: 1,
+                gravityRadius: 200, // How far the gravity reaches
+                eventHorizonRadius: 40, // Distance where stars get sucked in
+                mass: 1000 // Gravitational mass
+            },
+            medium: {
+                size: 1,
+                duration: 8000,
+                hasJet: true,
+                particleCount: 4,
+                distortionWaves: 2,
+                gravityRadius: 300,
+                eventHorizonRadius: 50,
+                mass: 2000
+            },
+            large: {
+                size: 1.5,
+                duration: 10000,
+                hasJet: true,
+                particleCount: 6,
+                distortionWaves: 3,
+                gravityRadius: 450,
+                eventHorizonRadius: 70,
+                mass: 4000
+            }
+        };
+
+        function createBlackhole() {
+            const margin = 200;
+            const x = margin + Math.random() * (window.innerWidth - margin * 2);
+            const y = margin + Math.random() * (window.innerHeight - margin * 2);
+
+            let configType;
+            const sizeRandom = Math.random();
+            if (sizeRandom < 0.7) configType = 'small';
+            else if (sizeRandom < 0.9) configType = 'medium';
+            else configType = 'large';
+
+            const config = blackholeConfigs[configType];
+
+            console.log(`Creating ${configType} blackhole at (${x.toFixed(0)}, ${y.toFixed(0)}) with gravity radius: ${config.gravityRadius}px`);
+
+            const blackhole = document.createElement('div');
+            blackhole.classList.add('blackhole');
+            blackhole.style.left = `${x}px`;
+            blackhole.style.top = `${y}px`;
+
+            // Add all visual components
+            const lensing = document.createElement('div');
+            lensing.classList.add('lensing');
+            blackhole.appendChild(lensing);
+
+            for (let i = 0; i < config.distortionWaves; i++) {
+                const wave = document.createElement('div');
+                wave.classList.add('distortion-wave');
+                wave.style.animationDelay = `${i * 1}s`;
+                wave.style.animationDuration = `${2 + i * 0.5}s`;
+                blackhole.appendChild(wave);
+            }
+
+            const outerDisk = document.createElement('div');
+            outerDisk.classList.add('accretion-disk', 'outer');
+            blackhole.appendChild(outerDisk);
+
+            const innerDisk = document.createElement('div');
+            innerDisk.classList.add('accretion-disk', 'inner');
+            blackhole.appendChild(innerDisk);
+
+            const corona = document.createElement('div');
+            corona.classList.add('corona');
+            blackhole.appendChild(corona);
+
+            const photonRing = document.createElement('div');
+            photonRing.classList.add('photon-ring');
+            blackhole.appendChild(photonRing);
+
+            if (config.hasJet) {
+                const jetTop = document.createElement('div');
+                jetTop.classList.add('jet', 'top');
+                blackhole.appendChild(jetTop);
+
+                const jetBottom = document.createElement('div');
+                jetBottom.classList.add('jet', 'bottom');
+                blackhole.appendChild(jetBottom);
+            }
+
+            const eventHorizon = document.createElement('div');
+            eventHorizon.classList.add('event-horizon');
+            blackhole.appendChild(eventHorizon);
+
+            for (let i = 0; i < config.particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('orbiting-particle');
+                particle.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
+                particle.style.animationDelay = `${Math.random()}s`;
+                blackhole.appendChild(particle);
+            }
+
+            // Add Hawking radiation flash
+            const hawkingFlash = document.createElement('div');
+            hawkingFlash.style.cssText = `
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: -15px;
+                left: -15px;
+                border-radius: 50%;
+                background: rgba(255, 200, 100, 0.3);
+                filter: blur(5px);
+                animation: hawking-flash 0.5s ease-in-out infinite;
+                animation-delay: ${Math.random()}s;
+            `;
+            blackhole.appendChild(hawkingFlash);
+
+            // Entrance animation
+            blackhole.style.transform = `scale(0)`;
+            blackhole.style.opacity = '0';
+            
+            container.appendChild(blackhole);
+
+            // Create blackhole data object
+            const bhData = {
+                el: blackhole,
+                config: config,
+                gravityRadius: config.gravityRadius * config.size,
+                eventHorizonRadius: config.eventHorizonRadius * config.size,
+                mass: config.mass * config.size
+            };
+
+            // Add to active blackholes
+            activeBlackholes.push(bhData);
+
+            requestAnimationFrame(() => {
+                blackhole.style.transition = 'all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                blackhole.style.transform = `scale(${config.size})`;
+                blackhole.style.opacity = '1';
+            });
+
+            // Exit sequence
+            setTimeout(() => {
+                // Remove from active blackholes before exit animation
+                const index = activeBlackholes.indexOf(bhData);
+                if (index > -1) {
+                    activeBlackholes.splice(index, 1);
+                }
+
+                blackhole.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                blackhole.style.transform = 'scale(0)';
+                blackhole.style.opacity = '0';
+                
+                setTimeout(() => {
+                    if (blackhole.isConnected) blackhole.remove();
+                }, 1500);
+            }, config.duration);
+
+            return bhData;
+        }
+
+        let isSpawning = true;
+        let spawnTimeout;
+
+        function scheduleNextBlackhole() {
+            if (!isSpawning) return;
+
+            const delay = 8000 + Math.random() * 15000;
+            console.log(`Next blackhole in ${(delay/1000).toFixed(1)}s`);
+
+            spawnTimeout = setTimeout(() => {
+                createBlackhole();
+                scheduleNextBlackhole();
+            }, delay);
+        }
+
+        scheduleNextBlackhole();
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                isSpawning = false;
+                clearTimeout(spawnTimeout);
+            } else {
+                isSpawning = true;
+                scheduleNextBlackhole();
+            }
+        });
+
+        return {
+            createBlackhole,
+            stop: () => {
+                isSpawning = false;
+                clearTimeout(spawnTimeout);
+            }
+        };
+    }
+
+    setTimeout(() => {
+        const blackholeSystem = initBlackholeSystem();
+        window.blackholeSystem = blackholeSystem;
+        console.log('Blackhole system with singularity initialized');
+    }, 2000);
 });
