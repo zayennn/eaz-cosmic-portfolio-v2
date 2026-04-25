@@ -433,8 +433,7 @@ html {
     position: relative;
     text-decoration: none;
     color: #fff !important;
-    width: 45px;
-    height: 45px;
+    padding: 25px;
     border-radius: 50%;
 }
 
