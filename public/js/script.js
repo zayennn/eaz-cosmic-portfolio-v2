@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (distance < bh.gravityRadius) {
                     isAffectedByAny = true;
                     
-                    const G = 10000; // Gravitational constant
+                    const G = 10000;
                     const forceMagnitude = (G * star.mass) / (distance * distance);
                     
                     const dirX = dx / distance;
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             star.suckProgress = 0;
                             star.orbitAngle = Math.atan2(dy, dx);
                             star.orbitRadius = distance;
-                            star.orbitSpeed = (2 + star.mass) * 0.5; // Faster orbit for larger stars
+                            star.orbitSpeed = (2 + star.mass) * 0.5;
                         }
                     }
                 }
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     currentY = parts[1] || 0;
                 }
 
-                const damping = 0.1 / star.mass; // Larger mass = less damping = faster movement
+                const damping = 0.1 / star.mass;
                 const newX = currentX + totalForceX * damping;
                 const newY = currentY + totalForceY * damping;
 
@@ -431,8 +431,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (star.isSucked && star.suckStartTime > 0) {
-                const elapsed = (timestamp - star.suckStartTime) / 1000; // seconds
-                star.suckProgress = Math.min(elapsed / 2, 1); // 2 seconds to fully sucked
+                const elapsed = (timestamp - star.suckStartTime) / 1000;
+                star.suckProgress = Math.min(elapsed / 2, 1);
 
                 star.orbitAngle += (star.orbitSpeed * (1 + star.suckProgress)) * 0.05;
                 star.orbitRadius *= (1 - star.suckProgress * 0.1);
@@ -441,8 +441,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const spiralY = Math.sin(star.orbitAngle) * star.orbitRadius;
 
                 const scale = 1 - star.suckProgress;
-                const stretchX = 1 + star.suckProgress * 0.5; // Stretch horizontally
-                const stretchY = 1 - star.suckProgress * 0.7; // Compress vertically
+                const stretchX = 1 + star.suckProgress * 0.5;
+                const stretchY = 1 - star.suckProgress * 0.7;
 
                 star.el.style.transform = `translate(${spiralX}px, ${spiralY}px) scale(${stretchX}, ${stretchY})`;
                 star.el.style.opacity = Math.max(0, 1 - star.suckProgress);
@@ -679,9 +679,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 hasJet: false,
                 particleCount: 2,
                 distortionWaves: 1,
-                gravityRadius: 200, // How far the gravity reaches
-                eventHorizonRadius: 40, // Distance where stars get sucked in
-                mass: 1000 // Gravitational mass
+                gravityRadius: 200,
+                eventHorizonRadius: 40,
+                mass: 1000
             },
             medium: {
                 size: 1,
