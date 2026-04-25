@@ -424,45 +424,73 @@ html {
 }
 
 .hero-social {
-    display: flex !important;
+    display: flex;
     gap: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
+/* container icon */
 .social {
     position: relative;
-    text-decoration: none;
-    color: #fff !important;
-    padding: 25px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    text-decoration: none;
 }
 
+/* semua icon */
 .social i {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all .3s ease;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: #fff;
+    transition: all 0.4s ease;
 }
 
+/* posisi awal */
+.social i:nth-child(1) {
+    top: -100%; /* di atas (hidden) */
+}
+
+.social i:nth-child(2) {
+    top: 50%;
+    transform: translate(-50%, -50%); /* di tengah */
+}
+
+/* HOVER EFFECT */
+.social:hover i:nth-child(1) {
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.social:hover i:nth-child(2) {
+    top: 150%; /* turun keluar */
+}
+
+/* WARNA */
 .instagram {
-    background-color: #ff00cc;
+    background: linear-gradient(45deg, #ff00cc, #ff6a00);
 }
 
 .tiktok {
-    background-color: #000000;
+    background: #000;
 }
 
 .linkedin {
-    background-color: #0033ff;
+    background: #0a66c2;
 }
 
 .github {
-    background-color: #2b2b2b;
+    background: #2b2b2b;
 }
 
-.social:hover .instagram i:nth-child(1) {
-    top: 100%;
+/* BONUS biar ga kaku */
+.social:hover {
+    transform: translateY(-5px) scale(1.05);
+    transition: 0.3s ease;
 }
 
 .hero-right {

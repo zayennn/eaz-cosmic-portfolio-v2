@@ -23,19 +23,20 @@
                     <a href="#experience" class="cta-btn secondary">View Projects</a>
                 </div>
                 <div class="hero-social">
-                    <a href="https://www.instagram.com/zaayeenn_/" target="_blank" rel="noopener noreferrer" class="social instagram">
+                    <a href="https://www.instagram.com/zaayeenn_/" target="_blank" class="social instagram">
                         <i class="fab fa-instagram"></i>
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@.publicstatic" target="_blank" rel="noopener noreferrer" class="social tiktok">
+                    <a href="https://www.tiktok.com/@.publicstatic" target="_blank" class="social tiktok">
                         <i class="fab fa-tiktok"></i>
                         <i class="fab fa-tiktok"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/elang-atha-zahran-100459220/" target="_blank" rel="noopener noreferrer" class="social linkedin">
+                    <a href="https://www.linkedin.com/in/elang-atha-zahran-100459220/" target="_blank"
+                        class="social linkedin">
                         <i class="fab fa-linkedin-in"></i>
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://github.com/zayennn" target="_blank" rel="noopener noreferrer" class="social github">
+                    <a href="https://github.com/zayennn" target="_blank" class="social github">
                         <i class="fab fa-github"></i>
                         <i class="fab fa-github"></i>
                     </a>
