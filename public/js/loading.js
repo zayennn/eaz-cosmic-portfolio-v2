@@ -91,7 +91,6 @@ class PageLoader {
                 return;
             }
 
-            // Ignore external links
             if (link.hostname && link.hostname !== window.location.hostname) {
                 return;
             }
