@@ -103,7 +103,6 @@ class PageLoader {
             
             e.preventDefault();
             
-            // Show loader and navigate after animation
             this.showLoader().then(() => {
                 window.location.href = href;
             });
