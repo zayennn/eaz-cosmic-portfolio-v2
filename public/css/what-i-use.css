@@ -234,11 +234,11 @@
 }
 
 /* ============================================
-   SKILLS GRID
+   SKILLS GRID - GRID LAYOUT
    ============================================ */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
 }
 
@@ -247,6 +247,28 @@
    ============================================ */
 .skill-card {
     perspective: 1000px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hidden state for filtering */
+.skill-card.hidden {
+    display: none;
+}
+
+/* Show animation */
+.skill-card.visible {
+    animation: card-show 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes card-show {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .card-inner {
@@ -528,25 +550,20 @@
 }
 
 /* ============================================
-   MIXITUP ANIMATIONS
-   ============================================ */
-.skill-card.mix {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.skill-card.mix.hide {
-    opacity: 0;
-    transform: scale(0.8) rotateY(90deg);
-}
-
-.skill-card.mix.show {
-    opacity: 1;
-    transform: scale(1) rotateY(0);
-}
-
-/* ============================================
    RESPONSIVE
    ============================================ */
+@media (max-width: 1200px) {
+    .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .skills-title {
         font-size: 2rem;
@@ -557,7 +574,7 @@
     }
     
     .skills-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
     
