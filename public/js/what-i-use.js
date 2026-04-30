@@ -74,16 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
             card.classList.remove('visible');
         });
         
-        // Then show visible cards with stagger delay
         visibleCards.forEach((card, index) => {
             // Remove hidden class first
             card.classList.remove('hidden');
             
-            // Add visible class with stagger delay
             setTimeout(() => {
                 card.classList.add('visible');
                 
-                // Animate the level bar
                 const levelBar = card.querySelector('.level-bar');
                 if (levelBar) {
                     const targetWidth = levelBar.style.width;
@@ -95,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, index * 80); // 80ms stagger delay
         });
         
-        // Log filter results
         console.log(`Filtered: ${category} | Showing: ${visibleCards.length} cards | Hidden: ${hiddenCards.length} cards`);
     }
 
