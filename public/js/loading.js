@@ -82,7 +82,6 @@ class PageLoader {
             
             if (!link) return;
             
-            // Ignore hash links, download links, and new tab
             const href = link.getAttribute('href');
             if (!href || 
                 href.startsWith('#') || 
