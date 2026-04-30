@@ -158,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 600);
     }
 
-    // Add ripple keyframes dynamically
     const style = document.createElement('style');
     style.textContent = `
         @keyframes ripple-effect {
