@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         levelBar.style.width = targetWidth;
                     }, 100);
                 }
-            }, index * 80); // 80ms stagger delay
+            }, index * 80);
         });
         
         console.log(`Filtered: ${category} | Showing: ${visibleCards.length} cards | Hidden: ${hiddenCards.length} cards`);
