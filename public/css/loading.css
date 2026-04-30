@@ -1,0 +1,471 @@
+/* ============================================
+   PAGE LOADER - COSMIC THEME
+   ============================================ */
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0b0f1a;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.page-loader.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.page-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-space {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #1a1a3e 0%, #0b0f1a 70%);
+    overflow: hidden;
+}
+
+/* Stars Background */
+.loader-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 20% 60%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1.5px 1.5px at 30% 40%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1px 1px at 40% 80%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 50% 10%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 60% 50%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 70% 30%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1.5px 1.5px at 80% 70%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1px 1px at 90% 20%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 15% 90%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 85% 15%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 95% 85%, rgba(255, 255, 255, 0.6), transparent);
+    animation: stars-twinkle 2s ease-in-out infinite;
+}
+
+@keyframes stars-twinkle {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Mars Planet */
+.loader-mars {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+}
+
+.loader-mars .loader-tentacle {
+    position: absolute;
+    top: -60px;
+    right: -80px;
+    z-index: 1;
+    height: 70px;
+    width: 70px;
+    box-sizing: border-box;
+    border-radius: 100%;
+    border-left: 15px solid #6366f1;
+    transform: rotate(-30deg);
+    animation: loader-tentacle 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.loader-mars .loader-flag {
+    position: absolute;
+    height: 17px;
+    width: 15px;
+    top: -57px;
+    left: -1px;
+    animation: loader-flag-pole 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.loader-mars .loader-flag:before {
+    content: "";
+    position: absolute;
+    height: 17px;
+    width: 2px;
+    background: #eee;
+}
+
+.loader-mars .loader-flag:after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 14px;
+    left: 2px;
+    top: 0;
+    background: #6366f1;
+    animation: loader-flag-unfurl 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    width: 0;
+}
+
+.loader-mars .loader-small-tentacle {
+    position: absolute;
+    left: -16px;
+    top: 3px;
+    height: 50px;
+    width: 50px;
+    border-left: 10px solid #3b82f6;
+    border-radius: 100%;
+    transform: rotate(25deg);
+    animation: loader-small-tentacle 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    z-index: 2;
+}
+
+.loader-mars .loader-planet {
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 100%;
+    height: 120px;
+    width: 120px;
+    overflow: hidden;
+    margin-left: -60px;
+    margin-top: -60px;
+    z-index: 2;
+}
+
+.loader-mars .loader-planet .loader-surface {
+    position: absolute;
+    border-radius: 100%;
+    height: 140%;
+    width: 140%;
+    top: -30%;
+    right: -10%;
+    box-sizing: border-box;
+    border: 30px solid rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.loader-mars .loader-planet .loader-crater {
+    position: absolute;
+    border-radius: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.loader-mars .loader-planet .crater-1 {
+    height: 20px;
+    width: 20px;
+    top: 32%;
+    left: 17%;
+}
+
+.loader-mars .loader-planet .crater-2 {
+    height: 10px;
+    width: 10px;
+    top: 26%;
+    left: 55%;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.loader-mars .loader-planet .crater-3 {
+    height: 10px;
+    width: 10px;
+    top: 60%;
+    left: 40%;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Ship */
+.loader-ship {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    margin-top: -55px;
+    margin-right: -55px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.1);
+    transform-origin: 0% 100% 0;
+    z-index: 1;
+    animation: loader-ship 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.loader-ship .loader-ship-rotate {
+    position: absolute;
+    height: 22px;
+    transform: rotate(-110deg);
+    animation: loader-ship-rotate 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.loader-ship .loader-pod {
+    position: absolute;
+    top: 0;
+    left: -8px;
+    height: 16px;
+    width: 16px;
+    background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+    border-radius: 100% 0 100% 0;
+    transform: rotate(-45deg);
+}
+
+.loader-ship .loader-fuselage {
+    position: absolute;
+    top: 14px;
+    left: -6px;
+    height: 8px;
+    width: 12px;
+    background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+    border-radius: 100% 100% 0 0;
+}
+
+.loader-ship .loader-fuselage:after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #6366f1;
+}
+
+.loader-ship-shadow {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    margin-right: -28px;
+    margin-top: 83px;
+    height: 4px;
+    width: 16px;
+    background: #1a1a3e;
+    border-radius: 100%;
+    animation: loader-ship-shadow 4s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+/* Loading Text */
+.loader-text {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    z-index: 3;
+}
+
+.loader-text-content {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #6366f1, #3b82f6, #8b5cf6);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease infinite;
+}
+
+.loader-dots {
+    display: flex;
+    gap: 0.15rem;
+}
+
+.loader-dots .dot {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: dot-bounce 1.4s infinite;
+}
+
+.loader-dots .dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loader-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dot-bounce {
+    0%, 80%, 100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Ship Animations */
+@keyframes loader-ship {
+    0% {
+        right: -10%;
+        top: -10%;
+        margin-top: -55px;
+        margin-right: -55px;
+    }
+    40% {
+        right: 50%;
+        top: 50%;
+    }
+    79.5% {
+        margin-top: -55px;
+        margin-right: -55px;
+    }
+    84% {
+        margin-top: -20px;
+        margin-right: 0px;
+    }
+    100% {
+        right: 50%;
+        top: 50%;
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+}
+
+@keyframes loader-ship-rotate {
+    0% {
+        transform: rotate(-110deg);
+    }
+    20% {
+        transform: rotate(-110deg);
+    }
+    34% {
+        transform: rotate(47deg);
+    }
+    79% {
+        transform: rotate(47deg);
+    }
+    100% {
+        transform: rotate(47deg);
+    }
+}
+
+@keyframes loader-ship-shadow {
+    0% {
+        right: -10%;
+        transform: scale(1.4, 1);
+        opacity: .3;
+    }
+    40% {
+        right: 50%;
+        transform: scale(0.75, 1);
+        opacity: 1;
+    }
+    100% {
+        right: 50%;
+    }
+}
+
+/* Mars Animations */
+@keyframes loader-tentacle {
+    0% {
+        transform: rotate(-30deg);
+    }
+    75% {
+        transform: rotate(-30deg);
+    }
+    80% {
+        transform: rotate(-165deg) translate(6px, 8px);
+    }
+    82.5% {
+        transform: rotate(-165deg) translate(28px, -17px);
+    }
+    100% {
+        transform: rotate(-165deg) translate(35px, -22px);
+    }
+}
+
+@keyframes loader-small-tentacle {
+    0% {
+        transform: rotate(-60deg);
+    }
+    86% {
+        transform: rotate(-60deg);
+    }
+    89% {
+        transform: rotate(10deg);
+    }
+    100% {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes loader-flag-pole {
+    0% {
+        top: -57px;
+    }
+    48% {
+        top: -57px;
+    }
+    54% {
+        top: -77px;
+    }
+    90% {
+        top: -77px;
+    }
+    92% {
+        top: -57px;
+    }
+    100% {
+        top: -57px;
+    }
+}
+
+@keyframes loader-flag-unfurl {
+    0% {
+        width: 0;
+    }
+    55% {
+        width: 0;
+    }
+    60% {
+        width: 14px;
+    }
+    90% {
+        width: 14px;
+    }
+    100% {
+        width: 14px;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .loader-mars .loader-planet {
+        height: 80px;
+        width: 80px;
+        margin-left: -40px;
+        margin-top: -40px;
+    }
+    
+    .loader-mars .loader-tentacle {
+        height: 50px;
+        width: 50px;
+        border-left-width: 10px;
+    }
+    
+    .loader-text-content {
+        font-size: 1rem;
+    }
+}
