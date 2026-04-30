@@ -1,7 +1,3 @@
-// ============================================
-// PAGE LOADER - NAVIGATION TRANSITION
-// ============================================
-
 class PageLoader {
     constructor() {
         this.loader = document.getElementById('pageLoader');
@@ -16,10 +12,8 @@ class PageLoader {
             return;
         }
 
-        // Intercept all navigation clicks
         this.interceptNavigation();
         
-        // Handle browser back/forward
         window.addEventListener('popstate', () => {
             this.showLoader();
             setTimeout(() => {
@@ -35,7 +29,6 @@ class PageLoader {
         this.loader.classList.add('active');
         this.loader.classList.remove('fade-out');
         
-        // Reset animations by re-triggering
         this.resetAnimations();
         
         return new Promise((resolve) => {
@@ -58,16 +51,13 @@ class PageLoader {
     }
 
     resetAnimations() {
-        // Get all animated elements
         const animatedElements = this.loader.querySelectorAll('[class*="loader-"]');
         
         animatedElements.forEach(el => {
-            // Clone and replace to restart animation
             const newEl = el.cloneNode(true);
             el.parentNode.replaceChild(newEl, el);
         });
 
-        // Reset loader text animation
         const loaderText = this.loader.querySelector('.loader-text');
         if (loaderText) {
             const newLoaderText = loaderText.cloneNode(true);
