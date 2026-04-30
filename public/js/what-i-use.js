@@ -99,29 +99,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Filtered: ${category} | Showing: ${visibleCards.length} cards | Hidden: ${hiddenCards.length} cards`);
     }
 
-    // ============================================
-    // BUTTON CLICK HANDLER
-    // ============================================
     filterButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Don't do anything if already active
             if (this.classList.contains('active')) return;
             
-            // Remove active class from all buttons
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Add active class to clicked button
             this.classList.add('active');
             
-            // Move slider to this button
             moveSliderToButton(this, true);
             
-            // Add ripple effect
             createRipple(e, this);
             
-            // Get category and filter cards
             const category = this.getAttribute('data-category');
             filterCards(category);
         });
