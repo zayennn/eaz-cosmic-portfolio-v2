@@ -61,7 +61,7 @@
             <!-- Skills Grid -->
             <div class="skills-grid" id="skillsGrid">
                 <!-- Frontend Skills -->
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -199,7 +199,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -222,7 +222,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -246,7 +246,7 @@
                 </div>
 
                 <!-- Backend Skills -->
-                <div class="skill-card mix backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -269,7 +269,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -292,7 +292,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -315,7 +315,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -338,7 +338,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -361,7 +361,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -385,7 +385,7 @@
                 </div>
 
                 <!-- Database Skills -->
-                <div class="skill-card mix database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -408,7 +408,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -431,7 +431,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -454,7 +454,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -478,7 +478,7 @@
                 </div>
 
                 <!-- Tools Skills -->
-                <div class="skill-card mix tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -501,7 +501,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -524,7 +524,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -547,7 +547,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -570,7 +570,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -593,7 +593,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
