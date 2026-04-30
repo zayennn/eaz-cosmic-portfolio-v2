@@ -26,7 +26,10 @@
 
             <!-- Filter Buttons -->
             <div class="filter-container">
-                <div class="filter-wrapper">
+                <div class="filter-wrapper" id="filterWrapper">
+                    <!-- Sliding background indicator -->
+                    <div class="filter-slider" id="filterSlider"></div>
+
                     <button class="filter-btn active" data-category="all">
                         <i class="fas fa-globe"></i>
                         <span>All</span>

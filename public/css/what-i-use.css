@@ -151,8 +151,9 @@
 }
 
 .filter-wrapper {
+    position: relative;
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
     justify-content: center;
     padding: 0.5rem;
@@ -160,6 +161,20 @@
     border: 1px solid rgba(99, 102, 241, 0.2);
     border-radius: 50px;
     backdrop-filter: blur(10px);
+}
+
+.filter-slider {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    height: calc(100% - 1rem);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 50px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
+    pointer-events: none;
+    /* Width and left position will be set dynamically via JS */
 }
 
 .filter-btn {
@@ -175,14 +190,18 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.3s ease;
-    overflow: hidden;
+    transition: color 0.3s ease;
+    overflow: visible;
     font-family: 'Exo 2', sans-serif;
+    z-index: 1;
+    white-space: nowrap;
 }
 
 .filter-btn i {
     font-size: 1rem;
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .filter-btn:hover i {
@@ -190,32 +209,21 @@
 }
 
 .filter-btn .btn-glow {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    opacity: 0;
-    border-radius: 50px;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.filter-btn:hover {
-    color: #fff;
-}
-
-.filter-btn:hover .btn-glow {
-    opacity: 0.3;
+    display: none; /* Hide old glow, we use slider now */
 }
 
 .filter-btn.active {
     color: #fff;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
+    /* Remove old background, slider handles it */
 }
 
-.filter-btn.active .btn-glow {
-    opacity: 0;
+/* When slider is over a button, change text color */
+.filter-btn.slider-active {
+    color: #fff;
+    transition: color 0.3s ease 0.1s;
 }
+
+
 
 .skills-grid {
     display: grid;
