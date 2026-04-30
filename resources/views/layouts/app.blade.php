@@ -8,6 +8,7 @@
 
     {{-- components --}}
     <link rel="stylesheet" href="{{ asset('css/stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loading.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     
     {{-- pages --}}
@@ -44,6 +45,7 @@
 
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/navbar.js') }}"></script>
+    <script src="{{ asset('js/loading.js') }}"></script>
     <script src="{{ asset('js/what-i-use.js') }}"></script>
 </body>
 
