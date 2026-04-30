@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
         filterSlider.style.left = `${left}px`;
         filterSlider.style.width = `${width}px`;
         
-        // Update text color classes
         filterButtons.forEach(btn => {
             btn.classList.remove('slider-active');
         });
