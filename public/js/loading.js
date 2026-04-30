@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose to window for manual use
     window.pageLoader = pageLoader;
     
-    // Hide loader on initial page load
     const loader = document.getElementById('pageLoader');
     if (loader && loader.classList.contains('active')) {
         setTimeout(() => {
