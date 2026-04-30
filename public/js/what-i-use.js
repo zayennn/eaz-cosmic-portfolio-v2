@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         visibleCards.forEach((card, index) => {
-            // Remove hidden class first
             card.classList.remove('hidden');
             
             setTimeout(() => {
