@@ -184,11 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     });
 
-    // ============================================
-    // KEYBOARD NAVIGATION FOR FILTER
-    // ============================================
     document.addEventListener('keydown', function(e) {
-        // Press 1-5 to filter categories
         const keyMap = {
             '1': 'all',
             '2': 'frontend',
