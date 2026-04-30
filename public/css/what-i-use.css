@@ -232,7 +232,7 @@
 }
 
 .skill-card.hidden {
-    display: none;
+    display: none !important;
 }
 
 .skill-card.visible {
