@@ -24,9 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
-    // MOVE SLIDER TO BUTTON
-    // ============================================
     function moveSliderToButton(button, animate = true) {
         const buttonRect = button.getBoundingClientRect();
         const wrapperRect = filterWrapper.getBoundingClientRect();
