@@ -96,7 +96,6 @@ class PageLoader {
                 return;
             }
             
-            // Ignore if it's the current page
             if (link.pathname === window.location.pathname && link.search === window.location.search) {
                 return;
             }
