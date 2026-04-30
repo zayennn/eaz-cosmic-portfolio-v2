@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Initialize slider position on the active button
     function initSlider() {
         const activeButton = document.querySelector('.filter-btn.active');
         if (activeButton) {
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Move slider to a specific button
     function moveSliderToButton(button, animate = true) {
         const buttonRect = button.getBoundingClientRect();
         const wrapperRect = filterWrapper.getBoundingClientRect();
@@ -34,37 +32,26 @@ document.addEventListener('DOMContentLoaded', function() {
         filterSlider.style.left = `${left}px`;
         filterSlider.style.width = `${width}px`;
         
-        // Update button text colors
         filterButtons.forEach(btn => {
             btn.classList.remove('slider-active');
         });
         button.classList.add('slider-active');
     }
 
-    // ============================================
-    // BUTTON CLICK HANDLER
-    // ============================================
     filterButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Remove active class from all buttons
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Add active class to clicked button
             this.classList.add('active');
             
-            // Move slider to this button
             moveSliderToButton(this, true);
             
-            // Add ripple effect
             createRipple(e, this);
         });
     });
 
-    // ============================================
-    // RIPPLE EFFECT ON BUTTONS
-    // ============================================
     function createRipple(event, button) {
         const ripple = document.createElement('span');
         const rect = button.getBoundingClientRect();
