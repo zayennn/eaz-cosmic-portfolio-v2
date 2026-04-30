@@ -27,6 +27,7 @@
 </head>
 
 <body>
+    @include('components.loading')
 
     <div id="star-field"></div>
 
