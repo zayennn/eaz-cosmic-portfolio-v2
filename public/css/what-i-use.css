@@ -223,8 +223,6 @@
     transition: color 0.3s ease 0.1s;
 }
 
-
-
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
