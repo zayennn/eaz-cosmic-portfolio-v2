@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ============================================
-    // FILTER SLIDER & BUTTONS
-    // ============================================
     const filterWrapper = document.getElementById('filterWrapper');
     const filterSlider = document.getElementById('filterSlider');
     const filterButtons = document.querySelectorAll('.filter-btn');
