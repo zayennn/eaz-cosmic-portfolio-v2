@@ -118,7 +118,6 @@ class PageLoader {
     }
 }
 
-// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     const pageLoader = new PageLoader();
     
