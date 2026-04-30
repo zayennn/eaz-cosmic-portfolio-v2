@@ -127,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // Initialize slider position
     initSlider();
     
     console.log('Filter slider initialized!');
