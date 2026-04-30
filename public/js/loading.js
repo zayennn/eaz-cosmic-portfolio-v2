@@ -110,7 +110,6 @@ class PageLoader {
         });
     }
 
-    // Method to manually trigger navigation with loader
     navigateTo(url) {
         this.showLoader().then(() => {
             window.location.href = url;
