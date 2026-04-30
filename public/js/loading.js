@@ -2,7 +2,7 @@ class PageLoader {
     constructor() {
         this.loader = document.getElementById('pageLoader');
         this.isAnimating = false;
-        this.minDuration = 4000; // Minimum 4 seconds animation
+        this.minDuration = 4000;
         this.init();
     }
 
