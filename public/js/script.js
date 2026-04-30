@@ -705,129 +705,129 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        function createBlackhole() {
-            const margin = 200;
-            const x = margin + Math.random() * (window.innerWidth - margin * 2);
-            const y = margin + Math.random() * (window.innerHeight - margin * 2);
+        // function createBlackhole() {
+        //     const margin = 200;
+        //     const x = margin + Math.random() * (window.innerWidth - margin * 2);
+        //     const y = margin + Math.random() * (window.innerHeight - margin * 2);
 
-            let configType;
-            const sizeRandom = Math.random();
-            if (sizeRandom < 0.7) configType = 'small';
-            else if (sizeRandom < 0.9) configType = 'medium';
-            else configType = 'large';
+        //     let configType;
+        //     const sizeRandom = Math.random();
+        //     if (sizeRandom < 0.7) configType = 'small';
+        //     else if (sizeRandom < 0.9) configType = 'medium';
+        //     else configType = 'large';
 
-            const config = blackholeConfigs[configType];
+        //     const config = blackholeConfigs[configType];
 
-            console.log(`Creating ${configType} blackhole at (${x.toFixed(0)}, ${y.toFixed(0)}) with gravity radius: ${config.gravityRadius}px`);
+        //     console.log(`Creating ${configType} blackhole at (${x.toFixed(0)}, ${y.toFixed(0)}) with gravity radius: ${config.gravityRadius}px`);
 
-            const blackhole = document.createElement('div');
-            blackhole.classList.add('blackhole');
-            blackhole.style.left = `${x}px`;
-            blackhole.style.top = `${y}px`;
+        //     const blackhole = document.createElement('div');
+        //     blackhole.classList.add('blackhole');
+        //     blackhole.style.left = `${x}px`;
+        //     blackhole.style.top = `${y}px`;
 
-            const lensing = document.createElement('div');
-            lensing.classList.add('lensing');
-            blackhole.appendChild(lensing);
+        //     const lensing = document.createElement('div');
+        //     lensing.classList.add('lensing');
+        //     blackhole.appendChild(lensing);
 
-            for (let i = 0; i < config.distortionWaves; i++) {
-                const wave = document.createElement('div');
-                wave.classList.add('distortion-wave');
-                wave.style.animationDelay = `${i * 1}s`;
-                wave.style.animationDuration = `${2 + i * 0.5}s`;
-                blackhole.appendChild(wave);
-            }
+        //     for (let i = 0; i < config.distortionWaves; i++) {
+        //         const wave = document.createElement('div');
+        //         wave.classList.add('distortion-wave');
+        //         wave.style.animationDelay = `${i * 1}s`;
+        //         wave.style.animationDuration = `${2 + i * 0.5}s`;
+        //         blackhole.appendChild(wave);
+        //     }
 
-            const outerDisk = document.createElement('div');
-            outerDisk.classList.add('accretion-disk', 'outer');
-            blackhole.appendChild(outerDisk);
+        //     const outerDisk = document.createElement('div');
+        //     outerDisk.classList.add('accretion-disk', 'outer');
+        //     blackhole.appendChild(outerDisk);
 
-            const innerDisk = document.createElement('div');
-            innerDisk.classList.add('accretion-disk', 'inner');
-            blackhole.appendChild(innerDisk);
+        //     const innerDisk = document.createElement('div');
+        //     innerDisk.classList.add('accretion-disk', 'inner');
+        //     blackhole.appendChild(innerDisk);
 
-            const corona = document.createElement('div');
-            corona.classList.add('corona');
-            blackhole.appendChild(corona);
+        //     const corona = document.createElement('div');
+        //     corona.classList.add('corona');
+        //     blackhole.appendChild(corona);
 
-            const photonRing = document.createElement('div');
-            photonRing.classList.add('photon-ring');
-            blackhole.appendChild(photonRing);
+        //     const photonRing = document.createElement('div');
+        //     photonRing.classList.add('photon-ring');
+        //     blackhole.appendChild(photonRing);
 
-            if (config.hasJet) {
-                const jetTop = document.createElement('div');
-                jetTop.classList.add('jet', 'top');
-                blackhole.appendChild(jetTop);
+        //     if (config.hasJet) {
+        //         const jetTop = document.createElement('div');
+        //         jetTop.classList.add('jet', 'top');
+        //         blackhole.appendChild(jetTop);
 
-                const jetBottom = document.createElement('div');
-                jetBottom.classList.add('jet', 'bottom');
-                blackhole.appendChild(jetBottom);
-            }
+        //         const jetBottom = document.createElement('div');
+        //         jetBottom.classList.add('jet', 'bottom');
+        //         blackhole.appendChild(jetBottom);
+        //     }
 
-            const eventHorizon = document.createElement('div');
-            eventHorizon.classList.add('event-horizon');
-            blackhole.appendChild(eventHorizon);
+        //     const eventHorizon = document.createElement('div');
+        //     eventHorizon.classList.add('event-horizon');
+        //     blackhole.appendChild(eventHorizon);
 
-            for (let i = 0; i < config.particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('orbiting-particle');
-                particle.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
-                particle.style.animationDelay = `${Math.random()}s`;
-                blackhole.appendChild(particle);
-            }
+        //     for (let i = 0; i < config.particleCount; i++) {
+        //         const particle = document.createElement('div');
+        //         particle.classList.add('orbiting-particle');
+        //         particle.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
+        //         particle.style.animationDelay = `${Math.random()}s`;
+        //         blackhole.appendChild(particle);
+        //     }
 
-            const hawkingFlash = document.createElement('div');
-            hawkingFlash.style.cssText = `
-                position: absolute;
-                width: 30px;
-                height: 30px;
-                top: -15px;
-                left: -15px;
-                border-radius: 50%;
-                background: rgba(255, 200, 100, 0.3);
-                filter: blur(5px);
-                animation: hawking-flash 0.5s ease-in-out infinite;
-                animation-delay: ${Math.random()}s;
-            `;
-            blackhole.appendChild(hawkingFlash);
+        //     const hawkingFlash = document.createElement('div');
+        //     hawkingFlash.style.cssText = `
+        //         position: absolute;
+        //         width: 30px;
+        //         height: 30px;
+        //         top: -15px;
+        //         left: -15px;
+        //         border-radius: 50%;
+        //         background: rgba(255, 200, 100, 0.3);
+        //         filter: blur(5px);
+        //         animation: hawking-flash 0.5s ease-in-out infinite;
+        //         animation-delay: ${Math.random()}s;
+        //     `;
+        //     blackhole.appendChild(hawkingFlash);
 
-            blackhole.style.transform = `scale(0)`;
-            blackhole.style.opacity = '0';
+        //     blackhole.style.transform = `scale(0)`;
+        //     blackhole.style.opacity = '0';
             
-            container.appendChild(blackhole);
+        //     container.appendChild(blackhole);
 
-            const bhData = {
-                el: blackhole,
-                config: config,
-                gravityRadius: config.gravityRadius * config.size,
-                eventHorizonRadius: config.eventHorizonRadius * config.size,
-                mass: config.mass * config.size
-            };
+        //     const bhData = {
+        //         el: blackhole,
+        //         config: config,
+        //         gravityRadius: config.gravityRadius * config.size,
+        //         eventHorizonRadius: config.eventHorizonRadius * config.size,
+        //         mass: config.mass * config.size
+        //     };
 
-            activeBlackholes.push(bhData);
+        //     activeBlackholes.push(bhData);
 
-            requestAnimationFrame(() => {
-                blackhole.style.transition = 'all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                blackhole.style.transform = `scale(${config.size})`;
-                blackhole.style.opacity = '1';
-            });
+        //     requestAnimationFrame(() => {
+        //         blackhole.style.transition = 'all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        //         blackhole.style.transform = `scale(${config.size})`;
+        //         blackhole.style.opacity = '1';
+        //     });
 
-            setTimeout(() => {
-                const index = activeBlackholes.indexOf(bhData);
-                if (index > -1) {
-                    activeBlackholes.splice(index, 1);
-                }
+        //     setTimeout(() => {
+        //         const index = activeBlackholes.indexOf(bhData);
+        //         if (index > -1) {
+        //             activeBlackholes.splice(index, 1);
+        //         }
 
-                blackhole.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                blackhole.style.transform = 'scale(0)';
-                blackhole.style.opacity = '0';
+        //         blackhole.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        //         blackhole.style.transform = 'scale(0)';
+        //         blackhole.style.opacity = '0';
                 
-                setTimeout(() => {
-                    if (blackhole.isConnected) blackhole.remove();
-                }, 1500);
-            }, config.duration);
+        //         setTimeout(() => {
+        //             if (blackhole.isConnected) blackhole.remove();
+        //         }, 1500);
+        //     }, config.duration);
 
-            return bhData;
-        }
+        //     return bhData;
+        // }
 
         let isSpawning = true;
         let spawnTimeout;

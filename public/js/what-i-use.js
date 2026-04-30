@@ -1,60 +1,68 @@
 // ============================================
-// WHAT I USE - MANUAL FILTER SYSTEM
+// WHAT I USE - NO FILTER, VISUAL EFFECTS ONLY
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    const skillsGrid = document.getElementById('skillsGrid');
     
-    if (!skillsGrid) {
-        console.warn('Skills grid not found');
-        return;
-    }
-
-    // Get all cards and filter buttons
-    const skillCards = document.querySelectorAll('.skill-card');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-
     // ============================================
-    // FILTER FUNCTION
+    // CARD TILT EFFECT
     // ============================================
-    function filterCards(category) {
-        skillCards.forEach(card => {
-            const cardCategory = card.getAttribute('data-category');
+    const cards = document.querySelectorAll('.card-inner');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             
-            // Remove existing animation classes
-            card.classList.remove('visible', 'hidden');
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
             
-            if (category === 'all' || cardCategory === category) {
-                // Show card
-                card.classList.remove('hidden');
-                card.classList.add('visible');
-            } else {
-                // Hide card
-                card.classList.add('hidden');
-                card.classList.remove('visible');
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            this.style.transform = `
+                translateY(-10px) 
+                scale(1.02) 
+                perspective(1000px) 
+                rotateX(${rotateX}deg) 
+                rotateY(${rotateY}deg)
+            `;
+            
+            // Move glare effect
+            const glare = this.querySelector('.card-glare');
+            if (glare) {
+                const percentX = (x / rect.width) * 100;
+                glare.style.left = `${percentX}%`;
             }
         });
-    }
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            
+            const glare = this.querySelector('.card-glare');
+            if (glare) {
+                glare.style.left = '-100%';
+            }
+        });
+    });
 
     // ============================================
-    // FILTER BUTTON CLICK HANDLER
+    // BUTTON VISUAL EFFECTS ONLY
     // ============================================
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
     filterButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Remove active class from all buttons
+            // Visual active state only - no filtering
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Add active class to clicked button
             this.classList.add('active');
             
             // Add ripple effect
             createRipple(e, this);
-            
-            // Get category and filter
-            const category = this.getAttribute('data-category');
-            filterCards(category);
         });
     });
 
@@ -101,51 +109,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 
     // ============================================
-    // CARD TILT EFFECT
-    // ============================================
-    const cards = document.querySelectorAll('.card-inner');
-    
-    cards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            this.style.transform = `
-                translateY(-10px) 
-                scale(1.02) 
-                perspective(1000px) 
-                rotateX(${rotateX}deg) 
-                rotateY(${rotateY}deg)
-            `;
-            
-            // Move glare effect
-            const glare = this.querySelector('.card-glare');
-            if (glare) {
-                const percentX = (x / rect.width) * 100;
-                glare.style.left = `${percentX}%`;
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-            
-            const glare = this.querySelector('.card-glare');
-            if (glare) {
-                glare.style.left = '-100%';
-            }
-        });
-    });
-
-    // ============================================
     // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
     // ============================================
+    const skillCards = document.querySelectorAll('.skill-card');
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -170,8 +137,5 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // Initialize - show all cards
-    filterCards('all');
-    
-    console.log('What I Use page initialized with manual grid filter!');
+    console.log('What I Use page initialized - Visual effects only, no filtering!');
 });

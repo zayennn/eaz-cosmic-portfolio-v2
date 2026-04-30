@@ -101,7 +101,7 @@
    ============================================ */
 .skills-container {
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 0 auto;;
     position: relative;
     z-index: 1;
 }
@@ -238,7 +238,7 @@
    ============================================ */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 2rem;
 }
 
