@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // ============================================
-    // INITIALIZE SLIDER POSITION
-    // ============================================
     function initSlider() {
         const activeButton = document.querySelector('.filter-btn.active');
         if (activeButton) {
