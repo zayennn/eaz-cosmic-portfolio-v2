@@ -1,73 +1,46 @@
 // ============================================
-// WHAT I USE - MIXITUP INITIALIZATION
+// WHAT I USE - MANUAL FILTER SYSTEM
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    const container = document.getElementById('skillsContainer');
+    const skillsGrid = document.getElementById('skillsGrid');
     
-    if (!container) {
-        console.warn('Skills container not found');
+    if (!skillsGrid) {
+        console.warn('Skills grid not found');
         return;
     }
 
-    // Initialize MixItUp
-    const mixer = mixitup(container, {
-        animation: {
-            enable: true,
-            effects: 'fade rotateZ(-10deg) scale(0.8)',
-            duration: 600,
-            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            perspectiveDistance: '3000px',
-            perspectiveOrigin: '50% 50%',
-            queue: true,
-            queueLimit: 3,
-            animateResizeContainer: true,
-            animateResizeTargets: false,
-            staggerSequence: false,
-            reverseOut: true
-        },
-        callbacks: {
-            onMixStart: function(state) {
-                console.log('Mixing started:', state);
-            },
-            onMixEnd: function(state) {
-                console.log('Mixing ended:', state);
-                
-                // Animate level bars when cards appear
-                setTimeout(() => {
-                    const levelBars = document.querySelectorAll('.level-bar');
-                    levelBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
-                    });
-                }, 100);
-            }
-        },
-        controls: {
-            enable: true,
-            live: true,
-            toggleLogic: 'and',
-            toggleDefault: 'all'
-        },
-        selectors: {
-            target: '.mix',
-            control: '.filter-btn'
-        },
-        load: {
-            filter: 'all'
-        }
-    });
+    // Get all cards and filter buttons
+    const skillCards = document.querySelectorAll('.skill-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
     // ============================================
-    // FILTER BUTTON ACTIVE STATE
+    // FILTER FUNCTION
     // ============================================
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    
+    function filterCards(category) {
+        skillCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            
+            // Remove existing animation classes
+            card.classList.remove('visible', 'hidden');
+            
+            if (category === 'all' || cardCategory === category) {
+                // Show card
+                card.classList.remove('hidden');
+                card.classList.add('visible');
+            } else {
+                // Hide card
+                card.classList.add('hidden');
+                card.classList.remove('visible');
+            }
+        });
+    }
+
+    // ============================================
+    // FILTER BUTTON CLICK HANDLER
+    // ============================================
     filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
             // Remove active class from all buttons
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
@@ -77,7 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             // Add ripple effect
-            createRipple(event, this);
+            createRipple(e, this);
+            
+            // Get category and filter
+            const category = this.getAttribute('data-category');
+            filterCards(category);
         });
     });
 
@@ -167,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // INTERSECTION OBSERVER FOR ANIMATIONS
+    // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
     // ============================================
     const observerOptions = {
         threshold: 0.1,
@@ -179,19 +156,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe all skill cards
-    cards.forEach(card => {
-        const parentCard = card.closest('.skill-card');
-        if (parentCard) {
-            parentCard.style.opacity = '0';
-            parentCard.style.transform = 'translateY(30px)';
-            parentCard.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(parentCard);
-        }
+    // Observe all skill cards for initial load animation
+    skillCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        card.style.transitionDelay = `${index * 0.05}s`;
+        observer.observe(card);
     });
 
     // ============================================
@@ -201,25 +177,30 @@ document.addEventListener('DOMContentLoaded', function() {
         // Press 1-5 to filter categories
         const keyMap = {
             '1': 'all',
-            '2': '.frontend',
-            '3': '.backend',
-            '4': '.database',
-            '5': '.tools'
+            '2': 'frontend',
+            '3': 'backend',
+            '4': 'database',
+            '5': 'tools'
         };
 
         if (keyMap[e.key] && !e.target.matches('input, textarea')) {
-            const filter = keyMap[e.key];
-            mixer.filter(filter);
+            const category = keyMap[e.key];
+            
+            // Filter cards
+            filterCards(category);
             
             // Update active button
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.getAttribute('data-filter') === filter) {
+                if (btn.getAttribute('data-category') === category) {
                     btn.classList.add('active');
                 }
             });
         }
     });
 
-    console.log('What I Use page initialized with MixItUp!');
+    // Initialize - show all cards
+    filterCards('all');
+    
+    console.log('What I Use page initialized with manual grid filter!');
 });
