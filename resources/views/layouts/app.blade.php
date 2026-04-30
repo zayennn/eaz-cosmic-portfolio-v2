@@ -42,9 +42,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
-    {{-- mixitup --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js"></script>
-
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/what-i-use.js') }}"></script>
 </body>
