@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 600);
     }
 
-    // Add ripple keyframes dynamically
     const style = document.createElement('style');
     style.textContent = `
         @keyframes ripple-effect {
@@ -92,9 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 
-    // ============================================
-    // WINDOW RESIZE HANDLER
-    // ============================================
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
