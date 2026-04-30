@@ -1,12 +1,5 @@
-// ============================================
-// WHAT I USE - FILTER SLIDER ANIMATION
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ============================================
-    // FILTER SLIDER - MOVING BACKGROUND
-    // ============================================
+
     const filterWrapper = document.getElementById('filterWrapper');
     const filterSlider = document.getElementById('filterSlider');
     const filterButtons = document.querySelectorAll('.filter-btn');
