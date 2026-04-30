@@ -170,35 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // ============================================
-    // KEYBOARD NAVIGATION
-    // ============================================
-    document.addEventListener('keydown', function(e) {
-        // Press 1-5 to filter categories
-        const keyMap = {
-            '1': 'all',
-            '2': 'frontend',
-            '3': 'backend',
-            '4': 'database',
-            '5': 'tools'
-        };
-
-        if (keyMap[e.key] && !e.target.matches('input, textarea')) {
-            const category = keyMap[e.key];
-            
-            // Filter cards
-            filterCards(category);
-            
-            // Update active button
-            filterButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-category') === category) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-    });
-
     // Initialize - show all cards
     filterCards('all');
     
