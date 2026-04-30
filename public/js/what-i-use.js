@@ -200,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (keyMap[e.key] && !e.target.matches('input, textarea')) {
             const category = keyMap[e.key];
             
-            // Find and click the corresponding button
             const targetButton = document.querySelector(`.filter-btn[data-category="${category}"]`);
             if (targetButton && !targetButton.classList.contains('active')) {
                 targetButton.click();
