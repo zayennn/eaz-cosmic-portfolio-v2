@@ -77,7 +77,6 @@ class PageLoader {
 
     interceptNavigation() {
         document.addEventListener('click', (e) => {
-            // Find closest anchor tag
             const link = e.target.closest('a');
             
             if (!link) return;
