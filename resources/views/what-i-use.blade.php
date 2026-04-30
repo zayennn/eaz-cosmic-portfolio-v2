@@ -28,27 +28,27 @@
             <!-- Filter Buttons -->
             <div class="filter-container">
                 <div class="filter-wrapper">
-                    <button class="filter-btn active" data-filter="all">
+                    <button class="filter-btn active" data-category="all">
                         <i class="fas fa-globe"></i>
                         <span>All</span>
                         <div class="btn-glow"></div>
                     </button>
-                    <button class="filter-btn" data-filter=".frontend">
+                    <button class="filter-btn" data-category="frontend">
                         <i class="fas fa-desktop"></i>
                         <span>Frontend</span>
                         <div class="btn-glow"></div>
                     </button>
-                    <button class="filter-btn" data-filter=".backend">
+                    <button class="filter-btn" data-category="backend">
                         <i class="fas fa-server"></i>
                         <span>Backend</span>
                         <div class="btn-glow"></div>
                     </button>
-                    <button class="filter-btn" data-filter=".database">
+                    <button class="filter-btn" data-category="database">
                         <i class="fas fa-database"></i>
                         <span>Database</span>
                         <div class="btn-glow"></div>
                     </button>
-                    <button class="filter-btn" data-filter=".tools">
+                    <button class="filter-btn" data-category="tools">
                         <i class="fas fa-tools"></i>
                         <span>Tools</span>
                         <div class="btn-glow"></div>
@@ -57,9 +57,9 @@
             </div>
 
             <!-- Skills Grid -->
-            <div class="skills-grid" id="skillsContainer">
+            <div class="skills-grid" id="skillsGrid">
                 <!-- Frontend Skills -->
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -197,7 +197,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix frontend" data-category="frontend">
+                <div class="skill-card" data-category="frontend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -220,8 +220,31 @@
                     </div>
                 </div>
 
+                <div class="skill-card" data-category="frontend">
+                    <div class="card-inner">
+                        <div class="card-glare"></div>
+                        <div class="card-border-glow"></div>
+                        <div class="card-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>GSAP</h3>
+                            <div class="skill-level">
+                                <div class="level-bar" style="width: 72%"></div>
+                            </div>
+                            <p class="skill-percentage">72%</p>
+                            <span class="skill-tag">Animation Library</span>
+                        </div>
+                        <div class="card-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Backend Skills -->
-                <div class="skill-card mix backend" data-category="backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -244,7 +267,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend" data-category="backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -267,7 +290,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend" data-category="backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -290,7 +313,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend" data-category="backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -313,7 +336,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix backend" data-category="backend">
+                <div class="skill-card" data-category="backend">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -336,8 +359,31 @@
                     </div>
                 </div>
 
+                <div class="skill-card" data-category="backend">
+                    <div class="card-inner">
+                        <div class="card-glare"></div>
+                        <div class="card-border-glow"></div>
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>REST API</h3>
+                            <div class="skill-level">
+                                <div class="level-bar" style="width: 80%"></div>
+                            </div>
+                            <p class="skill-percentage">80%</p>
+                            <span class="skill-tag">Architecture</span>
+                        </div>
+                        <div class="card-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Database Skills -->
-                <div class="skill-card mix database" data-category="database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -360,7 +406,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix database" data-category="database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -383,7 +429,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix database" data-category="database">
+                <div class="skill-card" data-category="database">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -406,8 +452,31 @@
                     </div>
                 </div>
 
+                <div class="skill-card" data-category="database">
+                    <div class="card-inner">
+                        <div class="card-glare"></div>
+                        <div class="card-border-glow"></div>
+                        <div class="card-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>PostgreSQL</h3>
+                            <div class="skill-level">
+                                <div class="level-bar" style="width: 55%"></div>
+                            </div>
+                            <p class="skill-percentage">55%</p>
+                            <span class="skill-tag">Relational Database</span>
+                        </div>
+                        <div class="card-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Tools Skills -->
-                <div class="skill-card mix tools" data-category="tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -430,7 +499,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools" data-category="tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -453,7 +522,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools" data-category="tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -476,7 +545,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools" data-category="tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -499,7 +568,7 @@
                     </div>
                 </div>
 
-                <div class="skill-card mix tools" data-category="tools">
+                <div class="skill-card" data-category="tools">
                     <div class="card-inner">
                         <div class="card-glare"></div>
                         <div class="card-border-glow"></div>
@@ -513,6 +582,29 @@
                             </div>
                             <p class="skill-percentage">80%</p>
                             <span class="skill-tag">CLI</span>
+                        </div>
+                        <div class="card-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="tools">
+                    <div class="card-inner">
+                        <div class="card-glare"></div>
+                        <div class="card-border-glow"></div>
+                        <div class="card-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Vercel</h3>
+                            <div class="skill-level">
+                                <div class="level-bar" style="width: 70%"></div>
+                            </div>
+                            <p class="skill-percentage">70%</p>
+                            <span class="skill-tag">Deployment</span>
                         </div>
                         <div class="card-particles">
                             <span class="particle"></span>
