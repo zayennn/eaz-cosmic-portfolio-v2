@@ -119,13 +119,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // skillCards.forEach((card, index) => {
-    //     card.style.opacity = '0';
-    //     card.style.transform = 'translateY(30px)';
-    //     card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-    //     card.style.transitionDelay = `${index * 0.05}s`;
-    //     observer.observe(card);
-    // });
+    skillCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        card.style.transitionDelay = `${index * 0.05}s`;
+        observer.observe(card);
+    });
 
     initSlider();
     
