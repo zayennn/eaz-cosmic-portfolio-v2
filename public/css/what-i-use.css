@@ -214,10 +214,8 @@
 
 .filter-btn.active {
     color: #fff;
-    /* Remove old background, slider handles it */
 }
 
-/* When slider is over a button, change text color */
 .filter-btn.slider-active {
     color: #fff;
     transition: color 0.3s ease 0.1s;
