@@ -101,10 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 100);
     });
-    
-    // ============================================
-    // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
-    // ============================================
+
     const skillCards = document.querySelectorAll('.skill-card');
     
     const observerOptions = {
