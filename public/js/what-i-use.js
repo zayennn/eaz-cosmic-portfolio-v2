@@ -50,11 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.classList.add('slider-active');
     }
 
-    // ============================================
-    // FILTER CARDS FUNCTION
-    // ============================================
     function filterCards(category) {
-        // Get all cards currently visible for stagger calculation
         const visibleCards = [];
         const hiddenCards = [];
         
@@ -68,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // First, hide all cards that should be hidden
         hiddenCards.forEach(card => {
             card.classList.add('hidden');
             card.classList.remove('visible');
