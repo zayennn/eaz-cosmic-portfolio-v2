@@ -1,596 +1,542 @@
 /* ============================================
-   WHAT I USE PAGE - COSMIC THEME
+   SKILLS PAGE - COSMIC THEME
    ============================================ */
 
-.skills-page {
-    min-height: 100vh;
-    position: relative;
+/* Container utama dengan min-height untuk mencegah footer naik */
+.skills-section {
     padding: 6rem 2rem 4rem;
-    overflow: hidden;
-}
-
-/* ============================================
-   COSMIC BACKGROUND
-   ============================================ */
-.cosmic-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.nebula {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    animation: nebula-drift 20s ease-in-out infinite;
-}
-
-.nebula-1 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-    top: -200px;
-    right: -100px;
-    animation-delay: 0s;
-}
-
-.nebula-2 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
-    bottom: -150px;
-    left: -100px;
-    animation-delay: -7s;
-}
-
-.nebula-3 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: -14s;
-}
-
-@keyframes nebula-drift {
-    0%, 100% {
-        transform: translate(0, 0) scale(1);
-    }
-    25% {
-        transform: translate(50px, -30px) scale(1.1);
-    }
-    50% {
-        transform: translate(-30px, 50px) scale(0.9);
-    }
-    75% {
-        transform: translate(-50px, -20px) scale(1.05);
-    }
-}
-
-.cosmic-dust {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.1), transparent),
-        radial-gradient(2px 2px at 40% 70%, rgba(255, 255, 255, 0.08), transparent),
-        radial-gradient(1px 1px at 60% 40%, rgba(255, 255, 255, 0.1), transparent),
-        radial-gradient(2px 2px at 80% 60%, rgba(255, 255, 255, 0.07), transparent),
-        radial-gradient(1px 1px at 10% 80%, rgba(255, 255, 255, 0.09), transparent),
-        radial-gradient(2px 2px at 70% 20%, rgba(255, 255, 255, 0.06), transparent),
-        radial-gradient(1px 1px at 30% 50%, rgba(255, 255, 255, 0.08), transparent),
-        radial-gradient(2px 2px at 90% 90%, rgba(255, 255, 255, 0.07), transparent);
-    animation: dust-twinkle 4s ease-in-out infinite;
-}
-
-@keyframes dust-twinkle {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
-
-/* ============================================
-   SKILLS CONTAINER
-   ============================================ */
-.skills-container {
-    max-width: 1400px;
+    max-width: 1300px;
     margin: 0 auto;
+    min-height: calc(100vh - 200px); /* Mencegah footer naik */
     position: relative;
-    z-index: 1;
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
-.skills-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.skills-title {
-    font-size: 3rem;
-    font-family: 'Audiowide', cursive;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.title-icon {
-    font-size: 2.5rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.gradient-text {
-    background: linear-gradient(135deg, #6366f1, #3b82f6, #8b5cf6, #6366f1);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 4s ease infinite;
-}
-
-@keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
-
-.skills-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* ============================================
-   FILTER BUTTONS
-   ============================================ */
-.filter-container {
+/* Tab Filter Container */
+.skills-filter {
     display: flex;
     justify-content: center;
+    gap: 0.8rem;
     margin-bottom: 3rem;
-}
-
-.filter-wrapper {
-    display: flex;
-    gap: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 0.5rem;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 50px;
-    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
 }
 
 .filter-btn {
-    position: relative;
-    padding: 0.8rem 2rem;
-    background: transparent;
-    border: none;
+    padding: 0.7rem 1.8rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(99, 102, 241, 0.2);
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    font-weight: 600;
+    border-radius: 50px;
     cursor: pointer;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-    overflow: hidden;
     font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.filter-btn i {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.filter-btn:hover i {
-    transform: scale(1.2);
-}
-
-.filter-btn .btn-glow {
+.filter-btn::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    opacity: 0;
-    border-radius: 50px;
-    transition: opacity 0.3s ease;
-    z-index: -1;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(99, 102, 241, 0.2),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.filter-btn:hover::before {
+    left: 100%;
 }
 
 .filter-btn:hover {
+    border-color: rgba(99, 102, 241, 0.5);
     color: #fff;
-}
-
-.filter-btn:hover .btn-glow {
-    opacity: 0.3;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 10px 25px rgba(99, 102, 241, 0.2),
+        0 0 30px rgba(99, 102, 241, 0.1);
 }
 
 .filter-btn.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(99, 102, 241, 0.3));
+    border-color: rgba(99, 102, 241, 0.5);
     color: #fff;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
+    box-shadow: 
+        0 0 20px rgba(99, 102, 241, 0.3),
+        inset 0 0 20px rgba(99, 102, 241, 0.1);
 }
 
-.filter-btn.active .btn-glow {
-    opacity: 0;
+/* Star icon in filter button */
+.filter-btn .filter-icon {
+    margin-right: 0.3rem;
+    font-size: 0.8rem;
 }
 
 /* ============================================
-   SKILLS GRID
+   SKILLS GRID CONTAINER
    ============================================ */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
 }
 
 /* ============================================
    SKILL CARD - COSMIC DESIGN
    ============================================ */
 .skill-card {
-    perspective: 1000px;
-}
-
-.card-inner {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    background: linear-gradient(145deg, 
-        rgba(15, 23, 42, 0.9), 
-        rgba(30, 41, 59, 0.8), 
-        rgba(15, 23, 42, 0.9));
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
-    height: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardAppear 0.6s ease forwards;
 }
 
-.card-inner::before {
+/* Card entrance animation */
+@keyframes cardAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Delay untuk setiap card */
+.skill-card:nth-child(1) { animation-delay: 0.05s; }
+.skill-card:nth-child(2) { animation-delay: 0.1s; }
+.skill-card:nth-child(3) { animation-delay: 0.15s; }
+.skill-card:nth-child(4) { animation-delay: 0.2s; }
+.skill-card:nth-child(5) { animation-delay: 0.25s; }
+.skill-card:nth-child(6) { animation-delay: 0.3s; }
+.skill-card:nth-child(7) { animation-delay: 0.35s; }
+.skill-card:nth-child(8) { animation-delay: 0.4s; }
+.skill-card:nth-child(9) { animation-delay: 0.45s; }
+.skill-card:nth-child(10) { animation-delay: 0.5s; }
+
+/* Glare effect overlay */
+.skill-card::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-        circle at 50% 0%,
-        rgba(99, 102, 241, 0.15),
-        transparent 70%
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 30%,
+        rgba(99, 102, 241, 0.1) 40%,
+        rgba(139, 92, 246, 0.15) 45%,
+        rgba(59, 130, 246, 0.1) 50%,
+        transparent 60%,
+        transparent 100%
     );
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-inner:hover::before {
-    opacity: 1;
+.skill-card:hover::before {
+    left: 0%;
 }
 
-.card-inner:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: rgba(99, 102, 241, 0.5);
+/* Glare kedua dari arah berbeda */
+.skill-card::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(
+        200deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(99, 102, 241, 0.05) 50%,
+        rgba(139, 92, 246, 0.08) 55%,
+        transparent 65%,
+        transparent 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+    transition: top 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.1s;
+}
+
+.skill-card:hover::after {
+    top: 50%;
+}
+
+/* Card hover effect */
+.skill-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(99, 102, 241, 0.4);
     box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 40px rgba(99, 102, 241, 0.2),
-        0 0 80px rgba(139, 92, 246, 0.1),
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(99, 102, 241, 0.15),
+        0 0 60px rgba(139, 92, 246, 0.1),
         inset 0 0 30px rgba(99, 102, 241, 0.05);
 }
 
-/* Card Glare Effect */
-.card-glare {
+/* Cosmic background gradient untuk card */
+.skill-card .card-bg {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.05),
-        transparent
+    inset: 0;
+    background: radial-gradient(
+        circle at 50% 0%,
+        rgba(99, 102, 241, 0.08) 0%,
+        rgba(139, 92, 246, 0.05) 30%,
+        rgba(59, 130, 246, 0.03) 60%,
+        transparent 100%
     );
-    transform: skewX(-25deg);
-    transition: left 0.6s ease;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     pointer-events: none;
 }
 
-.card-inner:hover .card-glare {
-    left: 150%;
-}
-
-/* Card Border Glow */
-.card-border-glow {
-    position: absolute;
-    inset: -1px;
-    border-radius: 20px;
-    padding: 1px;
-    background: linear-gradient(
-        135deg,
-        transparent 0%,
-        rgba(99, 102, 241, 0.5) 50%,
-        transparent 100%
-    );
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.card-inner:hover .card-border-glow {
+.skill-card:hover .card-bg {
     opacity: 1;
 }
 
-/* Card Icon */
-.card-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, 
-        rgba(99, 102, 241, 0.2), 
-        rgba(139, 92, 246, 0.2));
-    border-radius: 16px;
+/* Card content */
+.skill-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Skill Icon Container */
+.skill-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.2rem;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    border: 2px solid rgba(99, 102, 241, 0.3);
     position: relative;
-    border: 1px solid rgba(99, 102, 241, 0.3);
     transition: all 0.4s ease;
+    overflow: hidden;
 }
 
-.card-inner:hover .card-icon {
-    transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(135deg, 
-        rgba(99, 102, 241, 0.3), 
-        rgba(139, 92, 246, 0.3));
+.skill-card:hover .skill-icon {
     border-color: rgba(99, 102, 241, 0.6);
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+    box-shadow: 
+        0 0 30px rgba(99, 102, 241, 0.3),
+        inset 0 0 20px rgba(99, 102, 241, 0.1);
+    transform: scale(1.05);
 }
 
-.card-icon i {
-    font-size: 1.8rem;
-    color: var(--accent-blue);
+/* Icon glow ring */
+.skill-icon::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    filter: blur(8px);
+}
+
+.skill-card:hover .skill-icon::before {
+    opacity: 0.5;
+}
+
+.skill-icon i,
+.skill-icon img {
+    font-size: 32px;
+    color: var(--text-primary);
     transition: all 0.4s ease;
-}
-
-.card-inner:hover .card-icon i {
-    color: #a78bfa;
-    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
-}
-
-/* Card Content */
-.card-content {
     position: relative;
     z-index: 1;
 }
 
-.card-content h3 {
-    font-size: 1.3rem;
+.skill-card:hover .skill-icon i {
+    color: #fff;
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+}
+
+/* Skill Name */
+.skill-name {
     font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     transition: color 0.3s ease;
 }
 
-.card-inner:hover .card-content h3 {
-    background: linear-gradient(135deg, #a78bfa, #6366f1);
+.skill-card:hover .skill-name {
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* Skill Level Bar */
-.skill-level {
-    width: 100%;
-    height: 6px;
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
-    position: relative;
-}
-
-.level-bar {
-    height: 100%;
-    background: linear-gradient(90deg, 
-        var(--accent-blue), 
-        var(--accent-purple), 
-        #a78bfa);
-    border-radius: 10px;
-    position: relative;
-    transition: width 1s ease;
-    animation: shimmer 2s ease-in-out infinite;
-}
-
-.level-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
-    animation: shimmer-move 2s infinite;
-}
-
-@keyframes shimmer-move {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-@keyframes shimmer {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
-}
-
-.skill-percentage {
-    color: var(--accent-blue);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.skill-tag {
+/* Skill Category Badge */
+.skill-category {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 0.2rem 0.8rem;
     border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(99, 102, 241, 0.1);
     color: var(--text-secondary);
-    font-size: 0.75rem;
+    border: 1px solid rgba(99, 102, 241, 0.2);
     transition: all 0.3s ease;
 }
 
-.card-inner:hover .skill-tag {
+.skill-card:hover .skill-category {
     background: rgba(99, 102, 241, 0.2);
     border-color: rgba(99, 102, 241, 0.4);
-    color: var(--text-primary);
+    color: #a5b4fc;
 }
 
-/* Card Particles */
-.card-particles {
+/* Category-specific colors */
+.skill-card[data-category="frontend"] .skill-icon {
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.skill-card[data-category="frontend"]:hover .skill-icon {
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.skill-card[data-category="backend"] .skill-icon {
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.skill-card[data-category="backend"]:hover .skill-icon {
+    border-color: rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.skill-card[data-category="database"] .skill-icon {
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+.skill-card[data-category="database"]:hover .skill-icon {
+    border-color: rgba(6, 182, 212, 0.6);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+.skill-card[data-category="tools"] .skill-icon {
+    border-color: rgba(248, 174, 36, 0.3);
+}
+
+.skill-card[data-category="tools"]:hover .skill-icon {
+    border-color: rgba(248, 174, 36, 0.6);
+    box-shadow: 0 0 30px rgba(248, 174, 36, 0.3);
+}
+
+/* ============================================
+   ORBITING PARTICLES (COSMIC EFFECT)
+   ============================================ */
+.skill-card .orbit-ring {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 40px;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease;
 }
 
-.card-inner:hover .card-particles {
+.skill-card:hover .orbit-ring {
     opacity: 1;
+    animation: orbitRotate 4s linear infinite;
 }
 
-.particle {
+@keyframes orbitRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.skill-card .orbit-dot {
     position: absolute;
-    width: 3px;
-    height: 3px;
-    background: rgba(139, 92, 246, 0.6);
+    width: 4px;
+    height: 4px;
+    background: var(--accent-purple);
     border-radius: 50%;
-    animation: particle-float 2s ease-in-out infinite;
-}
-
-.particle:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.particle:nth-child(2) {
-    top: 60%;
-    right: 15%;
-    animation-delay: 0.5s;
-}
-
-.particle:nth-child(3) {
-    bottom: 20%;
+    top: -2px;
     left: 50%;
-    animation-delay: 1s;
-}
-
-@keyframes particle-float {
-    0%, 100% {
-        transform: translateY(0) scale(1);
-        opacity: 0;
-    }
-    50% {
-        transform: translateY(-20px) scale(2);
-        opacity: 1;
-    }
+    box-shadow: 0 0 10px var(--accent-purple);
 }
 
 /* ============================================
    MIXITUP ANIMATIONS
    ============================================ */
-.skill-card.mix {
+.mix {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.skill-card.mix.hide {
+/* Animasi ketika card di-filter (muncul) */
+.mix.mix-target-enter {
     opacity: 0;
-    transform: scale(0.8) rotateY(90deg);
+    transform: scale(0.8) translateY(30px) rotateX(10deg);
 }
 
-.skill-card.mix.show {
+.mix.mix-target-enter-active {
     opacity: 1;
-    transform: scale(1) rotateY(0);
+    transform: scale(1) translateY(0) rotateX(0);
+}
+
+/* Animasi ketika card di-filter (hilang) */
+.mix.mix-target-leave {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.mix.mix-target-leave-active {
+    opacity: 0;
+    transform: scale(0.8) translateY(-30px);
+    position: absolute;
+}
+
+/* ============================================
+   NO RESULTS MESSAGE
+   ============================================ */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    display: none;
+}
+
+.no-results i {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-purple);
 }
 
 /* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-    .skills-title {
-        font-size: 2rem;
+    .skills-section {
+        padding: 5rem 1rem 3rem;
     }
-    
-    .skills-subtitle {
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .skill-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .skill-icon {
+        width: 55px;
+        height: 55px;
+    }
+
+    .skill-icon i {
+        font-size: 24px;
+    }
+
+    .skill-name {
         font-size: 0.95rem;
     }
-    
-    .skills-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 1.5rem;
-    }
-    
-    .filter-wrapper {
-        border-radius: 20px;
-        gap: 0.5rem;
-    }
-    
+
     .filter-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
-    }
-    
-    .card-inner {
-        padding: 1.5rem;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .skills-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
-    
-    .filter-btn span {
-        display: none;
+
+    .skills-filter {
+        gap: 0.5rem;
     }
-    
-    .filter-btn {
-        padding: 0.6rem;
-        min-width: 40px;
-    }
-    
-    .filter-btn i {
-        margin: 0;
-    }
+}
+
+/* ============================================
+   STARFIELD OVERLAY (COSMIC BACKGROUND)
+   ============================================ */
+.skills-cosmic-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+.skills-cosmic-bg .nebula {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: nebulaFloat 10s ease-in-out infinite;
+}
+
+.skills-cosmic-bg .nebula-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent);
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.skills-cosmic-bg .nebula-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent);
+    top: 60%;
+    right: 15%;
+    animation-delay: -3s;
+}
+
+.skills-cosmic-bg .nebula-3 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent);
+    bottom: 20%;
+    left: 30%;
+    animation-delay: -6s;
+}
+
+@keyframes nebulaFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -20px) scale(1.1); }
+    50% { transform: translate(-20px, 30px) scale(0.9); }
+    75% { transform: translate(-30px, -30px) scale(1.05); }
 }
