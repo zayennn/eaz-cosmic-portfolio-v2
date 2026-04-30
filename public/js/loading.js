@@ -122,7 +122,6 @@ class PageLoader {
 document.addEventListener('DOMContentLoaded', () => {
     const pageLoader = new PageLoader();
     
-    // Expose to window for manual use
     window.pageLoader = pageLoader;
     
     const loader = document.getElementById('pageLoader');
