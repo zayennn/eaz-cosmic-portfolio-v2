@@ -209,7 +209,7 @@
 }
 
 .filter-btn .btn-glow {
-    display: none; /* Hide old glow, we use slider now */
+    display: none;
 }
 
 .filter-btn.active {
