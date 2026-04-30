@@ -16,7 +16,6 @@
             <!-- Header -->
             <div class="skills-header">
                 <h1 class="skills-title">
-                    <span class="title-icon">🛠️</span>
                     What I <span class="gradient-text">Use</span>
                 </h1>
                 <p class="skills-subtitle">
