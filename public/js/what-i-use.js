@@ -127,9 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ============================================
-    // RIPPLE EFFECT ON BUTTONS
-    // ============================================
     function createRipple(event, button) {
         const ripple = document.createElement('span');
         const rect = button.getBoundingClientRect();
