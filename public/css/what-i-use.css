@@ -330,7 +330,6 @@
     left: 150%;
 }
 
-/* Card Border Glow */
 .card-border-glow {
     position: absolute;
     inset: -1px;
@@ -355,7 +354,6 @@
     opacity: 1;
 }
 
-/* Card Icon */
 .card-icon {
     width: 60px;
     height: 60px;
@@ -392,7 +390,6 @@
     filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
 }
 
-/* Card Content */
 .card-content {
     position: relative;
     z-index: 1;
