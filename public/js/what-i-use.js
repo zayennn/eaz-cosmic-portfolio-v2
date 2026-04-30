@@ -208,9 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ============================================
-    // CARD TILT EFFECT
-    // ============================================
     const cards = document.querySelectorAll('.card-inner');
     
     cards.forEach(card => {
