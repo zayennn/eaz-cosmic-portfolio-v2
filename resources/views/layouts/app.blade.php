@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elang Atha Zahran | Portfolio</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/what-i-use.css') }}">
     <link rel="stylesheet" href="{{ asset('css/stars.css') }}">
 
     {{-- font awesome --}}
@@ -36,7 +37,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
+    {{-- mixitup --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js"></script>
+
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/what-i-use.js') }}"></script>
 </body>
 
 </html>
