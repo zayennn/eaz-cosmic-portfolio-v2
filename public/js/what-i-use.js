@@ -125,50 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 100);
     });
-
-    // ============================================
-    // CARD TILT EFFECT
-    // ============================================
-    const cards = document.querySelectorAll('.card-inner');
     
-    cards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            this.style.transform = `
-                translateY(-10px) 
-                scale(1.02) 
-                perspective(1000px) 
-                rotateX(${rotateX}deg) 
-                rotateY(${rotateY}deg)
-            `;
-            
-            // Move glare effect
-            const glare = this.querySelector('.card-glare');
-            if (glare) {
-                const percentX = (x / rect.width) * 100;
-                glare.style.left = `${percentX}%`;
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-            
-            const glare = this.querySelector('.card-glare');
-            if (glare) {
-                glare.style.left = '-100%';
-            }
-        });
-    });
-
     // ============================================
     // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
     // ============================================
