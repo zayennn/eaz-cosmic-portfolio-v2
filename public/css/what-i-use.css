@@ -174,7 +174,6 @@
     z-index: 0;
     box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
     pointer-events: none;
-    /* Width and left position will be set dynamically via JS */
 }
 
 .filter-btn {
