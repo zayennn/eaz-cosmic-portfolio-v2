@@ -274,12 +274,8 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // ============================================
-    // INITIALIZE
-    // ============================================
     initSlider();
     
-    // Show all cards initially with stagger animation
     filterCards('all');
     
     console.log('What I Use - Filter system initialized!');
