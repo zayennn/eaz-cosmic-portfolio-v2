@@ -150,9 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function orreryZoomOut() { targetOrreryZoom = Math.max(0.4, targetOrreryZoom - 0.15); }
     function orreryZoomReset() { targetOrreryZoom = 1; }
 
-    // ============================================
-    // ZOOM: PLANET SIZE (CSS VARIABLE)
-    // ============================================
     function updatePlanetScale() {
         orreryContainer.style.setProperty('--planet-scale', planetScale);
     }
