@@ -371,9 +371,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ============================================
-    // CONSTELLATION CANVAS
-    // ============================================
     function resizeCanvas() {
         const container = document.querySelector('.skills-constellation');
         canvas.width = container.offsetWidth;
