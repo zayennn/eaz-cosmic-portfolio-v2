@@ -9,11 +9,16 @@
     {{-- components --}}
     <link rel="stylesheet" href="{{ asset('css/stars.css') }}">
     <link rel="stylesheet" href="{{ asset('css/loading.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     
     {{-- pages --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/what-i-use.css') }}">
+    @if (request()->routeIs("home"))
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @elseif(request()->routeIs("what-i-use"))
+        <link rel="stylesheet" href="{{ asset('css/what-i-use.css') }}">
+    @endif
 
     {{-- font awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
