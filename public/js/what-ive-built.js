@@ -24,38 +24,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterTabs = document.querySelectorAll('.filter-tab');
     const detailOverlay = document.getElementById('detailOverlay');
     const closeDetail = document.getElementById('closeDetail');
-    const zoomInBtn = document.getElementById('zoomIn');
-    const zoomOutBtn = document.getElementById('zoomOut');
-    const resetViewBtn = document.getElementById('resetView');
+    
+    // 6 Zoom buttons
+    const zoomInOrrery = document.getElementById('zoomInOrrery');
+    const zoomOutOrrery = document.getElementById('zoomOutOrrery');
+    const resetOrrery = document.getElementById('resetOrrery');
+    const zoomInPlanet = document.getElementById('zoomInPlanet');
+    const zoomOutPlanet = document.getElementById('zoomOutPlanet');
+    const resetPlanet = document.getElementById('resetPlanet');
 
     let activeFilter = 'all';
     let allPlanets = [];
-    let currentZoom = 1;
-    let targetZoom = 1;
+    let orreryZoom = 1;
+    let targetOrreryZoom = 1;
+    let planetScale = 1;
+    let targetPlanetScale = 1;
 
     // ============================================
-    // CREATE ORRERY - CENTERED ORBIT SYSTEM
+    // CREATE ORRERY
     // ============================================
     function createOrrery() {
-        // Clear existing orbit groups
         const existingGroups = orreryContainer.querySelectorAll('.orbit-group');
         existingGroups.forEach(g => g.remove());
         allPlanets = [];
 
-        // Distribution: 3 planets per orbit (12 planets / 4 orbits)
         const distributed = [[], [], [], []];
         projectsData.forEach((project, index) => {
-            const orbitIndex = index % 4;
-            distributed[orbitIndex].push(project);
+            distributed[index % 4].push(project);
         });
 
-        // Create 4 orbit groups
         for (let i = 0; i < 4; i++) {
             const group = document.createElement('div');
             group.classList.add('orbit-group', 'og' + (i + 1));
             orreryContainer.appendChild(group);
 
-            // Place 3 planets in each orbit at 0°, 120°, 240°
             const positions = ['pos-0', 'pos-1', 'pos-2'];
             distributed[i].forEach((project, pIndex) => {
                 const planet = createPlanetElement(project, positions[pIndex]);
@@ -64,8 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Apply zoom
-        updateZoom();
+        updateOrreryZoom();
+        updatePlanetScale();
     }
 
     function createPlanetElement(project, posClass) {
@@ -106,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // FILTER WITH FALL/RISE
+    // FILTER
     // ============================================
     function filterProjects(filter) {
         const planetsToHide = [];
@@ -115,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
         allPlanets.forEach(({ el, project }) => {
             const shouldBeVisible = (filter === 'all' || project.type === filter);
             const isCurrentlyVisible = !el.classList.contains('hidden');
-
             if (!shouldBeVisible && isCurrentlyVisible && !el.classList.contains('falling')) {
                 planetsToHide.push(el);
             } else if (shouldBeVisible && !isCurrentlyVisible) {
@@ -123,77 +124,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // PHASE 1: Hide
         planetsToHide.forEach((el, i) => {
             setTimeout(() => {
                 el.classList.add('falling');
                 el.classList.remove('rising');
-                setTimeout(() => {
-                    el.classList.add('hidden');
-                    el.classList.remove('falling');
-                }, 850);
+                setTimeout(() => { el.classList.add('hidden'); el.classList.remove('falling'); }, 850);
             }, i * 50);
         });
 
-        // PHASE 2: Show
         const hideDuration = planetsToHide.length * 50 + 850;
         setTimeout(() => {
             planetsToShow.forEach((el, i) => {
                 setTimeout(() => {
                     el.classList.remove('hidden', 'falling');
                     el.classList.add('rising');
-                    setTimeout(() => {
-                        el.classList.remove('rising');
-                    }, 700);
+                    setTimeout(() => { el.classList.remove('rising'); }, 700);
                 }, i * 70);
             });
         }, hideDuration);
     }
 
     // ============================================
-    // ZOOM SYSTEM
+    // ZOOM: ORRERY (ENTIRE CONTAINER)
     // ============================================
-    function updateZoom() {
-        orreryContainer.style.transform = `scale(${currentZoom})`;
+    function updateOrreryZoom() {
+        orreryContainer.style.transform = `scale(${orreryZoom})`;
     }
 
-    function animateZoom() {
-        currentZoom += (targetZoom - currentZoom) * 0.12;
-        updateZoom();
-        requestAnimationFrame(animateZoom);
+    function animateOrreryZoom() {
+        orreryZoom += (targetOrreryZoom - orreryZoom) * 0.12;
+        updateOrreryZoom();
+        requestAnimationFrame(animateOrreryZoom);
     }
 
-    // Zoom limits: 0.4 - 1.8
-    function zoomIn() {
-        targetZoom = Math.min(1.8, targetZoom + 0.15);
-    }
-    function zoomOut() {
-        targetZoom = Math.max(0.4, targetZoom - 0.15);
-    }
-    function resetZoom() {
-        targetZoom = 1;
+    function orreryZoomIn() { targetOrreryZoom = Math.min(1.8, targetOrreryZoom + 0.15); }
+    function orreryZoomOut() { targetOrreryZoom = Math.max(0.4, targetOrreryZoom - 0.15); }
+    function orreryZoomReset() { targetOrreryZoom = 1; }
+
+    // ============================================
+    // ZOOM: PLANET SIZE (CSS VARIABLE)
+    // ============================================
+    function updatePlanetScale() {
+        orreryContainer.style.setProperty('--planet-scale', planetScale);
     }
 
-    zoomInBtn.addEventListener('click', zoomIn);
-    zoomOutBtn.addEventListener('click', zoomOut);
-    resetViewBtn.addEventListener('click', resetZoom);
+    function animatePlanetScale() {
+        planetScale += (targetPlanetScale - planetScale) * 0.12;
+        updatePlanetScale();
+        requestAnimationFrame(animatePlanetScale);
+    }
 
-    // Scroll zoom
-    orreryContainer.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        targetZoom += e.deltaY * -0.0008;
-        targetZoom = Math.max(0.4, Math.min(1.8, targetZoom));
-    }, { passive: false });
+    function planetZoomIn() { targetPlanetScale = Math.min(1.8, targetPlanetScale + 0.15); }
+    function planetZoomOut() { targetPlanetScale = Math.max(0.4, targetPlanetScale - 0.15); }
+    function planetZoomReset() { targetPlanetScale = 1; }
+
+    // Button events - 6 buttons
+    zoomInOrrery.addEventListener('click', orreryZoomIn);
+    zoomOutOrrery.addEventListener('click', orreryZoomOut);
+    resetOrrery.addEventListener('click', orreryZoomReset);
+    zoomInPlanet.addEventListener('click', planetZoomIn);
+    zoomOutPlanet.addEventListener('click', planetZoomOut);
+    resetPlanet.addEventListener('click', planetZoomReset);
 
     // ============================================
     // DETAIL MODAL
     // ============================================
     function openDetail(project, event) {
-        const typeColors = {
-            freelance: '#3b82f6',
-            personal: '#8b5cf6',
-            certification: '#22c55e'
-        };
+        const typeColors = { freelance: '#3b82f6', personal: '#8b5cf6', certification: '#22c55e' };
         const color = typeColors[project.type] || '#6366f1';
         createSparkles(event.clientX, event.clientY, color);
 
@@ -242,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetailModal(); });
 
     // ============================================
-    // CLICK SPARKLES
+    // SPARKLES
     // ============================================
     function createSparkles(x, y, color) {
         const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
@@ -283,5 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // INITIALIZE
     // ============================================
     createOrrery();
-    animateZoom();
+    animateOrreryZoom();
+    animatePlanetScale();
 });

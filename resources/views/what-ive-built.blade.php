@@ -12,7 +12,7 @@
             What I've <span class="highlight">Built</span>
         </h1>
         <p class="projects-subtitle">
-            Explore my projects orbiting the sun • Scroll to zoom
+            Explore my projects orbiting the sun
         </p>
     </div>
 
@@ -33,30 +33,37 @@
 
     <div class="orrery-wrapper">
         <div class="orrery-container" id="orreryContainer">
-            <!-- Orbit Rings -->
             <div class="orbit-ring r1"></div>
             <div class="orbit-ring r2"></div>
             <div class="orbit-ring r3"></div>
             <div class="orbit-ring r4"></div>
             
-            <!-- Central Sun -->
             <div class="central-sun">
                 <div class="sun-glow"></div>
                 <div class="sun-core">
                     <div class="sun-label">MY<br>WORK</div>
                 </div>
             </div>
-
-            <!-- Zoom Controls -->
-            <div class="zoom-controls">
-                <button class="zoom-btn" id="zoomIn" title="Zoom In"><i class="fas fa-plus"></i></button>
-                <button class="zoom-btn" id="zoomOut" title="Zoom Out"><i class="fas fa-minus"></i></button>
-                <button class="zoom-btn" id="resetView" title="Reset"><i class="fas fa-expand"></i></button>
-            </div>
         </div>
     </div>
 
-    <!-- Detail Modal Overlay -->
+    <!-- ZOOM CONTROLS - 6 BUTTONS, FIXED POSITION -->
+    <div class="zoom-controls">
+        <div class="control-group">
+            <span class="control-label">Orrery</span>
+            <button class="zoom-btn" id="zoomInOrrery" title="Zoom In Orrery"><i class="fas fa-search-plus"></i></button>
+            <button class="zoom-btn" id="zoomOutOrrery" title="Zoom Out Orrery"><i class="fas fa-search-minus"></i></button>
+            <button class="zoom-btn" id="resetOrrery" title="Reset Orrery"><i class="fas fa-compress"></i></button>
+        </div>
+        <div class="control-group">
+            <span class="control-label">Planet</span>
+            <button class="zoom-btn" id="zoomInPlanet" title="Zoom In Planet"><i class="fas fa-circle-plus"></i></button>
+            <button class="zoom-btn" id="zoomOutPlanet" title="Zoom Out Planet"><i class="fas fa-circle-minus"></i></button>
+            <button class="zoom-btn" id="resetPlanet" title="Reset Planet"><i class="fas fa-circle"></i></button>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
     <div class="detail-overlay" id="detailOverlay">
         <div class="detail-modal">
             <button class="detail-close" id="closeDetail"><i class="fas fa-times"></i></button>

@@ -128,7 +128,7 @@
 .filter-dot.certification { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
 
 /* ============================================
-   ORRERY WRAPPER - CENTERED
+   ORRERY WRAPPER
    ============================================ */
 .orrery-wrapper {
     position: relative;
@@ -141,18 +141,18 @@
 }
 
 /* ============================================
-   ORRERY CONTAINER - SCALABLE
+   ORRERY CONTAINER
    ============================================ */
 .orrery-container {
     position: relative;
     width: 100%;
     max-width: 750px;
     aspect-ratio: 1;
-    transition: transform 0.1s ease;
+    transition: transform 0.15s ease;
 }
 
 /* ============================================
-   ORBIT RINGS - VISIBLE LINES
+   ORBIT RINGS
    ============================================ */
 .orbit-ring {
     position: absolute;
@@ -164,37 +164,26 @@
 }
 
 .orbit-ring.r1 { 
-    width: 22%; 
-    aspect-ratio: 1;
-    margin-left: -11%;
-    margin-top: -11%;
+    width: 22%; aspect-ratio: 1;
+    margin-left: -11%; margin-top: -11%;
     border-color: rgba(251, 191, 36, 0.25);
     box-shadow: 0 0 15px rgba(251, 191, 36, 0.08), inset 0 0 15px rgba(251, 191, 36, 0.05);
 }
-
 .orbit-ring.r2 { 
-    width: 38%; 
-    aspect-ratio: 1;
-    margin-left: -19%;
-    margin-top: -19%;
+    width: 38%; aspect-ratio: 1;
+    margin-left: -19%; margin-top: -19%;
     border-color: rgba(99, 102, 241, 0.2);
     box-shadow: 0 0 20px rgba(99, 102, 241, 0.08), inset 0 0 20px rgba(99, 102, 241, 0.05);
 }
-
 .orbit-ring.r3 { 
-    width: 54%; 
-    aspect-ratio: 1;
-    margin-left: -27%;
-    margin-top: -27%;
+    width: 54%; aspect-ratio: 1;
+    margin-left: -27%; margin-top: -27%;
     border-color: rgba(139, 92, 246, 0.18);
     box-shadow: 0 0 25px rgba(139, 92, 246, 0.06), inset 0 0 25px rgba(139, 92, 246, 0.04);
 }
-
 .orbit-ring.r4 { 
-    width: 70%; 
-    aspect-ratio: 1;
-    margin-left: -35%;
-    margin-top: -35%;
+    width: 70%; aspect-ratio: 1;
+    margin-left: -35%; margin-top: -35%;
     border-color: rgba(59, 130, 246, 0.15);
     box-shadow: 0 0 30px rgba(59, 130, 246, 0.05), inset 0 0 30px rgba(59, 130, 246, 0.03);
 }
@@ -211,31 +200,23 @@
 }
 
 .orbit-group.og1 { 
-    width: 22%; 
-    aspect-ratio: 1;
-    margin-left: -11%;
-    margin-top: -11%;
+    width: 22%; aspect-ratio: 1;
+    margin-left: -11%; margin-top: -11%;
     animation: orbit-spin 18s linear infinite;
 }
 .orbit-group.og2 { 
-    width: 38%; 
-    aspect-ratio: 1;
-    margin-left: -19%;
-    margin-top: -19%;
+    width: 38%; aspect-ratio: 1;
+    margin-left: -19%; margin-top: -19%;
     animation: orbit-spin 26s linear infinite reverse;
 }
 .orbit-group.og3 { 
-    width: 54%; 
-    aspect-ratio: 1;
-    margin-left: -27%;
-    margin-top: -27%;
+    width: 54%; aspect-ratio: 1;
+    margin-left: -27%; margin-top: -27%;
     animation: orbit-spin 34s linear infinite;
 }
 .orbit-group.og4 { 
-    width: 70%; 
-    aspect-ratio: 1;
-    margin-left: -35%;
-    margin-top: -35%;
+    width: 70%; aspect-ratio: 1;
+    margin-left: -35%; margin-top: -35%;
     animation: orbit-spin 42s linear infinite reverse;
 }
 
@@ -258,33 +239,26 @@
 
 .sun-glow {
     position: absolute;
-    width: 100px;
-    height: 100px;
-    top: -50px;
-    left: -50px;
+    width: 100px; height: 100px;
+    top: -50px; left: -50px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, transparent 65%);
     animation: sun-glow-pulse 3s ease-in-out infinite;
 }
 
 .sun-core {
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 40%, #fef3c7, #fbbf24, #f59e0b);
     position: relative;
     z-index: 2;
-    box-shadow: 
-        0 0 25px rgba(251, 191, 36, 0.5),
-        0 0 50px rgba(251, 191, 36, 0.25),
-        0 0 75px rgba(245, 158, 11, 0.12);
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(251, 191, 36, 0.25), 0 0 75px rgba(245, 158, 11, 0.12);
     animation: sun-pulse 3s ease-in-out infinite;
 }
 
 .sun-label {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     color: #1a1a2e;
     font-family: 'Audiowide', cursive;
@@ -297,12 +271,8 @@
 }
 
 @keyframes sun-pulse {
-    0%, 100% { 
-        box-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(251, 191, 36, 0.25), 0 0 75px rgba(245, 158, 11, 0.12);
-    }
-    50% { 
-        box-shadow: 0 0 35px rgba(251, 191, 36, 0.7), 0 0 65px rgba(251, 191, 36, 0.4), 0 0 90px rgba(245, 158, 11, 0.2);
-    }
+    0%, 100% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(251, 191, 36, 0.25), 0 0 75px rgba(245, 158, 11, 0.12); }
+    50% { box-shadow: 0 0 35px rgba(251, 191, 36, 0.7), 0 0 65px rgba(251, 191, 36, 0.4), 0 0 90px rgba(245, 158, 11, 0.2); }
 }
 
 @keyframes sun-glow-pulse {
@@ -317,17 +287,16 @@
     position: absolute;
     cursor: pointer;
     pointer-events: auto;
-    /* Counter-rotation keeps image and label upright */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 /* Planet body */
 .planet-body {
     position: relative;
-    width: 58px;
-    height: 58px;
+    width: 58px; height: 58px;
     border-radius: 50%;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -336,8 +305,7 @@
 }
 
 .planet-body img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
 }
 
@@ -357,18 +325,14 @@
 
 .project-planet:hover .planet-atmosphere {
     border-color: rgba(99, 102, 241, 0.7);
-    box-shadow: 
-        0 0 25px rgba(99, 102, 241, 0.5),
-        inset 0 0 15px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.5), inset 0 0 15px rgba(99, 102, 241, 0.1);
 }
 
 /* Planet ring */
 .planet-ring {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 76px;
-    height: 16px;
+    top: 50%; left: 50%;
+    width: 76px; height: 16px;
     border-radius: 50%;
     border: 1.5px solid rgba(99, 102, 241, 0.18);
     transform: translate(-50%, -50%) rotateX(75deg);
@@ -384,36 +348,29 @@
 /* Moons */
 .planet-moons {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     pointer-events: none;
 }
 
 .planet-moon {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 5px; height: 5px;
     border-radius: 50%;
     box-shadow: 0 0 5px currentColor;
 }
 
-.moon-1 { 
-    animation: moon-orbit 2.5s linear infinite;
-}
-.moon-2 { 
-    animation: moon-orbit 3.5s linear infinite reverse;
-    animation-delay: -0.8s;
-}
+.moon-1 { animation: moon-orbit 2.5s linear infinite; }
+.moon-2 { animation: moon-orbit 3.5s linear infinite reverse; animation-delay: -0.8s; }
 
 @keyframes moon-orbit {
     from { transform: rotate(0deg) translateX(38px) rotate(0deg); }
     to { transform: rotate(360deg) translateX(38px) rotate(-360deg); }
 }
 
-/* Planet label */
+/* Planet label - FIXED BELOW PLANET */
 .planet-label {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
@@ -424,6 +381,7 @@
     text-align: center;
     transition: all 0.4s ease;
     letter-spacing: 0.3px;
+    pointer-events: none;
 }
 
 .project-planet:hover .planet-label {
@@ -432,8 +390,7 @@
 }
 
 .planet-type-dot {
-    width: 5px;
-    height: 5px;
+    width: 5px; height: 5px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 3px;
@@ -445,22 +402,12 @@
 .planet-type-dot.certification { background: #22c55e; box-shadow: 0 0 4px #22c55e; }
 
 /* ============================================
-   PLANET POSITIONS ON ORBIT RINGS
+   COUNTER-ROTATION - KEEPS PLANET UPRIGHT
    ============================================ */
-/* Orbit 1 (inner) - 3 planets */
-.orbit-group.og1 .project-planet {
-    /* Counter-rotate to keep upright */
-    animation: counter-spin-18 18s linear infinite;
-}
-.orbit-group.og2 .project-planet {
-    animation: counter-spin-26 26s linear infinite reverse;
-}
-.orbit-group.og3 .project-planet {
-    animation: counter-spin-34 34s linear infinite;
-}
-.orbit-group.og4 .project-planet {
-    animation: counter-spin-42 42s linear infinite reverse;
-}
+.orbit-group.og1 .project-planet { animation: counter-spin-18 18s linear infinite; }
+.orbit-group.og2 .project-planet { animation: counter-spin-26 26s linear infinite reverse; }
+.orbit-group.og3 .project-planet { animation: counter-spin-34 34s linear infinite; }
+.orbit-group.og4 .project-planet { animation: counter-spin-42 42s linear infinite reverse; }
 
 @keyframes counter-spin-18 {
     from { transform: rotate(0deg); }
@@ -479,7 +426,7 @@
     to { transform: rotate(360deg); }
 }
 
-/* Planet positions */
+/* Planet positions on orbit */
 .project-planet.pos-0 { top: -29px; left: calc(50% - 29px); }
 .project-planet.pos-1 { top: calc(50% - 29px); right: -29px; left: auto; }
 .project-planet.pos-2 { bottom: -29px; left: calc(50% - 29px); top: auto; }
@@ -493,16 +440,8 @@
 }
 
 @keyframes planet-fall {
-    0% {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-        filter: blur(0);
-    }
-    100% {
-        transform: scale(0.15) translateY(500px);
-        opacity: 0;
-        filter: blur(6px);
-    }
+    0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
+    100% { transform: scale(0.15) translateY(500px); opacity: 0; filter: blur(6px); }
 }
 
 .project-planet.rising {
@@ -510,21 +449,9 @@
 }
 
 @keyframes planet-rise {
-    0% {
-        transform: scale(0) translateY(400px);
-        opacity: 0;
-        filter: blur(8px);
-    }
-    70% {
-        transform: scale(1.08) translateY(-5px);
-        opacity: 1;
-        filter: blur(0);
-    }
-    100% {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-        filter: blur(0);
-    }
+    0% { transform: scale(0) translateY(400px); opacity: 0; filter: blur(8px); }
+    70% { transform: scale(1.08) translateY(-5px); opacity: 1; filter: blur(0); }
+    100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
 }
 
 .project-planet.hidden {
@@ -532,7 +459,26 @@
 }
 
 /* ============================================
-   DETAIL MODAL OVERLAY - FROM CENTER
+   PLANET SIZE CONTROL (via CSS variable)
+   ============================================ */
+.orrery-container {
+    --planet-scale: 1;
+}
+
+.project-planet .planet-body {
+    transform: scale(var(--planet-scale));
+}
+
+.project-planet .planet-ring {
+    transform: translate(-50%, -50%) rotateX(75deg) scale(var(--planet-scale));
+}
+
+.project-planet .planet-moon {
+    transform: scale(var(--planet-scale));
+}
+
+/* ============================================
+   DETAIL MODAL OVERLAY
    ============================================ */
 .detail-overlay {
     position: fixed;
@@ -561,9 +507,7 @@
     max-width: 440px;
     max-height: 82vh;
     overflow-y: auto;
-    box-shadow: 
-        0 25px 80px rgba(0, 0, 0, 0.55),
-        0 0 50px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55), 0 0 50px rgba(99, 102, 241, 0.15);
     transform: scale(0.5) translateY(20px);
     opacity: 0;
     transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -576,8 +520,7 @@
 }
 
 .detail-image {
-    width: 100%;
-    height: 200px;
+    width: 100%; height: 200px;
     border-radius: 24px 24px 0 0;
     overflow: hidden;
     position: relative;
@@ -585,8 +528,7 @@
 }
 
 .detail-image img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
 }
 
@@ -598,10 +540,8 @@
 
 .detail-close {
     position: absolute;
-    top: 0.8rem;
-    right: 0.8rem;
-    width: 34px;
-    height: 34px;
+    top: 0.8rem; right: 0.8rem;
+    width: 34px; height: 34px;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -637,23 +577,9 @@
     margin-bottom: 0.6rem;
 }
 
-.detail-type-badge.freelance {
-    background: rgba(59, 130, 246, 0.15);
-    color: #60a5fa;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.detail-type-badge.personal {
-    background: rgba(139, 92, 246, 0.15);
-    color: #a78bfa;
-    border: 1px solid rgba(139, 92, 246, 0.3);
-}
-
-.detail-type-badge.certification {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-}
+.detail-type-badge.freelance { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.detail-type-badge.personal { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+.detail-type-badge.certification { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
 
 .detail-title {
     font-family: 'Orbitron', sans-serif;
@@ -689,28 +615,48 @@
 }
 
 /* ============================================
-   ZOOM CONTROLS
+   ZOOM CONTROLS - FIXED, 6 BUTTONS
    ============================================ */
 .zoom-controls {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    z-index: 15;
+    gap: 0.4rem;
+    z-index: 50;
+}
+
+.zoom-controls .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 40px;
+    padding: 0.5rem 0.4rem;
+    backdrop-filter: blur(10px);
+}
+
+.zoom-controls .control-label {
+    color: #64748b;
+    font-size: 0.55rem;
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 0 0.3rem;
 }
 
 .zoom-btn {
-    width: 38px;
-    height: 38px;
+    width: 36px; height: 36px;
     border-radius: 50%;
-    background: rgba(15, 23, 42, 0.75);
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(99, 102, 241, 0.2);
     color: #a5b4fc;
     cursor: pointer;
-    font-size: 1rem;
-    backdrop-filter: blur(8px);
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -721,11 +667,11 @@
     background: rgba(99, 102, 241, 0.2);
     border-color: rgba(99, 102, 241, 0.5);
     color: #fff;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
 }
 
 .zoom-btn:active {
-    transform: scale(0.9);
+    transform: scale(0.88);
 }
 
 /* ============================================
@@ -739,14 +685,8 @@
 }
 
 @keyframes sparkle-burst {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(var(--sx), var(--sy)) scale(0);
-        opacity: 0;
-    }
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
 }
 
 /* ============================================
@@ -756,27 +696,12 @@
     .projects-title { font-size: 2.2rem; }
     .projects-subtitle { font-size: 0.85rem; }
     
-    .orrery-container {
-        max-width: 95vw;
-    }
+    .orrery-container { max-width: 95vw; }
     
-    .planet-body { 
-        width: 38px; 
-        height: 38px; 
-    }
-    .planet-ring { 
-        width: 52px; 
-        height: 12px; 
-        border-width: 1px;
-    }
-    .planet-label { 
-        font-size: 0.5rem; 
-        top: calc(100% + 5px);
-    }
-    .planet-moon {
-        width: 4px;
-        height: 4px;
-    }
+    .planet-body { width: 38px; height: 38px; }
+    .planet-ring { width: 52px; height: 12px; border-width: 1px; }
+    .planet-label { font-size: 0.5rem; top: calc(100% + 6px); }
+    .planet-moon { width: 4px; height: 4px; }
     
     .sun-core { width: 32px; height: 32px; }
     .sun-glow { width: 70px; height: 70px; top: -35px; left: -35px; }
@@ -787,54 +712,52 @@
     .detail-content { padding: 1rem 1.4rem 1.4rem; }
     .detail-title { font-size: 1.1rem; }
     
-    .zoom-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+    .zoom-btn { width: 30px; height: 30px; font-size: 0.8rem; }
+    .zoom-controls { bottom: 16px; right: 12px; gap: 0.3rem; }
+    .zoom-controls .control-group { padding: 0.35rem 0.3rem; }
+    .zoom-controls .control-label { font-size: 0.48rem; }
+    
+    /* Adjust planet positions for smaller size */
+    .project-planet.pos-0 { top: -19px; left: calc(50% - 19px); }
+    .project-planet.pos-1 { top: calc(50% - 19px); right: -19px; left: auto; }
+    .project-planet.pos-2 { bottom: -19px; left: calc(50% - 19px); top: auto; }
+    
+    @keyframes moon-orbit {
+        from { transform: rotate(0deg) translateX(26px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(26px) rotate(-360deg); }
+    }
 }
 
 @media (max-width: 480px) {
     .projects-title { font-size: 1.8rem; }
+    .orrery-container { max-width: 98vw; }
     
-    .orrery-container {
-        max-width: 98vw;
-    }
+    .planet-body { width: 28px; height: 28px; }
+    .planet-ring { width: 40px; height: 9px; }
+    .planet-label { font-size: 0.42rem; top: calc(100% + 5px); }
+    .planet-moon { width: 3px; height: 3px; }
     
-    .planet-body { 
-        width: 30px; 
-        height: 30px; 
-    }
-    .planet-ring { 
-        width: 42px; 
-        height: 10px; 
-    }
-    .planet-label { 
-        font-size: 0.45rem; 
-    }
-    .planet-moon {
-        width: 3px;
-        height: 3px;
-    }
-    .moon-1 { animation: moon-orbit-sm1 2s linear infinite; }
-    .moon-2 { animation: moon-orbit-sm2 2.8s linear infinite reverse; }
-    
-    @keyframes moon-orbit-sm1 {
-        from { transform: rotate(0deg) translateX(24px) rotate(0deg); }
-        to { transform: rotate(360deg) translateX(24px) rotate(-360deg); }
-    }
-    @keyframes moon-orbit-sm2 {
-        from { transform: rotate(0deg) translateX(24px) rotate(0deg); }
-        to { transform: rotate(-360deg) translateX(24px) rotate(360deg); }
-    }
-    
-    .sun-core { width: 26px; height: 26px; }
-    .sun-glow { width: 55px; height: 55px; top: -27px; left: -27px; }
+    .sun-core { width: 24px; height: 24px; }
+    .sun-glow { width: 50px; height: 50px; top: -25px; left: -25px; }
     
     .filter-tab { padding: 0.45rem 0.9rem; font-size: 0.7rem; }
     .filter-dot { width: 6px; height: 6px; }
     
-    .detail-modal { width: 96%; max-height: 78vh; }
+    .detail-modal { width: 96%; max-height: 78vh; border-radius: 20px; }
     .detail-image { height: 140px; border-radius: 20px 20px 0 0; }
-    .detail-modal { border-radius: 20px; }
     .detail-content { padding: 0.8rem 1.1rem 1.2rem; }
     
-    .zoom-controls { bottom: 8px; right: 8px; gap: 0.35rem; }
-    .zoom-btn { width: 28px; height: 28px; font-size: 0.75rem; }
+    .zoom-btn { width: 26px; height: 26px; font-size: 0.7rem; }
+    .zoom-controls { bottom: 10px; right: 8px; }
+    .zoom-controls .control-group { padding: 0.3rem 0.25rem; border-radius: 30px; }
+    
+    /* Adjust positions */
+    .project-planet.pos-0 { top: -14px; left: calc(50% - 14px); }
+    .project-planet.pos-1 { top: calc(50% - 14px); right: -14px; left: auto; }
+    .project-planet.pos-2 { bottom: -14px; left: calc(50% - 14px); top: auto; }
+    
+    @keyframes moon-orbit {
+        from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+    }
 }
