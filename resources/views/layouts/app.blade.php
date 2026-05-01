@@ -57,6 +57,7 @@
     <script src="{{ asset('js/navbar.js') }}"></script>
     <script src="{{ asset('js/loading.js') }}"></script>
     <script src="{{ asset('js/what-i-use.js') }}"></script>
+    <script src="{{ asset('js/what-ive-built.js') }}"></script>
 </body>
 
 </html>
