@@ -511,9 +511,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ============================================
-    // INITIALIZE
-    // ============================================
     createAllNodes();
     drawConstellations();
     updateCategoryCounts('all');
