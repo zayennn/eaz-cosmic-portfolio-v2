@@ -81,10 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function openMenu() {
-        // Save current scroll position
         scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Lock body scroll
         document.body.style.position = 'fixed';
         document.body.style.top = `-${scrollPosition}px`;
         document.body.style.width = '100%';
