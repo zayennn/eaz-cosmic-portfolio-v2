@@ -241,9 +241,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // ============================================
-    // FILTER TABS
-    // ============================================
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function () {
             if (this.classList.contains('active')) return;
