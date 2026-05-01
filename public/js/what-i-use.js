@@ -426,9 +426,6 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(drawConstellations);
     }
 
-    // ============================================
-    // STELLAR EVENTS
-    // ============================================
     function createStellarEvent(node) {
         const rect = node.getBoundingClientRect();
         const container = document.querySelector('.skills-constellation');
