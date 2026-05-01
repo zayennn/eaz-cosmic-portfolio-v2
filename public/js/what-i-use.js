@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 setTimeout(() => {
                     el.classList.add('filter-in');
-                }, index * 40); // Staggered pop-in
+                }, index * 40);
             });
 
             if (nodesToExplode.length > 0) {
