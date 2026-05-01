@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // HAMBURGER TOGGLE WITH SCROLL LOCK
     // ============================================
     if (hamburger && hamburgerCheckbox && mobileMenuOverlay) {
-        // Toggle menu
         hamburger.addEventListener('click', (e) => {
             e.preventDefault();
             
