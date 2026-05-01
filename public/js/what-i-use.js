@@ -149,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, (duration + 0.2) * 1000);
         }
         
-        // Add flash effect
         const flash = document.createElement('div');
         flash.classList.add('explosion-flash');
         flash.style.cssText = `
