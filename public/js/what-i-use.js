@@ -295,9 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // SELECT SKILL
-    // ============================================
     function selectSkill(skill, nodeElement) {
         if (selectedSkill) {
             const prevNode = allNodes.find(n => n.skill.id === selectedSkill.id);
