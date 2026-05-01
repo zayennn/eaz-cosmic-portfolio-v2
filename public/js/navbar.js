@@ -28,9 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ============================================
-    // HAMBURGER TOGGLE WITH SCROLL LOCK
-    // ============================================
     if (hamburger && hamburgerCheckbox && mobileMenuOverlay) {
         hamburger.addEventListener('click', (e) => {
             e.preventDefault();
