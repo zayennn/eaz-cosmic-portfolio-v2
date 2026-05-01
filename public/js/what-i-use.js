@@ -353,9 +353,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
 
-    // ============================================
-    // CATEGORY FILTER BUTTONS
-    // ============================================
     categoryBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             if (this.classList.contains('active')) return;
@@ -368,7 +365,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             filterSkills(category);
             
-            // Reset selection
             selectedSkill = null;
             detailContent.classList.remove('active');
             detailPlaceholder.style.display = '';
