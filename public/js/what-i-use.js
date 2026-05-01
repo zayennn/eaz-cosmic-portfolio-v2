@@ -195,18 +195,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }, index * 30);
         });
 
-        // PHASE 2: Pop in matching nodes
         const totalExplosionTime = nodesToExplode.length * 30 + 400;
         
         setTimeout(() => {
-            // Show all matching nodes
             allNodes.forEach(({ el, skill }) => {
                 if (category === 'all' || skill.category === category) {
                     el.classList.remove('hidden', 'filter-in');
                 }
             });
 
-            // Reorder and pop-in with stagger
             const visibleNodes = allNodes
                 .filter(({ skill }) => category === 'all' || skill.category === category)
                 .sort((a, b) => {
