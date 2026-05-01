@@ -14,10 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Store scroll position
     let scrollPosition = 0;
-    
-    // ============================================
-    // NAVBAR SCROLL EFFECT
-    // ============================================
+
     if (navbar) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
