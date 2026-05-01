@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section()
+@section("title", "Me, Basically")
 
 @section('content')
     <section id="home" class="hero fade-in">
