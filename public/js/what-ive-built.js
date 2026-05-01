@@ -252,9 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ============================================
-    // INITIALIZE
-    // ============================================
     createOrrery();
     animateOrreryZoom();
     animatePlanetScale();
