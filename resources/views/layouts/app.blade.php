@@ -20,6 +20,8 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @elseif(request()->routeIs("what-i-use"))
         <link rel="stylesheet" href="{{ asset('css/what-i-use.css') }}">
+    @elseif(request()->routeIs("what-ive-built"))
+        <link rel="stylesheet" href="{{ asset('css/what-i\'ve-built.css') }}">
     @endif
 
     {{-- font awesome --}}
