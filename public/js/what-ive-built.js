@@ -164,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function planetZoomOut() { targetPlanetScale = Math.max(0.4, targetPlanetScale - 0.15); }
     function planetZoomReset() { targetPlanetScale = 1; }
 
-    // Button events - 6 buttons
     zoomInOrrery.addEventListener('click', orreryZoomIn);
     zoomOutOrrery.addEventListener('click', orreryZoomOut);
     resetOrrery.addEventListener('click', orreryZoomReset);
