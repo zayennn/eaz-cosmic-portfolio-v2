@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
     const mobileCvBtn = document.querySelector('.mobile-cv-btn');
     
-    // Store scroll position
     let scrollPosition = 0;
 
     if (navbar) {
