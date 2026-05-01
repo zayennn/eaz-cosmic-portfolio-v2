@@ -137,9 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ============================================
-    // HANDLE BROWSER BACK/FORWARD BUTTONS
-    // ============================================
     window.addEventListener('popstate', () => {
         if (hamburgerCheckbox.checked) {
             closeMenu();
