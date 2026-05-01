@@ -160,9 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => flash.remove(), 800);
     }
 
-    // ============================================
-    // FILTER WITH EXPLOSION + POP-IN
-    // ============================================
     function filterSkills(category) {
         if (isFiltering) return;
         isFiltering = true;
@@ -170,18 +167,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const nodesToKeep = [];
         const nodesToExplode = [];
 
-        // Separate nodes to keep and explode
         allNodes.forEach(({ el, skill }) => {
             if (category === 'all' || skill.category === category) {
-                // Already visible and should stay
                 if (!el.classList.contains('hidden')) {
                     nodesToKeep.push(el);
                 } else {
-                    // Will pop in
                     nodesToKeep.push(el);
                 }
             } else {
-                // Should explode and hide
                 if (!el.classList.contains('hidden')) {
                     nodesToExplode.push({ el, skill });
                 }
