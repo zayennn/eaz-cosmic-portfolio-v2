@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'What I\'ve Built - Elang Atha Zahran')
+@section('title', 'What I\'ve Built')
 
 @section('content')
 <section class="projects-page">
