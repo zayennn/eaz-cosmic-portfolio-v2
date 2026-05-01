@@ -277,9 +277,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => ripple.remove(), 1000);
     }
 
-    // ============================================
-    // UPDATE CATEGORY COUNTS
-    // ============================================
     function updateCategoryCounts(activeCat) {
         const counts = {
             all: skillsData.length,
