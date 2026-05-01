@@ -231,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCategoryCounts(category);
     }
 
-    // Central burst effect
     function createCentralBurst() {
         const container = document.querySelector('.skills-constellation');
         const rect = container.getBoundingClientRect();
