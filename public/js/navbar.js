@@ -145,23 +145,15 @@ document.addEventListener('DOMContentLoaded', function() {
             closeMenu();
         }
     });
-    
-    // ============================================
-    // PREVENT SCROLL WHEN MENU IS OPEN
-    // (Additional safety measures)
-    // ============================================
-    
-    // Disable smooth scroller when menu is open
+
     const originalScrollTo = window.scrollTo;
     window.scrollTo = function(...args) {
         if (hamburgerCheckbox && hamburgerCheckbox.checked) {
-            // Don't allow scrollTo when menu is open
             return;
         }
         return originalScrollTo.apply(this, args);
     };
     
-    // Prevent any scroll events
     window.addEventListener('scroll', function(e) {
         if (hamburgerCheckbox && hamburgerCheckbox.checked) {
             window.scrollTo(0, scrollPosition);
