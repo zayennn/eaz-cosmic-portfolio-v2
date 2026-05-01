@@ -181,17 +181,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // PHASE 1: Explode nodes that don't match
         nodesToExplode.forEach(({ el, skill }, index) => {
             setTimeout(() => {
                 createExplosionAtNode(el, skill.iconColor);
                 
-                // Add shake effect
                 el.style.animation = 'none';
-                el.offsetHeight; // Force reflow
                 el.style.animation = 'node-shake 0.3s ease';
                 
-                // Hide after explosion
                 setTimeout(() => {
                     el.classList.add('hidden');
                     el.style.animation = '';
