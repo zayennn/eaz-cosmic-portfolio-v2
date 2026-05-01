@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     el.classList.add('hidden');
                     el.style.animation = '';
                 }, 150);
-            }, index * 30); // Stagger explosions
+            }, index * 30);
         });
 
         // PHASE 2: Pop in matching nodes
