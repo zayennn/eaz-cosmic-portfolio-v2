@@ -33,7 +33,7 @@
         rel="stylesheet">
 </head>
 
-<body>
+<body data-stars="{{ $starsCount ?? 200 }}">
     @include('components.loading')
 
     <div id="star-field"></div>

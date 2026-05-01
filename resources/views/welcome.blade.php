@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section()
+
 @section('content')
     <section id="home" class="hero fade-in">
         <div class="hero-grid">
