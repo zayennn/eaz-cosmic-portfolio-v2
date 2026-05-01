@@ -462,9 +462,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => eventContainer.remove(), 1200);
     }
 
-    // ============================================
-    // MAGNETIC MOUSE INTERACTION (REPEL)
-    // ============================================
     document.addEventListener('mousemove', (e) => {
         const nodes = document.querySelectorAll('.skill-node:not(.hidden)');
         const container = document.querySelector('.skills-constellation');
