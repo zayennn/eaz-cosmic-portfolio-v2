@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.top = `-${scrollPosition}px`;
         document.body.style.width = '100%';
         document.body.style.overflow = 'hidden';
-        document.body.style.touchAction = 'none'; // Prevent touch scroll on mobile
+        document.body.style.touchAction = 'none';
         
         document.documentElement.style.overflow = 'hidden';
         document.documentElement.style.touchAction = 'none';
