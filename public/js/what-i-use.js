@@ -35,9 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 'git', name: 'Git & GitHub', icon: 'fa-brands fa-git-alt', iconColor: '#f05032', category: 'tools', mastery: 88, description: 'Version control mastery with branching strategies, collaboration workflows, and CI/CD.', tags: ['Version Control', 'Branch', 'CI/CD', 'Collaborate'], experience: '3+ years', projects: 28, stars: 5 }
     ];
 
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
     const nodesContainer = document.getElementById('skillsNodes');
     const detailPlaceholder = document.getElementById('detailPlaceholder');
     const detailContent = document.getElementById('detailContent');
