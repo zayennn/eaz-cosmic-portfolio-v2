@@ -109,22 +109,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
         document.body.style.touchAction = '';
         
-        // Unlock html scroll
         document.documentElement.style.overflow = '';
         document.documentElement.style.touchAction = '';
         
-        // Restore scroll position
         window.scrollTo(0, scrollPosition);
         
-        // Update hamburger state
         hamburgerCheckbox.checked = false;
         hamburger.classList.remove('menu-open');
         mobileMenuOverlay.classList.remove('active');
     }
-    
-    // ============================================
-    // ACTIVE LINK DETECTION
-    // ============================================
+
     const currentPath = window.location.pathname;
     
     document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
