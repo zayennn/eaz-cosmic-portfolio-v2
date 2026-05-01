@@ -1,17 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const skillsData = [
-        // Frontend
         { id: 'html', name: 'HTML5', icon: 'fa-brands fa-html5', iconColor: '#e44d26', category: 'frontend', mastery: 95, description: 'Semantic markup specialist with deep understanding of accessibility standards, SEO optimization, and modern HTML5 APIs.', tags: ['Semantic', 'Accessibility', 'SEO', 'APIs'], experience: '3+ years', projects: 25, stars: 5 },
         { id: 'css', name: 'CSS3', icon: 'fa-brands fa-css3-alt', iconColor: '#264de4', category: 'frontend', mastery: 92, description: 'Advanced styling with Flexbox, Grid, animations, custom properties, and responsive design principles.', tags: ['Flexbox', 'Grid', 'Animation', 'Responsive'], experience: '3+ years', projects: 25, stars: 5 },
         { id: 'javascript', name: 'JavaScript', icon: 'fa-brands fa-js', iconColor: '#f7df1e', category: 'frontend', mastery: 90, description: 'Modern ES6+ development with async/await, DOM manipulation, event handling, and API integration.', tags: ['ES6+', 'Async', 'DOM', 'API'], experience: '3+ years', projects: 22, stars: 5 },
         { id: 'react', name: 'React.js', icon: 'fa-brands fa-react', iconColor: '#61dafb', category: 'frontend', mastery: 87, description: 'Building scalable SPAs with hooks, context API, Redux, and modern React patterns.', tags: ['Hooks', 'Context', 'Redux', 'SPA'], experience: '2+ years', projects: 15, stars: 4 },
         { id: 'vite', name: 'Vite', icon: 'fa-solid fa-bolt', iconColor: '#bd34fe', category: 'frontend', mastery: 82, description: 'Next-gen frontend build tool with HMR, fast cold starts, and optimized builds.', tags: ['HMR', 'Build', 'ESBuild', 'Fast'], experience: '1.5+ years', projects: 12, stars: 4 },
         
-        // Frontend Animation Libraries
         { id: 'framer-motion', name: 'Framer Motion', icon: 'fa-solid fa-play', iconColor: '#ff0055', category: 'frontend', mastery: 80, description: 'Declarative animation library for React with gesture support and layout animations.', tags: ['Animation', 'Gesture', 'Layout', 'React'], experience: '1+ years', projects: 8, stars: 3 },
         { id: 'gsap', name: 'GSAP', icon: 'fa-solid fa-star', iconColor: '#88ce02', category: 'frontend', mastery: 78, description: 'Professional-grade animation library with ScrollTrigger, timelines, and high performance.', tags: ['Timeline', 'Scroll', 'Animation', 'SVG'], experience: '1+ years', projects: 6, stars: 3 },
         
-        // Backend
         { id: 'nodejs', name: 'Node.js', icon: 'fa-brands fa-node-js', iconColor: '#339933', category: 'backend', mastery: 80, description: 'Server-side JavaScript runtime with event-driven architecture for scalable applications.', tags: ['Event-driven', 'NPM', 'Async', 'Scalable'], experience: '2+ years', projects: 12, stars: 4 },
         { id: 'express', name: 'Express', icon: 'fa-solid fa-server', iconColor: '#000000', category: 'backend', mastery: 78, description: 'Minimalist Node.js framework for building RESTful APIs and web applications.', tags: ['REST', 'Middleware', 'Routing', 'API'], experience: '1.5+ years', projects: 10, stars: 3 },
         { id: 'php', name: 'PHP', icon: 'fa-brands fa-php', iconColor: '#777bb4', category: 'backend', mastery: 88, description: 'Server-side scripting with OOP principles, MVC architecture, and modern PHP practices.', tags: ['OOP', 'MVC', 'Web', 'Backend'], experience: '2.5+ years', projects: 20, stars: 4 },
@@ -21,11 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 'java', name: 'Java', icon: 'fa-brands fa-java', iconColor: '#ed8b00', category: 'backend', mastery: 65, description: 'Object-oriented programming for enterprise applications and Android development.', tags: ['OOP', 'Enterprise', 'Android', 'JVM'], experience: '1+ years', projects: 4, stars: 2 },
         { id: 'c', name: 'C', icon: 'fa-solid fa-microchip', iconColor: '#a8b9cc', category: 'backend', mastery: 55, description: 'Low-level programming for system applications and embedded development.', tags: ['Low-level', 'System', 'Pointer', 'Memory'], experience: '6+ months', projects: 3, stars: 2 },
         
-        // Database
         { id: 'mysql', name: 'MySQL', icon: 'fa-solid fa-database', iconColor: '#4479a1', category: 'database', mastery: 84, description: 'Relational database design, complex queries, optimization, and data modeling.', tags: ['SQL', 'Queries', 'Optimization', 'Modeling'], experience: '2.5+ years', projects: 22, stars: 4 },
         { id: 'mariadb', name: 'MariaDB', icon: 'fa-solid fa-database', iconColor: '#c0765a', category: 'database', mastery: 70, description: 'Open-source relational database, compatible with MySQL with enhanced features.', tags: ['SQL', 'Open Source', 'MySQL Compatible'], experience: '1+ years', projects: 8, stars: 3 },
         
-        // Tools & IDE
         { id: 'vscode', name: 'VS Code', icon: 'fa-solid fa-code', iconColor: '#007acc', category: 'tools', mastery: 95, description: 'Primary code editor with extensive extensions, debugging, and integrated terminal.', tags: ['Editor', 'Extensions', 'Debug', 'Git'], experience: '3+ years', projects: 30, stars: 5 },
         { id: 'intellij', name: 'IntelliJ IDEA', icon: 'fa-solid fa-cube', iconColor: '#fe315d', category: 'tools', mastery: 75, description: 'Powerful Java IDE with intelligent code completion and refactoring tools.', tags: ['IDE', 'Java', 'Refactoring', 'Debug'], experience: '1+ years', projects: 5, stars: 3 },
         { id: 'antigravity', name: 'Antigravity', icon: 'fa-solid fa-rocket', iconColor: '#8b5cf6', category: 'tools', mastery: 70, description: 'Modern development tool for rapid prototyping and code generation.', tags: ['Rapid', 'Prototype', 'Generate'], experience: '6+ months', projects: 4, stars: 3 },
