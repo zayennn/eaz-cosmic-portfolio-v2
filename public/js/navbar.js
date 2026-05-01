@@ -91,18 +91,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
         document.body.style.touchAction = 'none'; // Prevent touch scroll on mobile
         
-        // Prevent scrolling on html element too
         document.documentElement.style.overflow = 'hidden';
         document.documentElement.style.touchAction = 'none';
         
-        // Update hamburger state
         hamburgerCheckbox.checked = true;
         hamburger.classList.add('menu-open');
         mobileMenuOverlay.classList.add('active');
     }
     
     function closeMenu() {
-        // Unlock body scroll
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.width = '';
