@@ -260,9 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
-    // CLICK RIPPLE
-    // ============================================
     function createClickRipple(e, node) {
         const ripple = document.createElement('div');
         ripple.classList.add('filter-ripple');
