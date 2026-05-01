@@ -3,289 +3,266 @@ document.addEventListener('DOMContentLoaded', function() {
     // PROJECTS DATA
     // ============================================
     const projectsData = [
-        { id: 1, title: 'E-Commerce Platform', type: 'freelance', image: '/images/projects/ecommerce.jpg', desc: 'Full-stack e-commerce platform with payment gateway integration, admin dashboard, and inventory management.', tech: ['Laravel', 'MySQL', 'Bootstrap'], orbit: 'inner' },
-        { id: 2, title: 'Portfolio Website', type: 'personal', image: '/images/projects/portfolio.jpg', desc: 'Personal portfolio with cosmic theme, smooth animations, and interactive 3D elements.', tech: ['React', 'Framer Motion', 'GSAP'], orbit: 'middle' },
-        { id: 3, title: 'School Management System', type: 'freelance', image: '/images/projects/school.jpg', desc: 'Web-based school management system with student records, attendance tracking, and grade management.', tech: ['PHP', 'MySQL', 'JavaScript'], orbit: 'outer' },
-        { id: 4, title: 'Weather Dashboard', type: 'personal', image: '/images/projects/weather.jpg', desc: 'Real-time weather dashboard with location search, forecasts, and interactive maps.', tech: ['React', 'API', 'CSS3'], orbit: 'inner' },
-        { id: 5, title: 'Laravel Certification', type: 'certification', image: '/images/projects/cert-laravel.jpg', desc: 'Official Laravel certification demonstrating proficiency in building robust web applications.', tech: ['Laravel', 'PHP', 'Testing'], orbit: 'middle' },
-        { id: 6, title: 'Restaurant POS System', type: 'freelance', image: '/images/projects/pos.jpg', desc: 'Point of sale system for restaurants with table management, orders, and kitchen display.', tech: ['Laravel', 'Vue.js', 'MySQL'], orbit: 'outer' },
-        { id: 7, title: 'Task Manager App', type: 'personal', image: '/images/projects/task.jpg', desc: 'Kanban-style task manager with drag-and-drop, teams, and real-time collaboration.', tech: ['React', 'Node.js', 'Socket.io'], orbit: 'inner' },
-        { id: 8, title: 'JavaScript Certification', type: 'certification', image: '/images/projects/cert-js.jpg', desc: 'Advanced JavaScript certification covering ES6+, async patterns, and modern development.', tech: ['JavaScript', 'ES6+', 'DOM'], orbit: 'middle' },
-        { id: 9, title: 'Blog CMS', type: 'personal', image: '/images/projects/blog.jpg', desc: 'Custom blog CMS with markdown editor, categories, tags, and SEO optimization.', tech: ['Laravel', 'Alpine.js', 'Tailwind'], orbit: 'outer' },
-        { id: 10, title: 'Company Profile Website', type: 'freelance', image: '/images/projects/company.jpg', desc: 'Professional company profile with service pages, team section, and contact form.', tech: ['HTML5', 'CSS3', 'JavaScript'], orbit: 'inner' },
-        { id: 11, title: 'Python Certification', type: 'certification', image: '/images/projects/cert-python.jpg', desc: 'Python programming certification covering OOP, data structures, and algorithms.', tech: ['Python', 'OOP', 'Algorithms'], orbit: 'middle' },
-        { id: 12, title: 'Inventory Management', type: 'freelance', image: '/images/projects/inventory.jpg', desc: 'Multi-warehouse inventory system with barcode scanning, stock alerts, and reporting.', tech: ['PHP', 'MySQL', 'jQuery'], orbit: 'outer' }
+        { id: 1, title: 'E-Commerce Platform', type: 'freelance', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop', desc: 'Full-stack e-commerce with payment gateway, admin dashboard, and inventory management.', tech: ['Laravel', 'MySQL', 'Bootstrap'] },
+        { id: 2, title: 'Portfolio Website', type: 'personal', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop', desc: 'Personal portfolio with cosmic theme, smooth animations, and interactive UI.', tech: ['React', 'Framer Motion', 'GSAP'] },
+        { id: 3, title: 'School Management', type: 'freelance', image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=300&fit=crop', desc: 'School system with student records, attendance, and grade management.', tech: ['PHP', 'MySQL', 'JavaScript'] },
+        { id: 4, title: 'Weather Dashboard', type: 'personal', image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=400&h=300&fit=crop', desc: 'Real-time weather dashboard with location search and interactive maps.', tech: ['React', 'API', 'CSS3'] },
+        { id: 5, title: 'Laravel Certification', type: 'certification', image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop', desc: 'Official Laravel certification for robust web application development.', tech: ['Laravel', 'PHP', 'Testing'] },
+        { id: 6, title: 'Restaurant POS', type: 'freelance', image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop', desc: 'POS system with table management, orders, and kitchen display.', tech: ['Laravel', 'Vue.js', 'MySQL'] },
+        { id: 7, title: 'Task Manager App', type: 'personal', image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop', desc: 'Kanban task manager with drag-and-drop and real-time collaboration.', tech: ['React', 'Node.js', 'Socket.io'] },
+        { id: 8, title: 'JavaScript Cert', type: 'certification', image: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop', desc: 'Advanced JavaScript certification covering ES6+ and modern patterns.', tech: ['JavaScript', 'ES6+', 'DOM'] },
+        { id: 9, title: 'Blog CMS', type: 'personal', image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&h=300&fit=crop', desc: 'Custom blog CMS with markdown editor and SEO optimization.', tech: ['Laravel', 'Alpine.js', 'Tailwind'] },
+        { id: 10, title: 'Company Profile', type: 'freelance', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop', desc: 'Professional company profile with services and contact form.', tech: ['HTML5', 'CSS3', 'JavaScript'] },
+        { id: 11, title: 'Python Certification', type: 'certification', image: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop', desc: 'Python certification covering OOP, data structures, and algorithms.', tech: ['Python', 'OOP', 'Algorithms'] },
+        { id: 12, title: 'Inventory System', type: 'freelance', image: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&h=300&fit=crop', desc: 'Multi-warehouse inventory with barcode and stock alerts.', tech: ['PHP', 'MySQL', 'jQuery'] }
     ];
 
     // ============================================
     // DOM ELEMENTS
     // ============================================
     const orreryContainer = document.getElementById('orreryContainer');
-    const planetsContainer = document.getElementById('planetsContainer');
-    const hologramPanel = document.getElementById('hologramPanel');
-    const closeHologram = document.getElementById('closeHologram');
     const filterTabs = document.querySelectorAll('.filter-tab');
+    const detailOverlay = document.getElementById('detailOverlay');
+    const closeDetail = document.getElementById('closeDetail');
     const zoomInBtn = document.getElementById('zoomIn');
     const zoomOutBtn = document.getElementById('zoomOut');
     const resetViewBtn = document.getElementById('resetView');
 
     let activeFilter = 'all';
     let allPlanets = [];
-    let isDragging = false;
-    let startX, startY;
-    let rotationX = 0, rotationY = 0;
     let currentZoom = 1;
     let targetZoom = 1;
 
     // ============================================
-    // CREATE PLANETS
+    // CREATE ORRERY - CENTERED ORBIT SYSTEM
     // ============================================
-    function createPlanets() {
-        planetsContainer.innerHTML = '';
+    function createOrrery() {
+        // Clear existing orbit groups
+        const existingGroups = orreryContainer.querySelectorAll('.orbit-group');
+        existingGroups.forEach(g => g.remove());
         allPlanets = [];
 
+        // Distribution: 3 planets per orbit (12 planets / 4 orbits)
+        const distributed = [[], [], [], []];
         projectsData.forEach((project, index) => {
-            const planet = document.createElement('div');
-            planet.classList.add('project-planet');
-            planet.dataset.projectId = project.id;
-            planet.dataset.type = project.type;
-            planet.dataset.orbit = project.orbit;
-
-            // Position based on orbit
-            const orbitRadius = project.orbit === 'inner' ? 140 : 
-                              project.orbit === 'middle' ? 220 : 300;
-            const angle = (index / projectsData.length) * Math.PI * 2 + (Math.random() * 0.5);
-            const x = 50 + (orbitRadius / 6) * Math.cos(angle);
-            const y = 50 + (orbitRadius / 6) * Math.sin(angle);
-
-            planet.style.left = x + '%';
-            planet.style.top = y + '%';
-
-            // Hanging string length
-            const stringHeight = 40 + Math.random() * 60;
-            
-            planet.innerHTML = `
-                <div class="planet-string" style="height: ${stringHeight}px; bottom: 85%;"></div>
-                <div class="planet-body">
-                    <img src="${project.image}" alt="${project.title}" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #1e293b, #0f172a)';">
-                    <div class="planet-atmosphere"></div>
-                </div>
-                <div class="planet-ring"></div>
-                <div class="planet-moons">
-                    ${project.tech.map((t, i) => `
-                        <div class="planet-moon" style="
-                            animation-delay: -${i * 0.8}s;
-                            animation-duration: ${2 + Math.random() * 2}s;
-                            background: hsl(${200 + i * 40}, 70%, 55%);
-                        "></div>
-                    `).join('')}
-                </div>
-                <div class="planet-label">
-                    ${project.title}
-                    <span class="planet-type">${project.type}</span>
-                </div>
-            `;
-
-            planet.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showHologram(project);
-            });
-
-            planet.addEventListener('mouseenter', () => {
-                createDustTrail(planet);
-            });
-
-            planetsContainer.appendChild(planet);
-            allPlanets.push({ el: planet, project });
+            const orbitIndex = index % 4;
+            distributed[orbitIndex].push(project);
         });
+
+        // Create 4 orbit groups
+        for (let i = 0; i < 4; i++) {
+            const group = document.createElement('div');
+            group.classList.add('orbit-group', 'og' + (i + 1));
+            orreryContainer.appendChild(group);
+
+            // Place 3 planets in each orbit at 0°, 120°, 240°
+            const positions = ['pos-0', 'pos-1', 'pos-2'];
+            distributed[i].forEach((project, pIndex) => {
+                const planet = createPlanetElement(project, positions[pIndex]);
+                group.appendChild(planet);
+                allPlanets.push({ el: planet, project });
+            });
+        }
+
+        // Apply zoom
+        updateZoom();
+    }
+
+    function createPlanetElement(project, posClass) {
+        const planet = document.createElement('div');
+        planet.classList.add('project-planet', posClass);
+        planet.dataset.projectId = project.id;
+        planet.dataset.type = project.type;
+
+        const typeColors = {
+            freelance: { dot: '#3b82f6', glow: '#60a5fa' },
+            personal: { dot: '#8b5cf6', glow: '#a78bfa' },
+            certification: { dot: '#22c55e', glow: '#4ade80' }
+        };
+        const colors = typeColors[project.type] || { dot: '#6366f1', glow: '#a5b4fc' };
+
+        planet.innerHTML = `
+            <div class="planet-body">
+                <img src="${project.image}" alt="${project.title}" 
+                     onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%, #1e293b, #0f172a);color:#64748b;font-size:1.3rem;\\'><i class=\\'fas fa-rocket\\'></i></div>';">
+                <div class="planet-atmosphere" style="border-color: ${colors.dot}40;"></div>
+            </div>
+            <div class="planet-ring" style="border-color: ${colors.dot}25;"></div>
+            <div class="planet-moons">
+                <div class="planet-moon moon-1" style="background: ${colors.dot}; box-shadow: 0 0 4px ${colors.glow};"></div>
+                <div class="planet-moon moon-2" style="background: ${colors.glow}; box-shadow: 0 0 4px ${colors.glow};"></div>
+            </div>
+            <div class="planet-label">
+                <span class="planet-type-dot ${project.type}"></span>${project.title}
+            </div>
+        `;
+
+        planet.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openDetail(project, e);
+        });
+
+        return planet;
     }
 
     // ============================================
-    // FILTER WITH FALL/RISE ANIMATION
+    // FILTER WITH FALL/RISE
     // ============================================
     function filterProjects(filter) {
-        const planetsToFall = [];
-        const planetsToRise = [];
+        const planetsToHide = [];
+        const planetsToShow = [];
 
         allPlanets.forEach(({ el, project }) => {
-            if (filter === 'all' || project.type === filter) {
-                if (el.classList.contains('hidden')) {
-                    planetsToRise.push(el);
-                }
-                el.classList.remove('hidden', 'falling');
-            } else {
-                if (!el.classList.contains('hidden') && !el.classList.contains('falling')) {
-                    planetsToFall.push(el);
-                }
+            const shouldBeVisible = (filter === 'all' || project.type === filter);
+            const isCurrentlyVisible = !el.classList.contains('hidden');
+
+            if (!shouldBeVisible && isCurrentlyVisible && !el.classList.contains('falling')) {
+                planetsToHide.push(el);
+            } else if (shouldBeVisible && !isCurrentlyVisible) {
+                planetsToShow.push(el);
             }
         });
 
-        // Phase 1: Falling planets
-        planetsToFall.forEach((el, i) => {
+        // PHASE 1: Hide
+        planetsToHide.forEach((el, i) => {
             setTimeout(() => {
                 el.classList.add('falling');
+                el.classList.remove('rising');
                 setTimeout(() => {
                     el.classList.add('hidden');
                     el.classList.remove('falling');
-                }, 1200);
-            }, i * 80);
+                }, 850);
+            }, i * 50);
         });
 
-        // Phase 2: Rising planets
+        // PHASE 2: Show
+        const hideDuration = planetsToHide.length * 50 + 850;
         setTimeout(() => {
-            planetsToRise.forEach((el, i) => {
+            planetsToShow.forEach((el, i) => {
                 setTimeout(() => {
-                    el.classList.remove('hidden');
+                    el.classList.remove('hidden', 'falling');
                     el.classList.add('rising');
                     setTimeout(() => {
                         el.classList.remove('rising');
-                    }, 1000);
-                }, i * 100);
+                    }, 700);
+                }, i * 70);
             });
-        }, planetsToFall.length * 80 + 400);
+        }, hideDuration);
     }
 
     // ============================================
-    // DUST TRAIL ON HOVER
+    // ZOOM SYSTEM
     // ============================================
-    function createDustTrail(planet) {
-        const trailContainer = document.getElementById('dustTrail');
-        const rect = planet.getBoundingClientRect();
-        const containerRect = orreryContainer.getBoundingClientRect();
-        
-        const x = rect.left + rect.width / 2 - containerRect.left;
-        const y = rect.top + rect.height / 2 - containerRect.top;
-
-        for (let i = 0; i < 6; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('dust-trail-particle');
-            
-            particle.style.cssText = `
-                left: ${x}px;
-                top: ${y}px;
-                --dx: ${(Math.random() - 0.5) * 30}px;
-                --dy: ${-20 - Math.random() * 30}px;
-                animation-delay: ${Math.random() * 0.5}s;
-                background: hsl(${240 + Math.random() * 60}, 80%, 70%);
-                box-shadow: 0 0 4px rgba(99, 102, 241, 0.6);
-            `;
-            
-            trailContainer.appendChild(particle);
-            setTimeout(() => particle.remove(), 3000);
-        }
+    function updateZoom() {
+        orreryContainer.style.transform = `scale(${currentZoom})`;
     }
 
-    // ============================================
-    // HOLOGRAM PANEL
-    // ============================================
-    function showHologram(project) {
-        document.getElementById('hologramImage').querySelector('img').src = project.image;
-        document.getElementById('hologramTitle').textContent = project.title;
-        document.getElementById('hologramDesc').textContent = project.desc;
-        
-        const typeEl = document.getElementById('hologramType');
-        typeEl.textContent = project.type;
-        typeEl.className = 'hologram-type ' + project.type;
-        
-        hologramPanel.classList.add('active');
+    function animateZoom() {
+        currentZoom += (targetZoom - currentZoom) * 0.12;
+        updateZoom();
+        requestAnimationFrame(animateZoom);
     }
 
-    closeHologram.addEventListener('click', () => {
-        hologramPanel.classList.remove('active');
-    });
+    // Zoom limits: 0.4 - 1.8
+    function zoomIn() {
+        targetZoom = Math.min(1.8, targetZoom + 0.15);
+    }
+    function zoomOut() {
+        targetZoom = Math.max(0.4, targetZoom - 0.15);
+    }
+    function resetZoom() {
+        targetZoom = 1;
+    }
 
-    // ============================================
-    // DRAG TO ROTATE
-    // ============================================
-    orreryContainer.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        orreryContainer.classList.add('dragging');
-    });
+    zoomInBtn.addEventListener('click', zoomIn);
+    zoomOutBtn.addEventListener('click', zoomOut);
+    resetViewBtn.addEventListener('click', resetZoom);
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        
-        rotationY += dx * 0.3;
-        rotationX -= dy * 0.2;
-        
-        updateTransform();
-        
-        startX = e.clientX;
-        startY = e.clientY;
-    });
-
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        orreryContainer.classList.remove('dragging');
-    });
-
-    // Touch support
-    orreryContainer.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-    });
-
-    document.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        const dx = e.touches[0].clientX - startX;
-        const dy = e.touches[0].clientY - startY;
-        
-        rotationY += dx * 0.3;
-        rotationX -= dy * 0.2;
-        
-        updateTransform();
-        
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-    });
-
-    document.addEventListener('touchend', () => {
-        isDragging = false;
-    });
-
-    // Scroll to zoom
+    // Scroll zoom
     orreryContainer.addEventListener('wheel', (e) => {
         e.preventDefault();
-        targetZoom += e.deltaY * -0.001;
-        targetZoom = Math.max(0.5, Math.min(2, targetZoom));
+        targetZoom += e.deltaY * -0.0008;
+        targetZoom = Math.max(0.4, Math.min(1.8, targetZoom));
     }, { passive: false });
 
-    // Zoom buttons
-    zoomInBtn.addEventListener('click', () => {
-        targetZoom = Math.min(2, targetZoom + 0.2);
-    });
+    // ============================================
+    // DETAIL MODAL
+    // ============================================
+    function openDetail(project, event) {
+        const typeColors = {
+            freelance: '#3b82f6',
+            personal: '#8b5cf6',
+            certification: '#22c55e'
+        };
+        const color = typeColors[project.type] || '#6366f1';
+        createSparkles(event.clientX, event.clientY, color);
 
-    zoomOutBtn.addEventListener('click', () => {
-        targetZoom = Math.max(0.5, targetZoom - 0.2);
-    });
+        const detailImage = document.getElementById('detailImage');
+        const imgEl = detailImage.querySelector('img');
+        imgEl.src = project.image;
+        imgEl.style.display = '';
+        imgEl.onerror = function() {
+            this.style.display = 'none';
+            detailImage.style.background = 'linear-gradient(135deg, #1e293b, #0f172a)';
+            detailImage.style.display = 'flex';
+            detailImage.style.alignItems = 'center';
+            detailImage.style.justifyContent = 'center';
+            if (!detailImage.querySelector('.fallback-icon')) {
+                const icon = document.createElement('i');
+                icon.classList.add('fas', 'fa-rocket', 'fallback-icon');
+                icon.style.cssText = 'font-size: 2.5rem; color: #64748b;';
+                detailImage.appendChild(icon);
+            }
+        };
 
-    resetViewBtn.addEventListener('click', () => {
-        rotationX = 0;
-        rotationY = 0;
-        targetZoom = 1;
-        updateTransform();
-    });
+        document.getElementById('detailTitle').textContent = project.title;
+        document.getElementById('detailDesc').textContent = project.desc;
+        const typeBadge = document.getElementById('detailType');
+        typeBadge.textContent = project.type;
+        typeBadge.className = 'detail-type-badge ' + project.type;
+        document.getElementById('detailTech').innerHTML = project.tech.map(t => `<span class="tech-chip">${t}</span>`).join('');
 
-    function updateTransform() {
-        planetsContainer.style.transform = `
-            rotateX(${rotationX}deg) 
-            rotateY(${rotationY}deg)
-            scale(${currentZoom})
-        `;
+        detailOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 
-    // Smooth zoom animation
-    function animateZoom() {
-        currentZoom += (targetZoom - currentZoom) * 0.1;
-        updateTransform();
-        requestAnimationFrame(animateZoom);
+    function closeDetailModal() {
+        detailOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        const detailImage = document.getElementById('detailImage');
+        const fallbackIcon = detailImage.querySelector('.fallback-icon');
+        if (fallbackIcon) fallbackIcon.remove();
+        detailImage.style.background = '';
+        detailImage.style.display = '';
+        detailImage.querySelector('img').style.display = '';
+    }
+
+    closeDetail.addEventListener('click', (e) => { e.stopPropagation(); closeDetailModal(); });
+    detailOverlay.addEventListener('click', (e) => { if (e.target === detailOverlay) closeDetailModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetailModal(); });
+
+    // ============================================
+    // CLICK SPARKLES
+    // ============================================
+    function createSparkles(x, y, color) {
+        const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
+        for (let i = 0; i < 14; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('click-sparkle');
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 20 + Math.random() * 55;
+            sparkle.style.cssText = `
+                left: ${x}px; top: ${y}px;
+                width: ${2 + Math.random() * 4}px; height: ${2 + Math.random() * 4}px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+                --sx: ${Math.cos(angle) * distance}px; --sy: ${Math.sin(angle) * distance}px;
+                animation-delay: ${Math.random() * 0.2}s;
+                box-shadow: 0 0 ${3 + Math.random() * 4}px currentColor;
+            `;
+            document.body.appendChild(sparkle);
+            setTimeout(() => { if (sparkle.isConnected) sparkle.remove(); }, 900);
+        }
     }
 
     // ============================================
@@ -293,41 +270,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function() {
+            if (this.classList.contains('active')) return;
             filterTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
-            const filter = this.dataset.filter;
-            activeFilter = filter;
-            filterProjects(filter);
-            
-            // Close hologram
-            hologramPanel.classList.remove('active');
+            activeFilter = this.dataset.filter;
+            filterProjects(activeFilter);
+            closeDetailModal();
         });
-    });
-
-    // ============================================
-    // KEYBOARD CONTROLS
-    // ============================================
-    document.addEventListener('keydown', (e) => {
-        switch(e.key) {
-            case 'ArrowLeft': rotationY -= 10; break;
-            case 'ArrowRight': rotationY += 10; break;
-            case 'ArrowUp': rotationX -= 5; break;
-            case 'ArrowDown': rotationX += 5; break;
-            case '+': case '=': targetZoom = Math.min(2, targetZoom + 0.1); break;
-            case '-': targetZoom = Math.max(0.5, targetZoom - 0.1); break;
-            case '0': rotationX = 0; rotationY = 0; targetZoom = 1; break;
-            case 'Escape': hologramPanel.classList.remove('active'); break;
-        }
-        updateTransform();
     });
 
     // ============================================
     // INITIALIZE
     // ============================================
-    createPlanets();
+    createOrrery();
     animateZoom();
-    updateTransform();
-
-    console.log('🪐 Cosmic Project Orrery initialized!');
 });
