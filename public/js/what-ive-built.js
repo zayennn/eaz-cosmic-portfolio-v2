@@ -220,9 +220,6 @@ document.addEventListener('DOMContentLoaded', function () {
     detailOverlay.addEventListener('click', (e) => { if (e.target === detailOverlay) closeDetailModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetailModal(); });
 
-    // ============================================
-    // SPARKLES
-    // ============================================
     function createSparkles(x, y, color) {
         const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
         for (let i = 0; i < 14; i++) {
