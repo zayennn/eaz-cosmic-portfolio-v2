@@ -168,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { passive: true });
     
-    // Prevent mouse wheel on entire page when menu is open
     document.addEventListener('wheel', function(e) {
         if (hamburgerCheckbox && hamburgerCheckbox.checked) {
             e.preventDefault();
@@ -176,17 +175,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { passive: false });
     
-    // Prevent touch scroll on entire page when menu is open
     document.addEventListener('touchmove', function(e) {
         if (hamburgerCheckbox && hamburgerCheckbox.checked) {
-            // Allow scroll inside menu content if needed
             const target = e.target;
             if (target.closest('.mobile-menu-content')) {
                 const menuContent = target.closest('.mobile-menu-content');
                 const isAtTop = menuContent.scrollTop === 0;
                 const isAtBottom = menuContent.scrollTop + menuContent.clientHeight >= menuContent.scrollHeight;
                 
-                // If scrolling up at top or down at bottom, prevent
                 if ((isAtTop && e.touches[0].clientY > e.touches[0].clientY + 10) ||
                     (isAtBottom && e.touches[0].clientY < e.touches[0].clientY - 10)) {
                     e.preventDefault();
