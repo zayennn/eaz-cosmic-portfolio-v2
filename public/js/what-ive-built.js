@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const detailOverlay = document.getElementById('detailOverlay');
     const closeDetail = document.getElementById('closeDetail');
 
-    // 6 Zoom buttons
     const zoomInOrrery = document.getElementById('zoomInOrrery');
     const zoomOutOrrery = document.getElementById('zoomOutOrrery');
     const resetOrrery = document.getElementById('resetOrrery');
@@ -34,9 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let planetScale = 1;
     let targetPlanetScale = 1;
 
-    // ============================================
-    // CREATE ORRERY
-    // ============================================
     function createOrrery() {
         const existingGroups = orreryContainer.querySelectorAll('.orbit-group');
         existingGroups.forEach(g => g.remove());
@@ -105,9 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return wrapper;
     }
 
-    // ============================================
-    // FILTER
-    // ============================================
     function filterProjects(filter) {
         const planetsToHide = [];
         const planetsToShow = [];
@@ -143,9 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }, hideDuration);
     }
 
-    // ============================================
-    // ZOOM: ORRERY (ENTIRE CONTAINER)
-    // ============================================
     function updateOrreryZoom() {
         orreryContainer.style.transform = `scale(${orreryZoom})`;
     }
