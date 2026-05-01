@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // ============================================
-    // PROJECTS DATA
-    // ============================================
     const projectsData = [
         { id: 1, title: 'E-Commerce Platform', type: 'freelance', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop', desc: 'Full-stack e-commerce with payment gateway, admin dashboard, and inventory management.', tech: ['Laravel', 'MySQL', 'Bootstrap'] },
         { id: 2, title: 'Portfolio Website', type: 'personal', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop', desc: 'Personal portfolio with cosmic theme, smooth animations, and interactive UI.', tech: ['React', 'Framer Motion', 'GSAP'] },
