@@ -45,28 +45,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Close menu when clicking a mobile link
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 closeMenu();
             });
         });
         
-        // Close menu when clicking CV button
         if (mobileCvBtn) {
             mobileCvBtn.addEventListener('click', () => {
                 closeMenu();
             });
         }
         
-        // Close menu on escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && hamburgerCheckbox.checked) {
                 closeMenu();
             }
         });
         
-        // Prevent scrolling on mobile menu when open
         mobileMenuOverlay.addEventListener('wheel', (e) => {
             if (hamburgerCheckbox.checked) {
                 e.preventDefault();
