@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ============================================
-    // SKILLS DATA - UPDATED
-    // ============================================
     const skillsData = [
         // Frontend
         { id: 'html', name: 'HTML5', icon: 'fa-brands fa-html5', iconColor: '#e44d26', category: 'frontend', mastery: 95, description: 'Semantic markup specialist with deep understanding of accessibility standards, SEO optimization, and modern HTML5 APIs.', tags: ['Semantic', 'Accessibility', 'SEO', 'APIs'], experience: '3+ years', projects: 25, stars: 5 },
