@@ -207,14 +207,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const visibleNodes = allNodes
                 .filter(({ skill }) => category === 'all' || skill.category === category)
                 .sort((a, b) => {
-                    // Randomize a bit for playful feel
                     return (Math.random() - 0.5) * 2;
                 });
 
             visibleNodes.forEach(({ el }, index) => {
                 el.style.order = index;
                 
-                // Reset then trigger pop-in
                 el.classList.remove('filter-in');
                 void el.offsetWidth;
                 
@@ -223,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, index * 40); // Staggered pop-in
             });
 
-            // Create central burst when new nodes appear
             if (nodesToExplode.length > 0) {
                 createCentralBurst();
             }
