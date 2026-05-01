@@ -149,6 +149,7 @@
     max-width: 750px;
     aspect-ratio: 1;
     transition: transform 0.15s ease;
+    --planet-scale: 1;
 }
 
 /* ============================================
@@ -281,7 +282,7 @@
 }
 
 /* ============================================
-   PROJECT PLANET
+   PROJECT PLANET - ALL SCALED TOGETHER
    ============================================ */
 .project-planet {
     position: absolute;
@@ -291,6 +292,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* SCALE EVERYTHING TOGETHER */
+    transform: scale(var(--planet-scale));
+    transform-origin: center center;
+    transition: transform 0.15s ease;
+}
+
+.project-planet:hover {
+    z-index: 20;
 }
 
 /* Planet body */
@@ -320,7 +329,6 @@
 
 .project-planet:hover .planet-body {
     transform: scale(1.2);
-    z-index: 20;
 }
 
 .project-planet:hover .planet-atmosphere {
@@ -367,7 +375,7 @@
     to { transform: rotate(360deg) translateX(38px) rotate(-360deg); }
 }
 
-/* Planet label - FIXED BELOW PLANET */
+/* Planet label - FIXED BELOW, SCALES WITH PLANET */
 .planet-label {
     position: absolute;
     top: calc(100% + 10px);
@@ -410,20 +418,20 @@
 .orbit-group.og4 .project-planet { animation: counter-spin-42 42s linear infinite reverse; }
 
 @keyframes counter-spin-18 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
+    from { transform: scale(var(--planet-scale)) rotate(0deg); }
+    to { transform: scale(var(--planet-scale)) rotate(-360deg); }
 }
 @keyframes counter-spin-26 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from { transform: scale(var(--planet-scale)) rotate(0deg); }
+    to { transform: scale(var(--planet-scale)) rotate(360deg); }
 }
 @keyframes counter-spin-34 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
+    from { transform: scale(var(--planet-scale)) rotate(0deg); }
+    to { transform: scale(var(--planet-scale)) rotate(-360deg); }
 }
 @keyframes counter-spin-42 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from { transform: scale(var(--planet-scale)) rotate(0deg); }
+    to { transform: scale(var(--planet-scale)) rotate(360deg); }
 }
 
 /* Planet positions on orbit */
@@ -440,8 +448,8 @@
 }
 
 @keyframes planet-fall {
-    0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-    100% { transform: scale(0.15) translateY(500px); opacity: 0; filter: blur(6px); }
+    0% { transform: scale(var(--planet-scale)) translateY(0); opacity: 1; filter: blur(0); }
+    100% { transform: scale(var(--planet-scale)) translateY(500px); opacity: 0; filter: blur(6px); }
 }
 
 .project-planet.rising {
@@ -449,32 +457,13 @@
 }
 
 @keyframes planet-rise {
-    0% { transform: scale(0) translateY(400px); opacity: 0; filter: blur(8px); }
-    70% { transform: scale(1.08) translateY(-5px); opacity: 1; filter: blur(0); }
-    100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
+    0% { transform: scale(var(--planet-scale)) translateY(400px); opacity: 0; filter: blur(8px); }
+    70% { transform: scale(var(--planet-scale)) translateY(-5px); opacity: 1; filter: blur(0); }
+    100% { transform: scale(var(--planet-scale)) translateY(0); opacity: 1; filter: blur(0); }
 }
 
 .project-planet.hidden {
     display: none !important;
-}
-
-/* ============================================
-   PLANET SIZE CONTROL (via CSS variable)
-   ============================================ */
-.orrery-container {
-    --planet-scale: 1;
-}
-
-.project-planet .planet-body {
-    transform: scale(var(--planet-scale));
-}
-
-.project-planet .planet-ring {
-    transform: translate(-50%, -50%) rotateX(75deg) scale(var(--planet-scale));
-}
-
-.project-planet .planet-moon {
-    transform: scale(var(--planet-scale));
 }
 
 /* ============================================
@@ -623,7 +612,7 @@
     right: 24px;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
     z-index: 50;
 }
 
@@ -713,11 +702,10 @@
     .detail-title { font-size: 1.1rem; }
     
     .zoom-btn { width: 30px; height: 30px; font-size: 0.8rem; }
-    .zoom-controls { bottom: 16px; right: 12px; gap: 0.3rem; }
+    .zoom-controls { bottom: 16px; right: 12px; }
     .zoom-controls .control-group { padding: 0.35rem 0.3rem; }
     .zoom-controls .control-label { font-size: 0.48rem; }
     
-    /* Adjust planet positions for smaller size */
     .project-planet.pos-0 { top: -19px; left: calc(50% - 19px); }
     .project-planet.pos-1 { top: calc(50% - 19px); right: -19px; left: auto; }
     .project-planet.pos-2 { bottom: -19px; left: calc(50% - 19px); top: auto; }
@@ -751,7 +739,6 @@
     .zoom-controls { bottom: 10px; right: 8px; }
     .zoom-controls .control-group { padding: 0.3rem 0.25rem; border-radius: 30px; }
     
-    /* Adjust positions */
     .project-planet.pos-0 { top: -14px; left: calc(50% - 14px); }
     .project-planet.pos-1 { top: calc(50% - 14px); right: -14px; left: auto; }
     .project-planet.pos-2 { bottom: -14px; left: calc(50% - 14px); top: auto; }
