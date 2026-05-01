@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createPlanetElement(project, posClass) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('planet-wrapper', posClass);
+
         const planet = document.createElement('div');
-        planet.classList.add('project-planet', posClass);
+        planet.classList.add('project-planet');
         planet.dataset.projectId = project.id;
         planet.dataset.type = project.type;
 
@@ -104,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
             openDetail(project, e);
         });
 
-        return planet;
+        wrapper.appendChild(planet);
+        return wrapper;
     }
 
     // ============================================
@@ -115,12 +119,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const planetsToShow = [];
 
         allPlanets.forEach(({ el, project }) => {
+            const planetEl = el.querySelector('.project-planet');
             const shouldBeVisible = (filter === 'all' || project.type === filter);
-            const isCurrentlyVisible = !el.classList.contains('hidden');
-            if (!shouldBeVisible && isCurrentlyVisible && !el.classList.contains('falling')) {
-                planetsToHide.push(el);
+            const isCurrentlyVisible = !planetEl.classList.contains('hidden');
+            if (!shouldBeVisible && isCurrentlyVisible && !planetEl.classList.contains('falling')) {
+                planetsToHide.push(planetEl);
             } else if (shouldBeVisible && !isCurrentlyVisible) {
-                planetsToShow.push(el);
+                planetsToShow.push(planetEl);
             }
         });
 

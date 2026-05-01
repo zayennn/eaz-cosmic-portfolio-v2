@@ -282,10 +282,22 @@
 }
 
 /* ============================================
+   PLANET WRAPPER - COUNTER ROTATES
+   ============================================ */
+.planet-wrapper {
+    position: absolute;
+    width: 0; height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+/* ============================================
    PROJECT PLANET - ALL SCALED TOGETHER
    ============================================ */
 .project-planet {
-    position: absolute;
+    position: relative;
     cursor: pointer;
     pointer-events: auto;
     display: flex;
@@ -412,32 +424,32 @@
 /* ============================================
    COUNTER-ROTATION - KEEPS PLANET UPRIGHT
    ============================================ */
-.orbit-group.og1 .project-planet { animation: counter-spin-18 18s linear infinite; }
-.orbit-group.og2 .project-planet { animation: counter-spin-26 26s linear infinite reverse; }
-.orbit-group.og3 .project-planet { animation: counter-spin-34 34s linear infinite; }
-.orbit-group.og4 .project-planet { animation: counter-spin-42 42s linear infinite reverse; }
+.orbit-group.og1 .planet-wrapper { animation: counter-spin-18 18s linear infinite; }
+.orbit-group.og2 .planet-wrapper { animation: counter-spin-26 26s linear infinite; }
+.orbit-group.og3 .planet-wrapper { animation: counter-spin-34 34s linear infinite; }
+.orbit-group.og4 .planet-wrapper { animation: counter-spin-42 42s linear infinite; }
 
 @keyframes counter-spin-18 {
-    from { transform: scale(var(--planet-scale)) rotate(0deg); }
-    to { transform: scale(var(--planet-scale)) rotate(-360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
 }
 @keyframes counter-spin-26 {
-    from { transform: scale(var(--planet-scale)) rotate(0deg); }
-    to { transform: scale(var(--planet-scale)) rotate(360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 @keyframes counter-spin-34 {
-    from { transform: scale(var(--planet-scale)) rotate(0deg); }
-    to { transform: scale(var(--planet-scale)) rotate(-360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
 }
 @keyframes counter-spin-42 {
-    from { transform: scale(var(--planet-scale)) rotate(0deg); }
-    to { transform: scale(var(--planet-scale)) rotate(360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Planet positions on orbit */
-.project-planet.pos-0 { top: -29px; left: calc(50% - 29px); }
-.project-planet.pos-1 { top: calc(50% - 29px); right: -29px; left: auto; }
-.project-planet.pos-2 { bottom: -29px; left: calc(50% - 29px); top: auto; }
+.planet-wrapper.pos-0 { top: 0; left: 50%; }
+.planet-wrapper.pos-1 { top: 50%; right: 0; left: auto; }
+.planet-wrapper.pos-2 { bottom: 0; left: 50%; top: auto; }
 
 /* ============================================
    FALLING / RISING ANIMATION
@@ -706,10 +718,6 @@
     .zoom-controls .control-group { padding: 0.35rem 0.3rem; }
     .zoom-controls .control-label { font-size: 0.48rem; }
     
-    .project-planet.pos-0 { top: -19px; left: calc(50% - 19px); }
-    .project-planet.pos-1 { top: calc(50% - 19px); right: -19px; left: auto; }
-    .project-planet.pos-2 { bottom: -19px; left: calc(50% - 19px); top: auto; }
-    
     @keyframes moon-orbit {
         from { transform: rotate(0deg) translateX(26px) rotate(0deg); }
         to { transform: rotate(360deg) translateX(26px) rotate(-360deg); }
@@ -738,10 +746,6 @@
     .zoom-btn { width: 26px; height: 26px; font-size: 0.7rem; }
     .zoom-controls { bottom: 10px; right: 8px; }
     .zoom-controls .control-group { padding: 0.3rem 0.25rem; border-radius: 30px; }
-    
-    .project-planet.pos-0 { top: -14px; left: calc(50% - 14px); }
-    .project-planet.pos-1 { top: calc(50% - 14px); right: -14px; left: auto; }
-    .project-planet.pos-2 { bottom: -14px; left: calc(50% - 14px); top: auto; }
     
     @keyframes moon-orbit {
         from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
