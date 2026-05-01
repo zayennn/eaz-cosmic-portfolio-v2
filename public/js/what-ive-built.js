@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // ============================================
     // PROJECTS DATA
     // ============================================
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterTabs = document.querySelectorAll('.filter-tab');
     const detailOverlay = document.getElementById('detailOverlay');
     const closeDetail = document.getElementById('closeDetail');
-    
+
     // 6 Zoom buttons
     const zoomInOrrery = document.getElementById('zoomInOrrery');
     const zoomOutOrrery = document.getElementById('zoomOutOrrery');
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const imgEl = detailImage.querySelector('img');
         imgEl.src = project.image;
         imgEl.style.display = '';
-        imgEl.onerror = function() {
+        imgEl.onerror = function () {
             this.style.display = 'none';
             detailImage.style.background = 'linear-gradient(135deg, #1e293b, #0f172a)';
             detailImage.style.display = 'flex';
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // FILTER TABS
     // ============================================
     filterTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             if (this.classList.contains('active')) return;
             filterTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
