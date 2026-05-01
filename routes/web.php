@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome', [
-        'starsCount' => 600
+        'starsCount' => 300
     ]);
 })->name('home');
 
