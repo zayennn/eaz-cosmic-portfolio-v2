@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const pageHeight = document.documentElement.scrollHeight;
         container.style.height = pageHeight + 'px';
 
-        const totalStars = 300;
+        const totalStars = 200;
         const sizeConfig = [
             { class: 'size-lg', speed: 0.1, mass: 4 },
             { class: 'size-md', speed: 0.25, mass: 2 },
