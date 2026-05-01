@@ -171,9 +171,6 @@ document.addEventListener('DOMContentLoaded', function () {
     zoomOutPlanet.addEventListener('click', planetZoomOut);
     resetPlanet.addEventListener('click', planetZoomReset);
 
-    // ============================================
-    // DETAIL MODAL
-    // ============================================
     function openDetail(project, event) {
         const typeColors = { freelance: '#3b82f6', personal: '#8b5cf6', certification: '#22c55e' };
         const color = typeColors[project.type] || '#6366f1';
