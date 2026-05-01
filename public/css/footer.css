@@ -108,3 +108,10 @@
     flex-wrap: wrap;
     gap: 1rem;
 }
+
+@media (max-width: 576px) {
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}
