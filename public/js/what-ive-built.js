@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
         { id: 12, title: 'Inventory System', type: 'freelance', image: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&h=300&fit=crop', desc: 'Multi-warehouse inventory with barcode and stock alerts.', tech: ['PHP', 'MySQL', 'jQuery'] }
     ];
 
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
     const orreryContainer = document.getElementById('orreryContainer');
     const filterTabs = document.querySelectorAll('.filter-tab');
     const detailOverlay = document.getElementById('detailOverlay');
