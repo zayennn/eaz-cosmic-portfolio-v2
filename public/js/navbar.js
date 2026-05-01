@@ -1,10 +1,5 @@
-// ============================================
-// NAVBAR - HAMBURGER ANIMATION + SCROLL LOCK
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Get elements
     const navbar = document.getElementById('navbar');
     const hamburger = document.getElementById('hamburger');
     const hamburgerCheckbox = document.getElementById('hamburger-checkbox');
