@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elang Atha Zahran | Portfolio</title>
+    <title>
+        Elang Atha Zahran | @yield("title")
+    </title>
 
     {{-- components --}}
     <link rel="stylesheet" href="{{ asset('css/stars.css') }}">

@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'What I Use - Elang Atha Zahran')
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/skills.css') }}">
-@endpush
+@section('title', 'What I Use')
 
 @section('content')
 <section class="skills-page">
