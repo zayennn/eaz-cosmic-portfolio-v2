@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <!-- Detail Modal -->
+    <!-- detail modal -->
     <div class="detail-overlay" id="detailOverlay">
         <div class="detail-modal">
             <button class="detail-close" id="closeDetail"><i class="fas fa-times"></i></button>
