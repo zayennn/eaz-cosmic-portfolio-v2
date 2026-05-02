@@ -211,8 +211,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const wrapper = document.createElement('div');
         wrapper.classList.add('planet-wrapper');
         
-        const angleRad = (angleDeg - 90) * (Math.PI / 180); // -90 to start from top
-        const orbitSize = 50; // percentage of orbit ring
+        const angleRad = (angleDeg - 90) * (Math.PI / 180);
+        const orbitSize = 50;
         const x = 50 + Math.cos(angleRad) * orbitSize;
         const y = 50 + Math.sin(angleRad) * orbitSize;
         
