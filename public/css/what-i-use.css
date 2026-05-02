@@ -1,6 +1,4 @@
-/* ============================================
-   COSMIC NEBULA SKILLS
-   ============================================ */
+
 
 .skills-page {
     min-height: 100vh;
@@ -9,9 +7,6 @@
     background: transparent;
 }
 
-/* ============================================
-   NEBULA BACKGROUND EFFECTS
-   ============================================ */
 .nebula-layer {
     position: absolute;
     top: 0;
