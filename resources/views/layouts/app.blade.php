@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="{{ asset('css/what-i\'ve-built.css') }}">
     @elseif(request()->routeIs('what-im-into'))
         <link rel="stylesheet" href="{{ asset('css/what-im-into.css') }}">
+    @elseif(request()->routeIs('behind-the-code'))
+        <link rel="stylesheet" href="{{ asset('css/behind-the-code.css') }}">
     @endif
 
     {{-- font awesome --}}
@@ -64,6 +66,8 @@
         <script src="{{ asset('js/what-ive-built.js') }}"></script>
     @elseif (request()->routeIs('what-im-into'))
         <script src="{{ asset('js/what-im-into.js') }}"></script>
+    @elseif (request()->routeIs('behind-the-code'))
+        <script src="{{ asset('js/behind-the-code.js') }}"></script>
     @endif
 
     <script src="{{ asset('js/script.js') }}"></script>

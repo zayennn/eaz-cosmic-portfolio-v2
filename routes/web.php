@@ -25,3 +25,9 @@ Route::get('/what-im-into', function() {
         'starsCount' => 300
     ]);
 })->name('what-im-into');
+
+Route::get('/behind-the-code', function() {
+    return view('behind-the-code', [
+        'starsCount' => 300
+    ]);
+})->name('behind-the-code');

@@ -10,7 +10,7 @@
             <a href="{{ route('what-i-use') }}" class="nav-link {{ request()->routeIs('what-i-use') ? 'active' : '' }}">What I Use</a>
             <a href="{{ route('what-ive-built') }}" class="nav-link {{ request()->routeIs('what-ive-built') ? 'active' : '' }}">What I've Built</a>
             <a href="{{ route('what-im-into') }}" class="nav-link {{ request()->routeIs('what-im-into') ? 'active' : '' }}">What I'm Into</a>
-            <a href="" class="nav-link {{ request()->routeIs('behind-the-code') ? 'active' : '' }}">Behind The Code</a>
+            <a href="{{ route('behind-the-code') }}" class="nav-link {{ request()->routeIs('behind-the-code') ? 'active' : '' }}">Behind The Code</a>
             <a href="" class="nav-link {{ request()->routeIs('get-in-touch') ? 'active' : '' }}">Get In Touch</a>
         </div>
 
@@ -43,7 +43,7 @@
                 <a href="{{ route('what-i-use') }}" class="mobile-nav-link {{ request()->routeIs('what-i-use') ? 'active' : '' }}">What I Use</a>
                 <a href="{{ route('what-ive-built') }}" class="mobile-nav-link {{ request()->routeIs('what-ive-built') ? 'active' : '' }}">What I've Built</a>
                 <a href="{{ route('what-im-into') }}" class="mobile-nav-link {{ request()->routeIs('what-im-into') ? 'active' : '' }}">What I'm Into</a>
-                <a href="" class="mobile-nav-link {{ request()->routeIs('behind-the-code') ? 'active' : '' }}">Behind The Code</a>
+                <a href="{{ route('behind-the-code') }}" class="mobile-nav-link {{ request()->routeIs('behind-the-code') ? 'active' : '' }}">Behind The Code</a>
                 <a href="" class="mobile-nav-link {{ request()->routeIs('get-in-touch') ? 'active' : '' }}">Get In Touch</a>
                 <a href="#" class="mobile-cv-btn">
                     Download CV 
