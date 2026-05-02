@@ -137,9 +137,6 @@
     letter-spacing: 1px;
 }
 
-/* ============================================
-   MAIN LAYOUT - THREE COLUMNS
-   ============================================ */
 .skills-grid {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -150,9 +147,6 @@
     z-index: 2;
 }
 
-/* ============================================
-   SIDEBAR - CATEGORY FILTER
-   ============================================ */
 .skills-sidebar {
     display: flex;
     flex-direction: column;
