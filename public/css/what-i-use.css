@@ -995,7 +995,6 @@
     }
 }
 
-/* Node shake on explosion */
 @keyframes node-shake {
     0%, 100% { transform: translate(0, 0); }
     10% { transform: translate(-5px, 3px); }
