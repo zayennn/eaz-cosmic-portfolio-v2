@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
     const successOverlay = document.getElementById('successOverlay');
@@ -11,9 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const formInputs = document.querySelectorAll('.form-input, .form-textarea');
     const errorMessages = document.querySelectorAll('.error-message');
 
-    // ============================================
-    // TRANSMISSION PARTICLES
-    // ============================================
     function createTransmissionParticles(x, y, count = 20) {
         for (let i = 0; i < count; i++) {
             const particle = document.createElement('div');
@@ -42,24 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
-    // VALIDATION FUNCTIONS
-    // ============================================
     function showError(input, message) {
         const errorDiv = input.parentElement.querySelector('.error-message');
         
-        // Remove valid class, add error
         input.classList.remove('valid');
         input.classList.add('error');
         input.classList.add('shake');
         
-        // Show error message
         if (errorDiv) {
             errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
             errorDiv.classList.add('show');
         }
         
-        // Remove shake after animation
         setTimeout(() => {
             input.classList.remove('shake');
         }, 500);
@@ -68,11 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function showValid(input) {
         const errorDiv = input.parentElement.querySelector('.error-message');
         
-        // Remove error, add valid
         input.classList.remove('error');
         input.classList.add('valid');
         
-        // Hide error message
         if (errorDiv) {
             errorDiv.classList.remove('show');
         }
@@ -125,11 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    // ============================================
-    // REAL-TIME VALIDATION ON INPUT
-    // ============================================
     formInputs.forEach(input => {
-        // Validate on blur (when user leaves the field)
         input.addEventListener('blur', function() {
             if (this.value.trim()) {
                 validateInput(this);
@@ -141,18 +123,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Clear error on focus
         input.addEventListener('focus', function() {
             clearValidation(this);
             
-            // Create particles
             const rect = this.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
             createTransmissionParticles(x, y, 8);
         });
 
-        // Real-time validation as user types
         input.addEventListener('input', function() {
             if (this.classList.contains('error')) {
                 if (this.value.trim()) {
@@ -162,13 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ============================================
-    // FORM SUBMISSION
-    // ============================================
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Validate all required fields
         let isValid = true;
         let firstError = null;
         
@@ -184,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // If invalid, scroll to first error
         if (!isValid) {
             if (firstError) {
                 firstError.focus();
@@ -193,24 +167,19 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // All valid - proceed with submission
         const btnRect = submitBtn.getBoundingClientRect();
         const centerX = btnRect.left + btnRect.width / 2;
         const centerY = btnRect.top + btnRect.height / 2;
         
-        // Sending animation
         submitBtn.classList.add('sending');
         submitBtn.querySelector('span').textContent = 'Transmitting...';
         submitBtn.querySelector('i').className = 'fas fa-spinner fa-spin';
         submitBtn.disabled = true;
         
-        // Create particles
         createTransmissionParticles(centerX, centerY, 30);
         
-        // Prepare form data
         const formData = new FormData(contactForm);
         
-        // Send to backend
         fetch('/contact/send', {
             method: 'POST',
             body: formData,
@@ -237,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
             showErrorAlert(err.message || 'Failed to send message. Please check your connection and try again.');
         })
         .finally(() => {
-            // Reset button
             setTimeout(() => {
                 submitBtn.classList.remove('sending');
                 submitBtn.querySelector('span').textContent = 'Transmit Message';
@@ -247,9 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ============================================
-    // SUCCESS HANDLER
-    // ============================================
     function showSuccess() {
         createTransmissionParticles(window.innerWidth / 2, window.innerHeight / 2, 50);
         
@@ -257,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function() {
             successOverlay.classList.add('active');
         }, 300);
         
-        // Reset form and clear all validations
         contactForm.reset();
         formInputs.forEach(input => clearValidation(input));
     }
@@ -266,26 +230,22 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Error: ' + message);
     }
 
-    // Close success overlay
     successClose.addEventListener('click', () => {
         createTransmissionParticles(window.innerWidth / 2, window.innerHeight / 2, 20);
         successOverlay.classList.remove('active');
     });
 
-    // Close on overlay click
     successOverlay.addEventListener('click', function(e) {
         if (e.target === this) {
             successOverlay.classList.remove('active');
         }
     });
 
-    // Close on Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && successOverlay.classList.contains('active')) {
             successOverlay.classList.remove('active');
         }
         
-        // Ctrl+Enter to submit
         if (e.ctrlKey && e.key === 'Enter') {
             const activeEl = document.activeElement;
             if (activeEl && (activeEl.classList.contains('form-input') || activeEl.classList.contains('form-textarea'))) {
@@ -294,9 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ============================================
-    // GSAP SCROLL ANIMATIONS
-    // ============================================
     function initAnimations() {
         // Header
         const tl = gsap.timeline({
@@ -316,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
             opacity: 0, y: 20, duration: 0.6, ease: 'power3.out'
         }, '-=0.3');
 
-        // Info cards - slide in from left
         document.querySelectorAll('.info-card').forEach((card, i) => {
             gsap.from(card, {
                 scrollTrigger: {
@@ -331,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Availability card
         gsap.from('.availability-orbit', {
             scrollTrigger: {
                 trigger: '.availability-orbit',
@@ -345,7 +300,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ease: 'back.out(1.7)'
         });
 
-        // Form terminal - slide in from right
         gsap.from('.form-terminal', {
             scrollTrigger: {
                 trigger: '.form-terminal',
@@ -357,7 +311,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ease: 'power3.out'
         });
 
-        // Social orbit
         gsap.from('.social-orbit-btn', {
             scrollTrigger: {
                 trigger: '.social-orbit-section',
@@ -371,7 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ease: 'back.out(2)'
         });
 
-        // Signal rings continuous animation
         gsap.to('.signal-ring', {
             rotation: 360,
             duration: 20,
@@ -380,9 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // 3D TILT ON FORM TERMINAL
-    // ============================================
     const formTerminal = document.getElementById('formTerminal');
     
     if (formTerminal) {
@@ -415,18 +364,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // SOCIAL ORBIT HOVER - create particles
-    // ============================================
     document.querySelectorAll('.social-orbit-btn').forEach(btn => {
         btn.addEventListener('mouseenter', function(e) {
             createTransmissionParticles(e.clientX, e.clientY, 6);
         });
     });
 
-    // ============================================
-    // INITIALIZE
-    // ============================================
     initAnimations();
 
     console.log('📡 Holographic Message Station online - Ready to receive transmissions!');
