@@ -39,20 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return langColors[lang] || '#6c757d';
     }
 
-    // ============================================
-    // FETCH GITHUB DATA
-    // ============================================
     async function fetchGitHubData() {
         try {
-            // Fetch user data
             const userRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
             const userData = await userRes.json();
 
-            // Fetch repos
             const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
             const reposData = await reposRes.json();
 
-            // Fetch languages
             const langMap = {};
             reposData.forEach(repo => {
                 if (repo.language) {
@@ -62,12 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const languages = Object.entries(langMap).sort((a, b) => b[1] - a[1]).slice(0, 8);
             
-            // Fetch pinned repos (via GitHub GraphQL alternative - use custom list as fallback)
             const popularRepos = reposData
                 .filter(r => CUSTOM_FEATURED_REPOS.includes(r.name))
                 .sort((a, b) => b.stargazers_count - a.stargazers_count);
 
-            // Update UI
             updateProfileSection(userData);
             updateStatsSection(userData, reposData);
             updateLanguagesSection(languages, reposData);
@@ -81,13 +73,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (err) {
             console.error('Failed to fetch GitHub data:', err);
-            // Fallback with static data
             loadStaticData();
         }
     }
 
     function loadStaticData() {
-        // Static fallback based on README
         document.getElementById('statRepos').textContent = '137';
         document.getElementById('statFollowers').textContent = '--';
         document.getElementById('statFollowing').textContent = '--';
@@ -95,14 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('statForks').textContent = '--';
         document.getElementById('statGists').textContent = '--';
 
-        // Populate languages
         const staticLangs = [
             ['JavaScript', 34], ['CSS', 31], ['Python', 12], ['Java', 3],
             ['PHP', 3], ['HTML', 2], ['Assembly', 1], ['Blade', 5]
         ];
         updateLanguagesSection(staticLangs, []);
 
-        // Populate repos
         const staticRepos = CUSTOM_FEATURED_REPOS.map(name => ({
             name, html_url: `https://github.com/zayennn/${name}`,
             description: 'Pinned repository', language: null,
@@ -111,12 +99,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }));
         updateReposSection(staticRepos, []);
 
-        // Weekly static
         document.getElementById('weeklyCodeTime').textContent = '13.5';
         document.getElementById('weeklyTopLang').textContent = 'CSS';
         document.getElementById('weeklyEditor').textContent = 'Antigravity';
 
-        // Insights
         document.getElementById('insightMostActiveDesc').textContent =
             'portfolio is my most recently updated repository';
         document.getElementById('insightMostPopular').textContent =
@@ -125,11 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'JavaScript is my most used language';
     }
 
-    // ============================================
-    // UPDATE SECTIONS
-    // ============================================
     function updateProfileSection(userData) {
-        // Profile data already static in HTML, update avatar if needed
         const avatar = document.querySelector('.profile-avatar');
         if (avatar && userData.avatar_url) {
             avatar.src = userData.avatar_url;
@@ -149,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('statForks').textContent = totalForks || '--';
         document.getElementById('statGists').textContent = userData.public_gists || '--';
 
-        // Animate stats
         document.querySelectorAll('.stat-node').forEach((node, i) => {
             gsap.from(node, {
                 scrollTrigger: { trigger: node, start: 'top 85%' },
@@ -184,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }).join('');
 
-        // Animate language bars
         setTimeout(() => {
             document.querySelectorAll('.lang-fill').forEach(bar => {
                 gsap.to(bar, {
@@ -224,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }).join('');
 
-        // Update insights
         if (allRepos.length > 0) {
             const sortedByUpdated = [...allRepos].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
             const sortedByStars = [...allRepos].sort((a, b) => b.stargazers_count - a.stargazers_count);
@@ -235,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `${sortedByStars[0]?.name || 'N/A'} has the most stars (${sortedByStars[0]?.stargazers_count || 0})`;
         }
 
-        // Animate repos
         document.querySelectorAll('.repo-card').forEach((card, i) => {
             gsap.from(card, {
                 scrollTrigger: { trigger: card, start: 'top 85%' },
@@ -246,9 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // PRODUCTIVE TIME BARS
-    // ============================================
     function createDayBars() {
         const dayBars = document.getElementById('dayBars');
         const data = [
