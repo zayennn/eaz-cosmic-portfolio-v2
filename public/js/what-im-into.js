@@ -198,32 +198,25 @@ document.addEventListener('DOMContentLoaded', function() {
         targetZoom: 1
     };
 
+    // Popup smoothing state
+    let popupCurrent = { x: 0, y: 0 };
+    let popupTarget = { x: 0, y: 0 };
+    let popupActive = false;
+    let popupRAFId = null;
+
     let hasSizedCanvas = false;
 
     function clampAxis(position, worldSize, viewportSize) {
         const maxPosition = worldSize - viewportSize;
-
-        if (maxPosition <= 0) {
-            return maxPosition / 2;
-        }
-
+        if (maxPosition <= 0) return maxPosition / 2;
         return Math.max(0, Math.min(maxPosition, position));
     }
 
     function clampCameraTarget() {
         const viewportWidth = canvas.width / camera.targetZoom;
         const viewportHeight = canvas.height / camera.targetZoom;
-
         camera.targetX = clampAxis(camera.targetX, worldWidth, viewportWidth);
         camera.targetY = clampAxis(camera.targetY, worldHeight, viewportHeight);
-    }
-
-    function clampCameraCurrent() {
-        const viewportWidth = canvas.width / camera.zoom;
-        const viewportHeight = canvas.height / camera.zoom;
-
-        camera.x = clampAxis(camera.x, worldWidth, viewportWidth);
-        camera.y = clampAxis(camera.y, worldHeight, viewportHeight);
     }
 
     function centerCameraOn(worldX, worldY, zoom = camera.targetZoom) {
@@ -237,13 +230,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const clampedZoom = Math.max(minZoom, Math.min(maxZoom, nextZoom));
         const centerX = camera.targetX + (canvas.width / camera.targetZoom) / 2;
         const centerY = camera.targetY + (canvas.height / camera.targetZoom) / 2;
-
         centerCameraOn(centerX, centerY, clampedZoom);
     }
 
     function worldToScreen(worldX, worldY) {
         const rect = canvas.getBoundingClientRect();
-
         return {
             x: rect.left + (worldX - camera.x) * camera.zoom,
             y: rect.top + (worldY - camera.y) * camera.zoom
@@ -268,25 +259,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const previousTargetCenterY = hasSizedCanvas
             ? camera.targetY + (canvas.height / camera.targetZoom) / 2
             : worldHeight / 2;
-        const previousCurrentCenterX = hasSizedCanvas
-            ? camera.x + (canvas.width / camera.zoom) / 2
-            : previousTargetCenterX;
-        const previousCurrentCenterY = hasSizedCanvas
-            ? camera.y + (canvas.height / camera.zoom) / 2
-            : previousTargetCenterY;
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         minimapCanvas.width = minimap.offsetWidth;
         minimapCanvas.height = minimap.offsetHeight;
 
         camera.targetX = previousTargetCenterX - (canvas.width / camera.targetZoom) / 2;
         camera.targetY = previousTargetCenterY - (canvas.height / camera.targetZoom) / 2;
-        camera.x = previousCurrentCenterX - (canvas.width / camera.zoom) / 2;
-        camera.y = previousCurrentCenterY - (canvas.height / camera.zoom) / 2;
         clampCameraTarget();
-        clampCameraCurrent();
+        camera.x = camera.targetX;
+        camera.y = camera.targetY;
+        camera.zoom = camera.targetZoom;
         hasSizedCanvas = true;
     }
 
@@ -296,16 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     // CONSTELLATION LINE OPACITY CALCULATOR
     // ============================================
-    // Returns base opacity multiplier based on current zoom level.
-    // zoom = 0.3 (most zoomed out) → opacity ~ 0.8 (very visible)
-    // zoom = 1.0 (default)        → opacity ~ 0.35 (subtle but visible)
-    // zoom = 3.0 (most zoomed in) → opacity ~ 0.1 (faint)
     function getConstellationBaseOpacity() {
         const zoom = camera.zoom;
-
-        // Exponential decay curve: high opacity at low zoom, low at high zoom
-        // base = 1.0 * exp(-0.8 * (zoom - 0.3))
-        // clamped between 0.08 and 0.85
         const base = Math.exp(-0.8 * (zoom - minZoom));
         return Math.max(0.08, Math.min(0.85, base));
     }
@@ -456,8 +432,6 @@ document.addEventListener('DOMContentLoaded', function() {
             : starData.filter(s => s.type === activeCategory);
 
         const baseOpacity = getConstellationBaseOpacity();
-
-        // Don't draw if opacity is too low
         if (baseOpacity < 0.05) return;
 
         for (let i = 0; i < filteredStars.length; i++) {
@@ -469,10 +443,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
                 if (dist < 400) {
-                    // Distance-based opacity multiplied by zoom-based opacity
                     const distOpacity = 1 - dist / 400;
                     const finalOpacity = distOpacity * baseOpacity;
-
                     if (finalOpacity < 0.02) continue;
                     
                     ctx.beginPath();
@@ -526,7 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     function screenToWorld(screenX, screenY) {
         const rect = canvas.getBoundingClientRect();
-
         return {
             x: (screenX - rect.left) / camera.zoom + camera.x,
             y: (screenY - rect.top) / camera.zoom + camera.y
@@ -555,6 +526,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         return null;
+    }
+
+    // ============================================
+    // POPUP SMOOTHING SYSTEM (LERPed)
+    // ============================================
+    function startPopupSmoothing(startX, startY) {
+        popupCurrent.x = startX;
+        popupCurrent.y = startY;
+        popupTarget.x = startX;
+        popupTarget.y = startY;
+        popup.style.left = startX + 'px';
+        popup.style.top = startY + 'px';
+        popupActive = true;
+
+        if (!popupRAFId) {
+            animatePopup();
+        }
+    }
+
+    function animatePopup() {
+        if (!popupActive) {
+            popupRAFId = null;
+            return;
+        }
+
+        // Smooth lerp towards target
+        const lerpFactor = 0.25; // Higher = faster, lower = smoother
+        popupCurrent.x += (popupTarget.x - popupCurrent.x) * lerpFactor;
+        popupCurrent.y += (popupTarget.y - popupCurrent.y) * lerpFactor;
+
+        // Only update DOM if change is significant (prevents layout thrashing)
+        const dx = Math.abs(popupTarget.x - popupCurrent.x);
+        const dy = Math.abs(popupTarget.y - popupCurrent.y);
+
+        if (dx > 0.5 || dy > 0.5) {
+            popup.style.left = popupCurrent.x + 'px';
+            popup.style.top = popupCurrent.y + 'px';
+        }
+
+        popupRAFId = requestAnimationFrame(animatePopup);
+    }
+
+    function stopPopupSmoothing() {
+        popupActive = false;
+        if (popupRAFId) {
+            cancelAnimationFrame(popupRAFId);
+            popupRAFId = null;
+        }
     }
 
     // ============================================
@@ -589,20 +608,21 @@ document.addEventListener('DOMContentLoaded', function() {
             ${linkHTML}
         `;
 
-        popup.style.left = screenX + 'px';
-        popup.style.top = screenY + 'px';
+        // Start smooth position tracking
+        startPopupSmoothing(screenX, screenY);
         popup.classList.add('active');
     }
 
     function hidePopup() {
         selectedStar = null;
         popup.classList.remove('active');
+        stopPopupSmoothing();
     }
 
-    function updatePopupPosition(screenX, screenY) {
+    function updatePopupTarget(screenX, screenY) {
         if (selectedStar) {
-            popup.style.left = screenX + 'px';
-            popup.style.top = screenY + 'px';
+            popupTarget.x = screenX;
+            popupTarget.y = screenY;
         }
     }
 
@@ -637,8 +657,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 canvas.style.cursor = star ? 'pointer' : 'grab';
             }
             
+            // Update popup target position (smoothed)
             if (selectedStar && !isPanning) {
-                updatePopupPosition(e.clientX, e.clientY);
+                updatePopupTarget(e.clientX, e.clientY);
             }
         }
     });
@@ -651,9 +672,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // If barely moved, treat as click
             if (dx < 5 && dy < 5 && hoveredStar) {
                 const screen = worldToScreen(hoveredStar.x, hoveredStar.y);
-                const screenX = screen.x;
-                const screenY = screen.y;
-                showPopup(hoveredStar, screenX, screenY);
+                showPopup(hoveredStar, screen.x, screen.y);
             }
         }
         
@@ -737,7 +756,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case '-':
                 e.preventDefault();
-                e.preventDefault();
                 zoomCamera(camera.targetZoom * 0.8);
                 break;
             case '0':
@@ -764,5 +782,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     requestAnimationFrame(render);
-    console.log('🌌 Cosmic Memory Constellation initialized - Zoom only via buttons!');
+    console.log('🌌 Cosmic Memory Constellation initialized - Smooth popup tracking!');
 });
