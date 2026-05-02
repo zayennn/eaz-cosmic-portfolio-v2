@@ -572,7 +572,6 @@
     box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
 }
 
-/* Stars Rating */
 .detail-stars {
     display: flex;
     gap: 0.3rem;
@@ -591,7 +590,6 @@
     opacity: 1;
 }
 
-/* Description */
 .detail-description {
     color: #94a3b8;
     font-size: 0.9rem;
@@ -600,7 +598,6 @@
     font-family: 'Exo 2', sans-serif;
 }
 
-/* Tech Tags */
 .detail-tags {
     display: flex;
     flex-wrap: wrap;
@@ -626,7 +623,6 @@
     transform: translateY(-2px);
 }
 
-/* Experience Badge */
 .detail-experience {
     display: inline-flex;
     align-items: center;
@@ -641,7 +637,6 @@
     font-weight: 500;
 }
 
-/* Projects count */
 .detail-projects {
     display: flex;
     align-items: center;
