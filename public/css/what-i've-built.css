@@ -170,6 +170,29 @@
     box-shadow: 0 0 30px rgba(59, 130, 246, 0.05), inset 0 0 30px rgba(59, 130, 246, 0.03);
 }
 
+/* Orbit Ring 5 - New */
+.orbit-ring.r5 { 
+    width: 86%; aspect-ratio: 1;
+    margin-left: -43%; margin-top: -43%;
+    border-color: rgba(6, 182, 212, 0.12);
+    box-shadow: 0 0 35px rgba(6, 182, 212, 0.04), inset 0 0 35px rgba(6, 182, 212, 0.02);
+}
+
+.orbit-group.og5 { 
+    width: 86%; aspect-ratio: 1;
+    margin-left: -43%; margin-top: -43%;
+    animation: orbit-spin 50s linear infinite;
+}
+
+.orbit-group.og5 .planet-wrapper { 
+    animation: counter-spin-50 50s linear infinite; 
+}
+
+@keyframes counter-spin-50 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
 .orbit-group {
     position: absolute;
     top: 50%;

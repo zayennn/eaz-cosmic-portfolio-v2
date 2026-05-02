@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // ============================================
-    // PROJECTS DATA - PORTFOLIO PROJECTS
+    // PROJECTS DATA - PORTFOLIO PROJECTS (15)
     // ============================================
     const projectsData = [
         {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'StreamingNime',
             type: 'personal',
             image: '/images/projects/streamingnime.png',
-            desc: 'Anime streaming platform dengan filter canggih, UI modern, dan animasi smooth. Built with Laravel 10 + vanilla JS/CSS.',
+            desc: 'Anime streaming platform with advanced filtering (A-Z, numeric, symbols), dynamic genre pages, detailed anime pages with searchable episodes, trending/ongoing/top rated sections, glass morphism UI, and smooth parallax scrolling. Built with Laravel 10 + vanilla JS/CSS.',
             tech: ['Laravel 10', 'HTML', 'CSS', 'JavaScript', 'Swiper.js', 'Paroller.js'],
             github: 'https://github.com/zayennn/streamingnime',
             live: 'https://streamingnime.great-site.net/',
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         {
             id: 12,
-            title: 'Cosmic Portfolio',
+            title: 'Cosmic Portfolio v1',
             type: 'personal',
             image: '/images/projects/react cosmic.png',
             desc: 'Portfolio built with Vite JS featuring cosmic theme, parallax animations, and interactive UI.',
@@ -133,6 +133,27 @@ document.addEventListener('DOMContentLoaded', function () {
             image: '/images/projects/freelance-3.png',
             desc: 'Freelance cafe website project built with HTML, CSS, and JavaScript featuring menu and contact sections.',
             tech: ['HTML5', 'CSS3', 'JavaScript'],
+            featured: true
+        },
+        {
+            id: 14,
+            title: 'EAZ Portfolio',
+            type: 'personal',
+            image: '/images/projects/eaz.png',
+            desc: 'Modern, responsive portfolio showcasing my work as a Junior Fullstack Developer. Features smooth animations, interactive components, GitHub integration, and project showcase. Built with React.js, Framer Motion, and CSS3.',
+            tech: ['React.js', 'Framer Motion', 'CSS3'],
+            github: 'https://github.com/zayennn/fix-portfolio',
+            live: 'https://eaz-portfolio.vercel.app',
+            featured: true
+        },
+        {
+            id: 15,
+            title: 'Cosmic Portfolio v2',
+            type: 'personal',
+            image: '/images/projects/cosmic-v2.png',
+            desc: 'Next-generation cosmic-themed portfolio built with Laravel 10, featuring interactive star field, blackhole effects, 3D orbital project showcase, constellation skill map, neural data stream GitHub analytics, and holographic contact terminal. A complete immersive experience that pushes creative boundaries.',
+            tech: ['Laravel 10', 'Blade', 'GSAP', 'JavaScript', 'CSS3'],
+            github: 'https://github.com/zayennn/eaz-cosmic-portfolio-v2',
             featured: true
         }
     ];
@@ -160,38 +181,33 @@ document.addEventListener('DOMContentLoaded', function () {
     let targetPlanetScale = 1;
 
     // ============================================
-    // CREATE ORRERY SYSTEM
+    // CREATE ORRERY SYSTEM - 5 ORBITS
     // ============================================
+    const TOTAL_ORBITS = 5;
+
     function createOrrery() {
         const existingGroups = orreryContainer.querySelectorAll('.orbit-group');
         existingGroups.forEach(g => g.remove());
         allPlanets = [];
 
-        const distributed = [[], [], [], []];
+        const distributed = [];
+        for (let i = 0; i < TOTAL_ORBITS; i++) {
+            distributed.push([]);
+        }
         projectsData.forEach((project, index) => {
-            distributed[index % 4].push(project);
+            distributed[index % TOTAL_ORBITS].push(project);
         });
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < TOTAL_ORBITS; i++) {
             const group = document.createElement('div');
             group.classList.add('orbit-group', 'og' + (i + 1));
             orreryContainer.appendChild(group);
 
-            // Adjust positions based on number of projects in this orbit
             const projectsInOrbit = distributed[i].length;
-            const positions = [];
-            if (projectsInOrbit === 3) {
-                positions.push('pos-0', 'pos-1', 'pos-2');
-            } else if (projectsInOrbit === 4) {
-                // For 4 projects, use custom angles
-                positions.push('pos-0', 'pos-1', 'pos-2', 'pos-3');
-            } else {
-                positions.push('pos-0', 'pos-1', 'pos-2');
-            }
-
             distributed[i].forEach((project, pIndex) => {
-                const pos = positions[pIndex % positions.length];
-                const planet = createPlanetElement(project, pos, pIndex, projectsInOrbit);
+                // Calculate angle for even distribution
+                const angle = (360 / projectsInOrbit) * pIndex;
+                const planet = createPlanetElement(project, angle, pIndex, projectsInOrbit);
                 group.appendChild(planet);
                 allPlanets.push({ el: planet, project });
             });
@@ -201,14 +217,20 @@ document.addEventListener('DOMContentLoaded', function () {
         updatePlanetScale();
     }
 
-    function createPlanetElement(project, posClass, index, total) {
+    function createPlanetElement(project, angleDeg, index, total) {
         const wrapper = document.createElement('div');
-        wrapper.classList.add('planet-wrapper', posClass);
+        wrapper.classList.add('planet-wrapper');
         
-        // For 4 projects, adjust positioning
-        if (total === 4) {
-            wrapper.classList.add('pos-' + index);
-        }
+        // Position based on angle
+        const angleRad = (angleDeg - 90) * (Math.PI / 180); // -90 to start from top
+        const orbitSize = 50; // percentage of orbit ring
+        const x = 50 + Math.cos(angleRad) * orbitSize;
+        const y = 50 + Math.sin(angleRad) * orbitSize;
+        
+        wrapper.style.position = 'absolute';
+        wrapper.style.left = x + '%';
+        wrapper.style.top = y + '%';
+        wrapper.style.transform = 'translate(-50%, -50%)';
 
         const planet = document.createElement('div');
         planet.classList.add('project-planet');
@@ -336,7 +358,6 @@ document.addEventListener('DOMContentLoaded', function () {
         imgEl.src = project.image;
         imgEl.style.display = '';
         
-        // Remove fallback icon if exists
         const fallbackIcon = detailImage.querySelector('.fallback-icon');
         if (fallbackIcon) fallbackIcon.remove();
         detailImage.style.background = '';
@@ -365,7 +386,6 @@ document.addEventListener('DOMContentLoaded', function () {
         
         document.getElementById('detailTech').innerHTML = project.tech.map(t => `<span class="tech-chip">${t}</span>`).join('');
 
-        // Add links if available
         const detailLinks = document.getElementById('detailLinks');
         if (detailLinks) {
             let linksHTML = '';
@@ -449,5 +469,5 @@ document.addEventListener('DOMContentLoaded', function () {
     animateOrreryZoom();
     animatePlanetScale();
     
-    console.log('🪐 Project Orrery initialized with ' + projectsData.length + ' projects!');
+    console.log('🪐 Project Orrery initialized with ' + projectsData.length + ' projects across ' + TOTAL_ORBITS + ' orbits!');
 });

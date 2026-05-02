@@ -37,6 +37,7 @@
                 <div class="orbit-ring r2"></div>
                 <div class="orbit-ring r3"></div>
                 <div class="orbit-ring r4"></div>
+                <div class="orbit-ring r5"></div>
 
                 <div class="central-sun">
                     <div class="sun-glow"></div>
