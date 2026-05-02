@@ -219,18 +219,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Accept': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => { throw new Error(data.message || 'Server error ' + response.status); });
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 showSuccess();
             } else {
-                showError(data.message || 'Failed to send message');
+                showErrorAlert(data.message || 'Failed to send message. Please try again.');
             }
         })
         .catch(err => {
-            // Fallback for demo - show success anyway
-            console.log('API not available, showing success for demo:', err);
-            showSuccess();
+            console.error('Contact form error:', err);
+            showErrorAlert(err.message || 'Failed to send message. Please check your connection and try again.');
         })
         .finally(() => {
             // Reset button
