@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const page = document.getElementById('intoPage');
     const canvas = document.getElementById('starMapCanvas');
     const ctx = canvas.getContext('2d');
+    const minimap = document.getElementById('minimap');
     const minimapCanvas = document.getElementById('minimapCanvas');
     const minimapCtx = minimapCanvas.getContext('2d');
     const popup = document.getElementById('starPopup');
@@ -173,16 +174,70 @@ document.addEventListener('DOMContentLoaded', function() {
     // World size (virtual space)
     const worldWidth = 2000;
     const worldHeight = 1300;
+    const minZoom = 0.3;
+    const maxZoom = 3;
 
     // Camera state
     let camera = {
-        x: worldWidth / 2 - window.innerWidth / 2,
-        y: worldHeight / 2 - window.innerHeight / 2,
+        x: 0,
+        y: 0,
         zoom: 1,
-        targetX: worldWidth / 2 - window.innerWidth / 2,
-        targetY: worldHeight / 2 - window.innerHeight / 2,
+        targetX: 0,
+        targetY: 0,
         targetZoom: 1
     };
+
+    let hasSizedCanvas = false;
+
+    function clampAxis(position, worldSize, viewportSize) {
+        const maxPosition = worldSize - viewportSize;
+
+        if (maxPosition <= 0) {
+            return maxPosition / 2;
+        }
+
+        return Math.max(0, Math.min(maxPosition, position));
+    }
+
+    function clampCameraTarget() {
+        const viewportWidth = canvas.width / camera.targetZoom;
+        const viewportHeight = canvas.height / camera.targetZoom;
+
+        camera.targetX = clampAxis(camera.targetX, worldWidth, viewportWidth);
+        camera.targetY = clampAxis(camera.targetY, worldHeight, viewportHeight);
+    }
+
+    function clampCameraCurrent() {
+        const viewportWidth = canvas.width / camera.zoom;
+        const viewportHeight = canvas.height / camera.zoom;
+
+        camera.x = clampAxis(camera.x, worldWidth, viewportWidth);
+        camera.y = clampAxis(camera.y, worldHeight, viewportHeight);
+    }
+
+    function centerCameraOn(worldX, worldY, zoom = camera.targetZoom) {
+        camera.targetZoom = Math.max(minZoom, Math.min(maxZoom, zoom));
+        camera.targetX = worldX - (canvas.width / camera.targetZoom) / 2;
+        camera.targetY = worldY - (canvas.height / camera.targetZoom) / 2;
+        clampCameraTarget();
+    }
+
+    function zoomCamera(nextZoom) {
+        const clampedZoom = Math.max(minZoom, Math.min(maxZoom, nextZoom));
+        const centerX = camera.targetX + (canvas.width / camera.targetZoom) / 2;
+        const centerY = camera.targetY + (canvas.height / camera.targetZoom) / 2;
+
+        centerCameraOn(centerX, centerY, clampedZoom);
+    }
+
+    function worldToScreen(worldX, worldY) {
+        const rect = canvas.getBoundingClientRect();
+
+        return {
+            x: rect.left + (worldX - camera.x) * camera.zoom,
+            y: rect.top + (worldY - camera.y) * camera.zoom
+        };
+    }
 
     // Interaction state
     let isPanning = false;
@@ -196,10 +251,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // RESIZE HANDLER
     // ============================================
     function resize() {
+        const previousTargetCenterX = hasSizedCanvas
+            ? camera.targetX + (canvas.width / camera.targetZoom) / 2
+            : worldWidth / 2;
+        const previousTargetCenterY = hasSizedCanvas
+            ? camera.targetY + (canvas.height / camera.targetZoom) / 2
+            : worldHeight / 2;
+        const previousCurrentCenterX = hasSizedCanvas
+            ? camera.x + (canvas.width / camera.zoom) / 2
+            : previousTargetCenterX;
+        const previousCurrentCenterY = hasSizedCanvas
+            ? camera.y + (canvas.height / camera.zoom) / 2
+            : previousTargetCenterY;
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        minimapCanvas.width = 180;
-        minimapCanvas.height = 120;
+
+        minimapCanvas.width = minimap.offsetWidth;
+        minimapCanvas.height = minimap.offsetHeight;
+
+        camera.targetX = previousTargetCenterX - (canvas.width / camera.targetZoom) / 2;
+        camera.targetY = previousTargetCenterY - (canvas.height / camera.targetZoom) / 2;
+        camera.x = previousCurrentCenterX - (canvas.width / camera.zoom) / 2;
+        camera.y = previousCurrentCenterY - (canvas.height / camera.zoom) / 2;
+        clampCameraTarget();
+        clampCameraCurrent();
+        hasSizedCanvas = true;
     }
 
     resize();
@@ -218,11 +295,8 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.save();
-        ctx.translate(
-            -camera.x * camera.zoom + canvas.width / 2 * (1 - camera.zoom) + canvas.width / 2 * camera.zoom,
-            -camera.y * camera.zoom + canvas.height / 2 * (1 - camera.zoom) + canvas.height / 2 * camera.zoom
-        );
         ctx.scale(camera.zoom, camera.zoom);
+        ctx.translate(-camera.x, -camera.y);
 
         // Draw constellation lines
         drawConstellationLines();
@@ -379,8 +453,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // MINIMAP
     // ============================================
     function drawMinimap(filteredStars) {
-        const mw = 180;
-        const mh = 120;
+        const mw = minimapCanvas.width;
+        const mh = minimapCanvas.height;
         
         minimapCtx.clearRect(0, 0, mw, mh);
         minimapCtx.fillStyle = 'rgba(10, 10, 20, 0.8)';
@@ -398,8 +472,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const vx = (camera.x / worldWidth) * mw;
         const vy = (camera.y / worldHeight) * mh;
-        const vw = (window.innerWidth / camera.zoom / worldWidth) * mw;
-        const vh = (window.innerHeight / camera.zoom / worldHeight) * mh;
+        const vw = (canvas.width / camera.zoom / worldWidth) * mw;
+        const vh = (canvas.height / camera.zoom / worldHeight) * mh;
 
         const viewport = document.getElementById('minimapViewport');
         viewport.style.left = vx + 'px';
@@ -412,9 +486,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // SCREEN TO WORLD COORDINATES
     // ============================================
     function screenToWorld(screenX, screenY) {
+        const rect = canvas.getBoundingClientRect();
+
         return {
-            x: (screenX - canvas.width / 2) / camera.zoom + camera.x,
-            y: (screenY - canvas.height / 2) / camera.zoom + camera.y
+            x: (screenX - rect.left) / camera.zoom + camera.x,
+            y: (screenY - rect.top) / camera.zoom + camera.y
         };
     }
 
@@ -511,10 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const dy = (e.clientY - panStart.y) / camera.zoom;
             camera.targetX = cameraStart.x - dx;
             camera.targetY = cameraStart.y - dy;
-            
-            // Clamp
-            camera.targetX = Math.max(0, Math.min(worldWidth - window.innerWidth / camera.zoom, camera.targetX));
-            camera.targetY = Math.max(0, Math.min(worldHeight - window.innerHeight / camera.zoom, camera.targetY));
+            clampCameraTarget();
             
             hidePopup();
         } else {
@@ -538,8 +611,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // If barely moved, treat as click
             if (dx < 5 && dy < 5 && hoveredStar) {
-                const screenX = (hoveredStar.x - camera.x) * camera.zoom + canvas.width / 2;
-                const screenY = (hoveredStar.y - camera.y) * camera.zoom + canvas.height / 2;
+                const screen = worldToScreen(hoveredStar.x, hoveredStar.y);
+                const screenX = screen.x;
+                const screenY = screen.y;
                 showPopup(hoveredStar, screenX, screenY);
             }
         }
@@ -571,6 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const dy = (e.touches[0].clientY - panStart.y) / camera.zoom;
             camera.targetX = cameraStart.x - dx;
             camera.targetY = cameraStart.y - dy;
+            clampCameraTarget();
         }
     });
 
@@ -580,17 +655,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Zoom controls - BUTTONS ONLY
     document.getElementById('zoomIn').addEventListener('click', () => {
-        camera.targetZoom = Math.min(3, camera.targetZoom * 1.3);
+        zoomCamera(camera.targetZoom * 1.3);
     });
 
     document.getElementById('zoomOut').addEventListener('click', () => {
-        camera.targetZoom = Math.max(0.3, camera.targetZoom * 0.7);
+        zoomCamera(camera.targetZoom * 0.7);
     });
 
     document.getElementById('resetView').addEventListener('click', () => {
-        camera.targetX = worldWidth / 2 - window.innerWidth / 2;
-        camera.targetY = worldHeight / 2 - window.innerHeight / 2;
-        camera.targetZoom = 1;
+        centerCameraOn(worldWidth / 2, worldHeight / 2, 1);
         hidePopup();
     });
 
@@ -621,17 +694,15 @@ document.addEventListener('DOMContentLoaded', function() {
             case '+':
             case '=':
                 e.preventDefault();
-                camera.targetZoom = Math.min(3, camera.targetZoom * 1.2);
+                zoomCamera(camera.targetZoom * 1.2);
                 break;
             case '-':
                 e.preventDefault();
-                camera.targetZoom = Math.max(0.3, camera.targetZoom * 0.8);
+                zoomCamera(camera.targetZoom * 0.8);
                 break;
             case '0':
                 e.preventDefault();
-                camera.targetX = worldWidth / 2 - window.innerWidth / 2;
-                camera.targetY = worldHeight / 2 - window.innerHeight / 2;
-                camera.targetZoom = 1;
+                centerCameraOn(worldWidth / 2, worldHeight / 2, 1);
                 hidePopup();
                 break;
             case 'Escape':
@@ -646,10 +717,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Center camera on "now playing"
     const nowPlaying = starData.find(s => s.subType === 'now-playing');
     if (nowPlaying) {
-        camera.targetX = nowPlaying.x - window.innerWidth / 2;
-        camera.targetY = nowPlaying.y - window.innerHeight / 2;
+        centerCameraOn(nowPlaying.x, nowPlaying.y, 1);
         camera.x = camera.targetX;
         camera.y = camera.targetY;
+        camera.zoom = camera.targetZoom;
     }
 
     requestAnimationFrame(render);
