@@ -481,7 +481,6 @@
     cursor: grabbing;
 }
 
-/* Card Layers */
 .ar-layer {
     position: absolute;
     inset: 0;
@@ -490,7 +489,6 @@
     backface-visibility: hidden;
 }
 
-/* Layer 1: Background Matrix */
 .ar-matrix {
     background: #0a0a0f;
     overflow: hidden;
@@ -504,7 +502,6 @@
     opacity: 0.3;
 }
 
-/* Layer 2: Photo dengan Mask */
 .ar-photo {
     z-index: 2;
     clip-path: polygon(
@@ -523,7 +520,6 @@
     filter: grayscale(30%) contrast(1.1);
 }
 
-/* Layer 3: Circuit Overlay */
 .ar-circuit {
     z-index: 3;
     pointer-events: none;
@@ -559,7 +555,6 @@
     }
 }
 
-/* Layer 4: Identity Data */
 .ar-data {
     z-index: 4;
     padding: 30px;
@@ -656,7 +651,6 @@
     50% { box-shadow: 0 0 20px #00ff41; }
 }
 
-/* Layer 5: Holographic Grid */
 .ar-grid {
     z-index: 5;
     pointer-events: none;
@@ -668,7 +662,6 @@
     border-radius: 20px;
 }
 
-/* Layer 6: Glitch Effect */
 .ar-glitch {
     z-index: 6;
     pointer-events: none;
@@ -722,7 +715,6 @@
     80% { transform: translate(-3px, 1px); }
 }
 
-/* Corner Scanning Brackets */
 .ar-corners {
     position: absolute;
     inset: 0;
@@ -751,7 +743,6 @@
     height: 40px;
 }
 
-/* Scanning Line */
 .ar-scanner {
     position: absolute;
     left: 15px;
@@ -788,7 +779,6 @@
     }
 }
 
-/* Projection Light */
 .ar-projection {
     position: absolute;
     bottom: -30px;
@@ -811,7 +801,6 @@
     50% { opacity: 0.6; }
 }
 
-/* Border Glow */
 .ar-border-glow {
     position: absolute;
     inset: -3px;
@@ -840,7 +829,6 @@
     50% { background-position: 100% 50%; }
 }
 
-/* Data Particles */
 .ar-particles {
     position: absolute;
     inset: 0;
@@ -876,7 +864,6 @@
     }
 }
 
-/* Access Granted Flash */
 .ar-flash {
     position: absolute;
     inset: 0;
@@ -893,7 +880,6 @@
     transition: opacity 0s;
 }
 
-/* 3D Depth Effect */
 .ar-card {
     box-shadow: 
         0 0 30px rgba(0, 255, 255, 0.1),
