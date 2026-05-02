@@ -22,6 +22,8 @@
         <link rel="stylesheet" href="{{ asset('css/what-i-use.css') }}">
     @elseif(request()->routeIs("what-ive-built"))
         <link rel="stylesheet" href="{{ asset('css/what-i\'ve-built.css') }}">
+    @elseif(request()->routeIs("what-im-into"))
+        <link rel="stylesheet" href="{{ asset('css/what-im-into.css') }}">
     @endif
 
     {{-- font awesome --}}
@@ -59,6 +61,7 @@
     <script src="{{ asset('js/loading.js') }}"></script>
     <script src="{{ asset('js/what-i-use.js') }}"></script>
     <script src="{{ asset('js/what-ive-built.js') }}"></script>
+    <script src="{{ asset('js/what-im-into.js') }}"></script>
 </body>
 
 </html>

@@ -19,3 +19,9 @@ Route::get('/what-ive-built', function() {
         'starsCount' => 100
     ]);
 })->name('what-ive-built');
+
+Route::get('/what-im-into', function() {
+    return view('what-im-into', [
+        'starsCount' => 100
+    ]);
+})->name('what-im-into');
