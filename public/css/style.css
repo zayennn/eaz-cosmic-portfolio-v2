@@ -175,7 +175,6 @@
     transition: all 0.4s ease;
 }
 
-/* posisi awal */
 .social i:nth-child(1) {
     top: -100%;
 }
@@ -185,7 +184,6 @@
     transform: translate(-50%, -50%);
 }
 
-/* hover animasi */
 .social:hover i:nth-child(1) {
     top: 50%;
     transform: translate(-50%, -50%);
@@ -195,7 +193,6 @@
     top: 150%;
 }
 
-/* BACKGROUND DEFAULT */
 .instagram {
     background: linear-gradient(45deg, #ff00cc, #ff6a00);
 }
