@@ -439,9 +439,6 @@
     display: none !important;
 }
 
-/* ============================================
-   DETAIL MODAL OVERLAY
-   ============================================ */
 .detail-overlay {
     position: fixed;
     inset: 0;
