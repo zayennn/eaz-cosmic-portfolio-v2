@@ -658,9 +658,6 @@
     font-size: 1.2rem;
 }
 
-/* ============================================
-   STELLAR EVENTS (Random particle bursts)
-   ============================================ */
 .stellar-event {
     position: absolute;
     pointer-events: none;
