@@ -8,7 +8,7 @@
 
         <div class="into-header-overlay">
             <div class="into-badge">
-                <i class="fas fa-star"></i> Explore My Universe
+                Explore My Universe
             </div>
             <h1 class="into-title">
                 What I'm <span class="highlight">Into</span>
