@@ -931,7 +931,6 @@
     50% { transform: scale(1.2); opacity: 0.6; }
 }
 
-/* Responsive: stack vertically on mobile with playful scatter */
 @media (max-width: 768px) {
     .skills-nodes {
         gap: 1.5rem;
