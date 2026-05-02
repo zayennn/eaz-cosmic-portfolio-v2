@@ -23,7 +23,6 @@
         </p>
     </div>
 
-    <!-- Main Grid -->
     <div class="skills-grid">
         <div class="skills-sidebar">
             <button class="category-btn active" data-category="all">
