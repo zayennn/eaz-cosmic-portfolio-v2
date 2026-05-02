@@ -153,7 +153,7 @@
         </div>
 
         <!-- Social Orbit -->
-        {{-- <div class="social-orbit-section">
+        <div class="social-orbit-section">
             <p class="social-orbit-title">Or Connect Via</p>
             <div class="social-orbit-ring">
                 <a href="https://www.instagram.com/zaayeenn_/" target="_blank" rel="noopener noreferrer"
@@ -173,7 +173,7 @@
                     <i class="fab fa-tiktok"></i>
                 </a>
             </div>
-        </div> --}}
+        </div>
 
         <!-- Success Overlay -->
         <div class="success-overlay" id="successOverlay">
