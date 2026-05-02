@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <!-- ZOOM CONTROLS - 6 BUTTONS, FIXED POSITION -->
+    <!-- zoom control -->
     <div class="zoom-controls">
         <div class="control-group">
             <span class="control-label">Orrery</span>
