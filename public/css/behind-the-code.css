@@ -1,6 +1,3 @@
-/* ============================================
-   BEHIND THE CODE - NEURAL DATA STREAM
-   ============================================ */
 
 .behind-page {
     min-height: 100vh;
@@ -10,9 +7,6 @@
     overflow-x: hidden;
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
 .behind-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -75,9 +69,6 @@
     line-height: 1.6;
 }
 
-/* ============================================
-   PROFILE CARD - HOLOGRAPHIC
-   ============================================ */
 .profile-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -212,9 +203,6 @@
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
 }
 
-/* ============================================
-   STATS ORBIT - Floating stat nodes
-   ============================================ */
 .stats-orbit {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -290,9 +278,6 @@
     letter-spacing: 1px;
 }
 
-/* ============================================
-   CONTRIBUTION RIVER
-   ============================================ */
 .contribution-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -355,9 +340,6 @@
     border-radius: 2px;
 }
 
-/* ============================================
-   SNAKE ANIMATION SECTION
-   ============================================ */
 .snake-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -401,9 +383,6 @@
     filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
 }
 
-/* ============================================
-   LANGUAGES CONSTELLATION
-   ============================================ */
 .languages-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -480,9 +459,6 @@
     font-family: 'Exo 2', sans-serif;
 }
 
-/* ============================================
-   CODING ACTIVITY - WAKATIME STYLE
-   ============================================ */
 .activity-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -537,9 +513,6 @@
     font-family: 'Exo 2', sans-serif;
 }
 
-/* ============================================
-   WEEKLY INSIGHTS
-   ============================================ */
 .weekly-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -601,9 +574,6 @@
     font-family: 'Exo 2', sans-serif;
 }
 
-/* ============================================
-   MOST PRODUCTIVE TIME
-   ============================================ */
 .productive-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -719,9 +689,6 @@
     font-family: 'Orbitron', sans-serif;
 }
 
-/* ============================================
-   FEATURED REPOS
-   ============================================ */
 .repos-section {
     max-width: 1000px;
     margin: 0 auto 4rem;
@@ -864,9 +831,6 @@
     font-size: 0.8rem;
 }
 
-/* ============================================
-   CTA SECTION
-   ============================================ */
 .cta-section {
     max-width: 1000px;
     margin: 0 auto 2rem;
@@ -955,9 +919,6 @@
     transform: translateY(-3px);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 1024px) {
     .stats-grid { grid-template-columns: repeat(3, 1fr); }
     .repos-grid { grid-template-columns: repeat(2, 1fr); }
