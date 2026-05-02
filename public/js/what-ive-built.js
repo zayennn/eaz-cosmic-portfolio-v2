@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // ============================================
-    // PROJECTS DATA - PORTFOLIO PROJECTS (15)
-    // ============================================
     const projectsData = [
         {
             id: 1,
@@ -158,9 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     ];
 
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
     const orreryContainer = document.getElementById('orreryContainer');
     const filterTabs = document.querySelectorAll('.filter-tab');
     const detailOverlay = document.getElementById('detailOverlay');
@@ -180,9 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let planetScale = 1;
     let targetPlanetScale = 1;
 
-    // ============================================
-    // CREATE ORRERY SYSTEM - 5 ORBITS
-    // ============================================
     const TOTAL_ORBITS = 5;
 
     function createOrrery() {
@@ -205,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const projectsInOrbit = distributed[i].length;
             distributed[i].forEach((project, pIndex) => {
-                // Calculate angle for even distribution
                 const angle = (360 / projectsInOrbit) * pIndex;
                 const planet = createPlanetElement(project, angle, pIndex, projectsInOrbit);
                 group.appendChild(planet);
@@ -221,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const wrapper = document.createElement('div');
         wrapper.classList.add('planet-wrapper');
         
-        // Position based on angle
         const angleRad = (angleDeg - 90) * (Math.PI / 180); // -90 to start from top
         const orbitSize = 50; // percentage of orbit ring
         const x = 50 + Math.cos(angleRad) * orbitSize;
@@ -269,9 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return wrapper;
     }
 
-    // ============================================
     // FILTER PROJECTS
-    // ============================================
     function filterProjects(filter) {
         const planetsToHide = [];
         const planetsToShow = [];
@@ -307,9 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, hideDuration);
     }
 
-    // ============================================
     // ZOOM CONTROLS
-    // ============================================
     function updateOrreryZoom() {
         orreryContainer.style.transform = `scale(${orreryZoom})`;
     }
@@ -345,9 +330,7 @@ document.addEventListener('DOMContentLoaded', function () {
     zoomOutPlanet.addEventListener('click', planetZoomOut);
     resetPlanet.addEventListener('click', planetZoomReset);
 
-    // ============================================
     // DETAIL MODAL
-    // ============================================
     function openDetail(project, event) {
         const typeColors = { freelance: '#3b82f6', personal: '#8b5cf6', certification: '#22c55e' };
         const color = typeColors[project.type] || '#6366f1';
@@ -424,9 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
     detailOverlay.addEventListener('click', (e) => { if (e.target === detailOverlay) closeDetailModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetailModal(); });
 
-    // ============================================
     // SPARKLES EFFECT
-    // ============================================
     function createSparkles(x, y, color) {
         const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
         for (let i = 0; i < 14; i++) {
@@ -448,9 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // ============================================
     // FILTER TABS
-    // ============================================
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function () {
             if (this.classList.contains('active')) return;
@@ -462,9 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ============================================
     // INITIALIZE
-    // ============================================
     createOrrery();
     animateOrreryZoom();
     animatePlanetScale();
