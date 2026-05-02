@@ -829,3 +829,92 @@
         padding: 2rem 1.5rem;
     }
 }
+
+/* ============================================
+   INPUT ERROR STATE - REPLACE INPUT GLITCH
+   ============================================ */
+
+/* Remove old input-glitch */
+.form-input:focus ~ .input-glitch,
+.form-textarea:focus ~ .input-glitch {
+    display: none;
+}
+
+/* New error handling */
+.form-input.error,
+.form-textarea.error {
+    border-color: rgba(239, 68, 68, 0.6) !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15), inset 0 0 10px rgba(239, 68, 68, 0.05) !important;
+}
+
+.form-input.valid,
+.form-textarea.valid {
+    border-color: rgba(34, 197, 94, 0.6) !important;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.15), inset 0 0 10px rgba(34, 197, 94, 0.05) !important;
+}
+
+/* Error shake animation */
+@keyframes input-shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-4px); }
+    20% { transform: translateX(4px); }
+    30% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    50% { transform: translateX(-2px); }
+    60% { transform: translateX(2px); }
+    70% { transform: translateX(-1px); }
+    80% { transform: translateX(1px); }
+    90% { transform: translateX(0); }
+}
+
+.form-input.shake,
+.form-textarea.shake {
+    animation: input-shake 0.5s ease-in-out;
+}
+
+/* Error message */
+.error-message {
+    color: #ef4444;
+    font-size: 0.7rem;
+    font-family: 'Exo 2', sans-serif;
+    margin-top: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.error-message i {
+    font-size: 0.7rem;
+}
+
+/* ============================================
+   FIX INFO LINK CLICKABLE
+   ============================================ */
+.info-card {
+    position: relative;
+    z-index: 1;
+}
+
+.info-link {
+    position: relative;
+    z-index: 5;
+    pointer-events: auto !important;
+}
+
+.info-content {
+    position: relative;
+    z-index: 2;
+}
+
+.info-icon-orbit {
+    position: relative;
+    z-index: 2;
+}

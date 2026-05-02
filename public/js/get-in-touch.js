@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('submitBtn');
     const successOverlay = document.getElementById('successOverlay');
     const successClose = document.getElementById('successClose');
+    const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+    const errorMessages = document.querySelectorAll('.error-message');
 
     // ============================================
     // TRANSMISSION PARTICLES
@@ -41,12 +43,157 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
+    // VALIDATION FUNCTIONS
+    // ============================================
+    function showError(input, message) {
+        const errorDiv = input.parentElement.querySelector('.error-message');
+        
+        // Remove valid class, add error
+        input.classList.remove('valid');
+        input.classList.add('error');
+        input.classList.add('shake');
+        
+        // Show error message
+        if (errorDiv) {
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorDiv.classList.add('show');
+        }
+        
+        // Remove shake after animation
+        setTimeout(() => {
+            input.classList.remove('shake');
+        }, 500);
+    }
+
+    function showValid(input) {
+        const errorDiv = input.parentElement.querySelector('.error-message');
+        
+        // Remove error, add valid
+        input.classList.remove('error');
+        input.classList.add('valid');
+        
+        // Hide error message
+        if (errorDiv) {
+            errorDiv.classList.remove('show');
+        }
+    }
+
+    function clearValidation(input) {
+        const errorDiv = input.parentElement.querySelector('.error-message');
+        
+        input.classList.remove('error', 'valid');
+        
+        if (errorDiv) {
+            errorDiv.classList.remove('show');
+        }
+    }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function validateInput(input) {
+        const value = input.value.trim();
+        const name = input.getAttribute('name');
+        const type = input.getAttribute('type');
+
+        if (!value && input.hasAttribute('required')) {
+            const fieldName = name.charAt(0).toUpperCase() + name.slice(1);
+            showError(input, `${fieldName} is required`);
+            return false;
+        }
+
+        if (name === 'email' && value) {
+            if (!validateEmail(value)) {
+                showError(input, 'Please enter a valid email address');
+                return false;
+            }
+        }
+
+        if (name === 'name' && value && value.length < 2) {
+            showError(input, 'Name must be at least 2 characters');
+            return false;
+        }
+
+        if (name === 'message' && value && value.length < 10) {
+            showError(input, 'Message must be at least 10 characters');
+            return false;
+        }
+
+        showValid(input);
+        return true;
+    }
+
+    // ============================================
+    // REAL-TIME VALIDATION ON INPUT
+    // ============================================
+    formInputs.forEach(input => {
+        // Validate on blur (when user leaves the field)
+        input.addEventListener('blur', function() {
+            if (this.value.trim()) {
+                validateInput(this);
+            } else if (this.hasAttribute('required')) {
+                const fieldName = this.getAttribute('name').charAt(0).toUpperCase() + this.getAttribute('name').slice(1);
+                showError(this, `${fieldName} is required`);
+            } else {
+                clearValidation(this);
+            }
+        });
+
+        // Clear error on focus
+        input.addEventListener('focus', function() {
+            clearValidation(this);
+            
+            // Create particles
+            const rect = this.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            createTransmissionParticles(x, y, 8);
+        });
+
+        // Real-time validation as user types
+        input.addEventListener('input', function() {
+            if (this.classList.contains('error')) {
+                if (this.value.trim()) {
+                    validateInput(this);
+                }
+            }
+        });
+    });
+
+    // ============================================
     // FORM SUBMISSION
     // ============================================
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get submit button position for particles
+        // Validate all required fields
+        let isValid = true;
+        let firstError = null;
+        
+        formInputs.forEach(input => {
+            if (input.hasAttribute('required') || input.value.trim()) {
+                const valid = validateInput(input);
+                if (!valid && !firstError) {
+                    firstError = input;
+                }
+                if (!valid) {
+                    isValid = false;
+                }
+            }
+        });
+        
+        // If invalid, scroll to first error
+        if (!isValid) {
+            if (firstError) {
+                firstError.focus();
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+        }
+        
+        // All valid - proceed with submission
         const btnRect = submitBtn.getBoundingClientRect();
         const centerX = btnRect.left + btnRect.width / 2;
         const centerY = btnRect.top + btnRect.height / 2;
@@ -63,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Prepare form data
         const formData = new FormData(contactForm);
         
-        // Send to backend (using fetch)
+        // Send to backend
         fetch('/contact/send', {
             method: 'POST',
             body: formData,
@@ -100,19 +247,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // SUCCESS HANDLER
     // ============================================
     function showSuccess() {
-        // Create particles from center of screen
         createTransmissionParticles(window.innerWidth / 2, window.innerHeight / 2, 50);
         
-        // Show overlay with delay
         setTimeout(() => {
             successOverlay.classList.add('active');
         }, 300);
         
-        // Reset form
+        // Reset form and clear all validations
         contactForm.reset();
+        formInputs.forEach(input => clearValidation(input));
     }
 
-    function showError(message) {
+    function showErrorAlert(message) {
         alert('Error: ' + message);
     }
 
@@ -129,22 +275,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ============================================
-    // INPUT FOCUS PARTICLES
-    // ============================================
-    document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
-        input.addEventListener('focus', function() {
-            const rect = this.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-            createTransmissionParticles(x, y, 8);
-        });
-    });
-
-    // ============================================
-    // KEYBOARD SHORTCUT
-    // ============================================
+    // Close on Escape key
     document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && successOverlay.classList.contains('active')) {
+            successOverlay.classList.remove('active');
+        }
+        
         // Ctrl+Enter to submit
         if (e.ctrlKey && e.key === 'Enter') {
             const activeEl = document.activeElement;

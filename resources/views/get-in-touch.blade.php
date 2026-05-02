@@ -99,14 +99,15 @@
                 </div>
 
                 <!-- Form -->
-                <form id="contactForm">
+                <!-- Form -->
+                <form id="contactForm" novalidate>
                     @csrf
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-user"></i> Your Name
                         </label>
                         <input type="text" name="name" class="form-input" placeholder="Enter your name..." required>
-                        <div class="input-glitch"></div>
+                        <div class="error-message" data-error="name"></div>
                     </div>
 
                     <div class="form-group">
@@ -114,7 +115,7 @@
                             <i class="fas fa-envelope"></i> Email Address
                         </label>
                         <input type="email" name="email" class="form-input" placeholder="Enter your email..." required>
-                        <div class="input-glitch"></div>
+                        <div class="error-message" data-error="email"></div>
                     </div>
 
                     <div class="form-group">
@@ -122,7 +123,7 @@
                             <i class="fas fa-tag"></i> Subject
                         </label>
                         <input type="text" name="subject" class="form-input" placeholder="What's this about?">
-                        <div class="input-glitch"></div>
+                        <div class="error-message" data-error="subject"></div>
                     </div>
 
                     <div class="form-group">
@@ -130,7 +131,7 @@
                             <i class="fas fa-pen"></i> Message
                         </label>
                         <textarea name="message" class="form-textarea" placeholder="Type your message here..." rows="5" required></textarea>
-                        <div class="input-glitch"></div>
+                        <div class="error-message" data-error="message"></div>
                     </div>
 
                     <div class="submit-section">
