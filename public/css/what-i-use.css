@@ -861,7 +861,6 @@
     }
 }
 
-/* Staggered bounce for newly appeared nodes */
 .skill-node:nth-child(1).filter-in { animation-delay: 0.05s; }
 .skill-node:nth-child(2).filter-in { animation-delay: 0.1s; }
 .skill-node:nth-child(3).filter-in { animation-delay: 0.15s; }
