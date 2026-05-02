@@ -256,9 +256,6 @@
     50% { transform: scale(1.2); opacity: 0.9; }
 }
 
-/* ============================================
-   PLANET WRAPPER - COUNTER ROTATES
-   ============================================ */
 .planet-wrapper {
     position: absolute;
     width: 0; height: 0;
