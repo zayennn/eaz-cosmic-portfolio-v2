@@ -212,17 +212,14 @@
     background: linear-gradient(45deg, #2b2b2b, #444);
 }
 
-/* ICON DEFAULT */
 .social i {
     color: #fff;
 }
 
-/* HOVER EFFECT */
 .social:hover {
     background: #ffffff;
 }
 
-/* ICON JADI GRADIENT PAS HOVER */
 .instagram:hover i {
     background: linear-gradient(45deg, #ff00cc, #ff6a00);
     -webkit-background-clip: text;
