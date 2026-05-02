@@ -355,7 +355,6 @@
     to { transform: rotate(360deg) translateX(38px) rotate(-360deg); }
 }
 
-/* Planet label - FIXED BELOW, SCALES WITH PLANET */
 .planet-label {
     position: absolute;
     top: calc(100% + 10px);
