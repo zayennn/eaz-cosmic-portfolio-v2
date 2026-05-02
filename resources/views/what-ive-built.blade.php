@@ -6,7 +6,7 @@
     <section class="projects-page">
         <div class="projects-header">
             <div class="projects-badge">
-                <i class="fas fa-star"></i> Project Galaxy
+                Project Galaxy
             </div>
             <h1 class="projects-title">
                 What I've <span class="highlight">Built</span>
