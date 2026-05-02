@@ -1,14 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ============================================
-    // CYBERPUNK AR IDENTITY CARD SYSTEM
-    // ============================================
     
     const card = document.querySelector('.ar-card');
     if (!card) return;
 
-    // ============================================
-    // MATRIX RAIN EFFECT
-    // ============================================
     function initMatrixRain() {
         const matrixCanvas = card.querySelector('.matrix-canvas');
         if (!matrixCanvas) return;
@@ -51,12 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const x = i * fontSize;
                 const y = drops[i] * fontSize;
                 
-                // Varying opacity for depth
                 const opacity = Math.random() * 0.5 + 0.2;
                 ctx.fillStyle = `rgba(0, 255, 255, ${opacity})`;
                 ctx.fillText(char, x, y);
                 
-                // Bright leading character
                 if (Math.random() > 0.98) {
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
                     ctx.fillText(char, x, y);
@@ -75,9 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
         drawMatrix();
     }
 
-    // ============================================
-    // DATA PARTICLES
-    // ============================================
     function createDataParticles() {
         const container = card.querySelector('.ar-particles');
         if (!container) return;
@@ -106,9 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 200);
     }
 
-    // ============================================
-    // 3D TILT INTERACTION
-    // ============================================
     function init3DTilt() {
         let isInteracting = false;
         let currentRotateX = 0;
@@ -157,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 rotateY(${currentRotateY}deg)
             `;
             
-            // Update layer positions for parallax
             const layers = card.querySelectorAll('.ar-layer');
             layers.forEach((layer, index) => {
                 const depth = (index + 1) * 2;
@@ -171,9 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
         animate();
     }
 
-    // ============================================
-    // CIRCUIT DRAWING
-    // ============================================
     function drawCircuitPaths() {
         const svg = card.querySelector('.circuit-svg');
         if (!svg) return;
@@ -181,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         svg.innerHTML = '';
         
         const paths = [
-            // Horizontal lines
             { x1: 20, y1: 30, x2: 150, y2: 30 },
             { x1: 200, y1: 30, x2: 340, y2: 30 },
             { x1: 20, y1: 80, x2: 120, y2: 80 },
@@ -191,20 +172,17 @@ document.addEventListener('DOMContentLoaded', function() {
             { x1: 20, y1: 400, x2: 100, y2: 400 },
             { x1: 260, y1: 400, x2: 340, y2: 400 },
             
-            // Vertical lines
             { x1: 20, y1: 30, x2: 20, y2: 150 },
             { x1: 20, y1: 300, x2: 20, y2: 400 },
             { x1: 340, y1: 30, x2: 340, y2: 200 },
             { x1: 340, y1: 280, x2: 340, y2: 400 },
             
-            // Diagonal connections
             { x1: 150, y1: 30, x2: 200, y2: 80 },
             { x1: 120, y1: 80, x2: 240, y2: 350 },
             { x1: 180, y1: 350, x2: 220, y2: 350 },
         ];
         
         paths.forEach((path, index) => {
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             line.setAttribute('x1', path.x1);
             line.setAttribute('y1', path.y1);
             line.setAttribute('x2', path.x2);
@@ -215,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
             svg.appendChild(line);
         });
         
-        // Add nodes at intersections
         const nodes = [
             { cx: 20, cy: 30 }, { cx: 150, cy: 30 }, { cx: 200, cy: 80 },
             { cx: 340, cy: 30 }, { cx: 120, cy: 80 }, { cx: 240, cy: 350 },
@@ -224,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
         
         nodes.forEach((node, index) => {
-            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             circle.setAttribute('cx', node.cx);
             circle.setAttribute('cy', node.cy);
             circle.setAttribute('r', '3');
@@ -237,9 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // SCANNER INTERACTION
-    // ============================================
     function initScannerEffect() {
         const scanner = card.querySelector('.ar-scanner');
         if (!scanner) return;
@@ -253,9 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // CLICK ACCESS FLASH
-    // ============================================
     card.addEventListener('click', () => {
         const flash = card.querySelector('.ar-flash');
         flash.style.opacity = '1';
@@ -264,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
             flash.style.opacity = '0';
         }, 200);
         
-        // Random data burst
         const particles = card.querySelector('.ar-particles');
         for (let i = 0; i < 20; i++) {
             const particle = document.createElement('span');
@@ -280,9 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ============================================
-    // INITIALIZE
-    // ============================================
     initMatrixRain();
     createDataParticles();
     init3DTilt();
