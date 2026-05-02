@@ -80,6 +80,7 @@
                     <h3 class="detail-title" id="detailTitle"></h3>
                     <p class="detail-desc" id="detailDesc"></p>
                     <div class="detail-tech" id="detailTech"></div>
+                    <div class="detail-links" id="detailLinks"></div>
                 </div>
             </div>
         </div>

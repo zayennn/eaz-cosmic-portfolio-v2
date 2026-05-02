@@ -1,19 +1,134 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // ============================================
+    // PROJECTS DATA - PORTFOLIO PROJECTS
+    // ============================================
     const projectsData = [
-        { id: 1, title: 'E-Commerce Platform', type: 'freelance', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop', desc: 'Full-stack e-commerce with payment gateway, admin dashboard, and inventory management.', tech: ['Laravel', 'MySQL', 'Bootstrap'] },
-        { id: 2, title: 'Portfolio Website', type: 'personal', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop', desc: 'Personal portfolio with cosmic theme, smooth animations, and interactive UI.', tech: ['React', 'Framer Motion', 'GSAP'] },
-        { id: 3, title: 'School Management', type: 'freelance', image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=300&fit=crop', desc: 'School system with student records, attendance, and grade management.', tech: ['PHP', 'MySQL', 'JavaScript'] },
-        { id: 4, title: 'Weather Dashboard', type: 'personal', image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=400&h=300&fit=crop', desc: 'Real-time weather dashboard with location search and interactive maps.', tech: ['React', 'API', 'CSS3'] },
-        { id: 5, title: 'Laravel Certification', type: 'certification', image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop', desc: 'Official Laravel certification for robust web application development.', tech: ['Laravel', 'PHP', 'Testing'] },
-        { id: 6, title: 'Restaurant POS', type: 'freelance', image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop', desc: 'POS system with table management, orders, and kitchen display.', tech: ['Laravel', 'Vue.js', 'MySQL'] },
-        { id: 7, title: 'Task Manager App', type: 'personal', image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop', desc: 'Kanban task manager with drag-and-drop and real-time collaboration.', tech: ['React', 'Node.js', 'Socket.io'] },
-        { id: 8, title: 'JavaScript Cert', type: 'certification', image: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop', desc: 'Advanced JavaScript certification covering ES6+ and modern patterns.', tech: ['JavaScript', 'ES6+', 'DOM'] },
-        { id: 9, title: 'Blog CMS', type: 'personal', image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&h=300&fit=crop', desc: 'Custom blog CMS with markdown editor and SEO optimization.', tech: ['Laravel', 'Alpine.js', 'Tailwind'] },
-        { id: 10, title: 'Company Profile', type: 'freelance', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop', desc: 'Professional company profile with services and contact form.', tech: ['HTML5', 'CSS3', 'JavaScript'] },
-        { id: 11, title: 'Python Certification', type: 'certification', image: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop', desc: 'Python certification covering OOP, data structures, and algorithms.', tech: ['Python', 'OOP', 'Algorithms'] },
-        { id: 12, title: 'Inventory System', type: 'freelance', image: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&h=300&fit=crop', desc: 'Multi-warehouse inventory with barcode and stock alerts.', tech: ['PHP', 'MySQL', 'jQuery'] }
+        {
+            id: 1,
+            title: 'Budget Tracker',
+            type: 'personal',
+            image: '/images/projects/budget_tracker.png',
+            desc: 'A powerful web app for managing finances. Track expenses, categorize spending, set budgets, and generate detailed reports with offline access.',
+            tech: ['PHP', 'Laravel'],
+            github: 'https://github.com/zayennn/budget-tracker',
+            featured: true
+        },
+        {
+            id: 2,
+            title: 'Certiport - HTML & CSS',
+            type: 'certification',
+            image: '/images/projects/certiport.jpg',
+            desc: 'After completing HTML and CSS basics test learning, I successfully obtained this certification.',
+            tech: ['HTML5', 'CSS3'],
+            issuer: 'Certiport',
+            featured: true
+        },
+        {
+            id: 3,
+            title: 'SOLID Programming Principles',
+            type: 'certification',
+            image: '/images/projects/dicoding.png',
+            desc: 'A course on Dicoding that teaches the principles of SOLID programming for clean and maintainable code.',
+            tech: ['SOLID', 'OOP'],
+            issuer: 'Dicoding',
+            featured: false
+        },
+        {
+            id: 4,
+            title: 'Landing Page PT. DHP',
+            type: 'freelance',
+            image: '/images/projects/freelance-1.jpg',
+            desc: 'Built a professional landing page for PT. DHP using Laravel and Bootstrap 5 with responsive design.',
+            tech: ['PHP', 'Laravel', 'Bootstrap'],
+            featured: true
+        },
+        {
+            id: 5,
+            title: 'Landing Page SMPN 157 Jakarta',
+            type: 'freelance',
+            image: '/images/projects/freelance-2.jpg',
+            desc: 'A landing page designed for SMPN Negri 157 Jakarta with modern UI and responsive layout.',
+            tech: ['PHP', 'Laravel', 'Bootstrap'],
+            featured: false
+        },
+        {
+            id: 6,
+            title: 'Gmetrix - HTML5 & CSS3',
+            type: 'certification',
+            image: '/images/projects/gmtrix.jpg',
+            desc: 'Certification obtained after passing HTML5 and CSS3 tests through Gmetrix platform.',
+            tech: ['HTML5', 'CSS3'],
+            issuer: 'Gmetrix',
+            featured: true
+        },
+        {
+            id: 7,
+            title: 'Internship PT. Kreasi Sawala Nusantara',
+            type: 'certification',
+            image: '/images/projects/PKL.jpg',
+            desc: 'Internship program where I gained practical experience in web development as a Junior Frontend Developer.',
+            tech: ['Junior FrontEnd'],
+            issuer: 'PT. Kreasi Sawala Nusantara',
+            featured: true
+        },
+        {
+            id: 8,
+            title: 'Python Learning Platform',
+            type: 'personal',
+            image: '/images/projects/python learning.png',
+            desc: 'Interactive React website for learning Python basics with engaging UI and step-by-step tutorials.',
+            tech: ['React Js'],
+            github: 'https://github.com/zayennn/react-web-python-learning',
+            live: 'https://react-web-python-learning.vercel.app/',
+            featured: true
+        },
+        {
+            id: 9,
+            title: 'Vite Portfolio',
+            type: 'personal',
+            image: '/images/projects/vite-portfolio.png',
+            desc: 'A personal portfolio website built with Vite featuring fast performance and modern design.',
+            tech: ['Vite Js'],
+            github: 'https://github.com/zaayeenn/vite-portfolio',
+            live: 'https://vite-portfolio-drab.vercel.app/',
+            featured: false
+        },
+        {
+            id: 10,
+            title: 'React Js Portfolio',
+            type: 'personal',
+            image: '/images/projects/react portfolio.png',
+            desc: 'Portfolio website built with React showcasing projects and skills with smooth animations.',
+            tech: ['React Js'],
+            github: 'https://github.com/zaayeenn/reactjs-portfolio',
+            live: 'https://els-reactjs-portfolio.vercel.app/',
+            featured: false
+        },
+        {
+            id: 11,
+            title: 'Cosmic Portfolio',
+            type: 'personal',
+            image: '/images/projects/react cosmic.png',
+            desc: 'Portfolio built with Vite JS featuring cosmic theme, parallax animations, and interactive UI.',
+            tech: ['Vite Js'],
+            github: 'https://github.com/zayennn/vite-cosmic-portfolio',
+            live: 'https://cosmic-portfolio-iota.vercel.app/',
+            featured: false
+        },
+        {
+            id: 12,
+            title: 'Cafe Coffee Website',
+            type: 'freelance',
+            image: '/images/projects/freelance-3.png',
+            desc: 'Freelance cafe website project built with HTML, CSS, and JavaScript featuring menu and contact sections.',
+            tech: ['HTML5', 'CSS3', 'JavaScript'],
+            featured: true
+        }
     ];
 
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
     const orreryContainer = document.getElementById('orreryContainer');
     const filterTabs = document.querySelectorAll('.filter-tab');
     const detailOverlay = document.getElementById('detailOverlay');
@@ -33,6 +148,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let planetScale = 1;
     let targetPlanetScale = 1;
 
+    // ============================================
+    // CREATE ORRERY SYSTEM
+    // ============================================
     function createOrrery() {
         const existingGroups = orreryContainer.querySelectorAll('.orbit-group');
         existingGroups.forEach(g => g.remove());
@@ -79,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
         planet.innerHTML = `
             <div class="planet-body">
                 <img src="${project.image}" alt="${project.title}" 
-                     onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%, #1e293b, #0f172a);color:#64748b;font-size:1.3rem;\\'><i class=\\'fas fa-rocket\\'></i></div>';">
+                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%, #1e293b, #0f172a);color:#64748b;font-size:1.3rem;\\'><i class=\\'fas fa-' + (project.type === 'certification' ? 'award' : 'rocket') + '\\'></i></div>';">
                 <div class="planet-atmosphere" style="border-color: ${colors.dot}40;"></div>
             </div>
             <div class="planet-ring" style="border-color: ${colors.dot}25;"></div>
@@ -101,6 +219,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return wrapper;
     }
 
+    // ============================================
+    // FILTER PROJECTS
+    // ============================================
     function filterProjects(filter) {
         const planetsToHide = [];
         const planetsToShow = [];
@@ -136,6 +257,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }, hideDuration);
     }
 
+    // ============================================
+    // ZOOM CONTROLS
+    // ============================================
     function updateOrreryZoom() {
         orreryContainer.style.transform = `scale(${orreryZoom})`;
     }
@@ -171,6 +295,9 @@ document.addEventListener('DOMContentLoaded', function () {
     zoomOutPlanet.addEventListener('click', planetZoomOut);
     resetPlanet.addEventListener('click', planetZoomReset);
 
+    // ============================================
+    // DETAIL MODAL
+    // ============================================
     function openDetail(project, event) {
         const typeColors = { freelance: '#3b82f6', personal: '#8b5cf6', certification: '#22c55e' };
         const color = typeColors[project.type] || '#6366f1';
@@ -180,26 +307,52 @@ document.addEventListener('DOMContentLoaded', function () {
         const imgEl = detailImage.querySelector('img');
         imgEl.src = project.image;
         imgEl.style.display = '';
+        
+        // Remove fallback icon if exists
+        const fallbackIcon = detailImage.querySelector('.fallback-icon');
+        if (fallbackIcon) fallbackIcon.remove();
+        detailImage.style.background = '';
+        detailImage.style.display = '';
+        detailImage.style.alignItems = '';
+        detailImage.style.justifyContent = '';
+        
         imgEl.onerror = function () {
             this.style.display = 'none';
             detailImage.style.background = 'linear-gradient(135deg, #1e293b, #0f172a)';
             detailImage.style.display = 'flex';
             detailImage.style.alignItems = 'center';
             detailImage.style.justifyContent = 'center';
-            if (!detailImage.querySelector('.fallback-icon')) {
-                const icon = document.createElement('i');
-                icon.classList.add('fas', 'fa-rocket', 'fallback-icon');
-                icon.style.cssText = 'font-size: 2.5rem; color: #64748b;';
-                detailImage.appendChild(icon);
-            }
+            const icon = document.createElement('i');
+            icon.classList.add('fas', project.type === 'certification' ? 'fa-award' : 'fa-rocket', 'fallback-icon');
+            icon.style.cssText = 'font-size: 2.5rem; color: #64748b;';
+            detailImage.appendChild(icon);
         };
 
         document.getElementById('detailTitle').textContent = project.title;
         document.getElementById('detailDesc').textContent = project.desc;
+        
         const typeBadge = document.getElementById('detailType');
-        typeBadge.textContent = project.type;
+        typeBadge.textContent = project.type.charAt(0).toUpperCase() + project.type.slice(1);
         typeBadge.className = 'detail-type-badge ' + project.type;
+        
         document.getElementById('detailTech').innerHTML = project.tech.map(t => `<span class="tech-chip">${t}</span>`).join('');
+
+        // Add links if available
+        const detailLinks = document.getElementById('detailLinks');
+        if (detailLinks) {
+            let linksHTML = '';
+            if (project.github) {
+                linksHTML += `<a href="${project.github}" target="_blank" rel="noopener noreferrer" class="detail-link-btn">
+                    <i class="fab fa-github"></i> View Code
+                </a>`;
+            }
+            if (project.live) {
+                linksHTML += `<a href="${project.live}" target="_blank" rel="noopener noreferrer" class="detail-link-btn live">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>`;
+            }
+            detailLinks.innerHTML = linksHTML;
+        }
 
         detailOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -208,11 +361,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeDetailModal() {
         detailOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        
         const detailImage = document.getElementById('detailImage');
         const fallbackIcon = detailImage.querySelector('.fallback-icon');
         if (fallbackIcon) fallbackIcon.remove();
         detailImage.style.background = '';
         detailImage.style.display = '';
+        detailImage.style.alignItems = '';
+        detailImage.style.justifyContent = '';
         detailImage.querySelector('img').style.display = '';
     }
 
@@ -220,6 +376,9 @@ document.addEventListener('DOMContentLoaded', function () {
     detailOverlay.addEventListener('click', (e) => { if (e.target === detailOverlay) closeDetailModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetailModal(); });
 
+    // ============================================
+    // SPARKLES EFFECT
+    // ============================================
     function createSparkles(x, y, color) {
         const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
         for (let i = 0; i < 14; i++) {
@@ -241,6 +400,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // ============================================
+    // FILTER TABS
+    // ============================================
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function () {
             if (this.classList.contains('active')) return;
@@ -252,7 +414,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // ============================================
+    // INITIALIZE
+    // ============================================
     createOrrery();
     animateOrreryZoom();
     animatePlanetScale();
+    
+    console.log('🪐 Project Orrery initialized with ' + projectsData.length + ' projects!');
 });
