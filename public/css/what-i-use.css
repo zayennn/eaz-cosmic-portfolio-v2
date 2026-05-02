@@ -687,9 +687,6 @@
     }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 1200px) {
     .skills-grid {
         grid-template-columns: 1fr 1fr;
