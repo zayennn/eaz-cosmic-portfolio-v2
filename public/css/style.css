@@ -154,7 +154,6 @@
     margin-top: 0.5rem;
 }
 
-/* tombol bulat */
 .social {
     position: relative;
     width: 55px;
@@ -166,7 +165,6 @@
     transition: background 0.3s ease;
 }
 
-/* icon umum */
 .social i {
     position: absolute;
     left: 50%;
