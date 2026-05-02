@@ -312,9 +312,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
 
-    // ============================================
-    // GSAP SCROLL ANIMATIONS
-    // ============================================
     function initAnimations() {
         gsap.from('.behind-badge', {
             scrollTrigger: { trigger: '.behind-header', start: 'top 85%' },
