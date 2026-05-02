@@ -117,9 +117,6 @@
 .filter-dot.personal { background: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
 .filter-dot.certification { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
 
-/* ============================================
-   ORRERY WRAPPER
-   ============================================ */
 .orrery-wrapper {
     position: relative;
     width: 100%;
