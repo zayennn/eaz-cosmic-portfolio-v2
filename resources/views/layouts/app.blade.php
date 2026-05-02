@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        Elang Atha Zahran | @yield("title")
+        Elang Atha Zahran | @yield('title')
     </title>
 
     {{-- components --}}
@@ -14,15 +14,15 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    
+
     {{-- pages --}}
-    @if (request()->routeIs("home"))
+    @if (request()->routeIs('home'))
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @elseif(request()->routeIs("what-i-use"))
+    @elseif(request()->routeIs('what-i-use'))
         <link rel="stylesheet" href="{{ asset('css/what-i-use.css') }}">
-    @elseif(request()->routeIs("what-ive-built"))
+    @elseif(request()->routeIs('what-ive-built'))
         <link rel="stylesheet" href="{{ asset('css/what-i\'ve-built.css') }}">
-    @elseif(request()->routeIs("what-im-into"))
+    @elseif(request()->routeIs('what-im-into'))
         <link rel="stylesheet" href="{{ asset('css/what-im-into.css') }}">
     @endif
 
@@ -55,13 +55,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
+
+    @if (request()->routeIs('home'))
+        <script src="{{ asset('js/about-image.js') }}"></script>
+    @elseif (request()->routeIs('what-i-use'))
+        <script src="{{ asset('js/what-i-use.js') }}"></script>
+    @elseif (request()->routeIs('what-ive-built'))
+        <script src="{{ asset('js/what-ive-built.js') }}"></script>
+    @elseif (request()->routeIs('what-im-into'))
+        <script src="{{ asset('js/what-im-into.js') }}"></script>
+    @endif
+
     <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/about-image.js') }}"></script>
     <script src="{{ asset('js/navbar.js') }}"></script>
     <script src="{{ asset('js/loading.js') }}"></script>
-    <script src="{{ asset('js/what-i-use.js') }}"></script>
-    <script src="{{ asset('js/what-ive-built.js') }}"></script>
-    <script src="{{ asset('js/what-im-into.js') }}"></script>
 </body>
 
 </html>
