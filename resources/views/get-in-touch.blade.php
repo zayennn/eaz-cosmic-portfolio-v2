@@ -4,7 +4,6 @@
 
 @section('content')
     <section class="contact-page">
-        <!-- Signal Waves Background -->
         <div class="signal-waves">
             <div class="signal-ring"></div>
             <div class="signal-ring"></div>
@@ -12,7 +11,6 @@
             <div class="signal-ring"></div>
         </div>
 
-        <!-- Header -->
         <div class="contact-header">
             <div class="contact-badge">
                 <i class="fas fa-satellite"></i> Open Channel
@@ -26,11 +24,8 @@
             </p>
         </div>
 
-        <!-- Main Grid -->
         <div class="contact-grid">
-            <!-- Left - Contact Info -->
             <div class="contact-info-section">
-                <!-- Email -->
                 <div class="info-card">
                     <div class="info-icon-orbit" style="color: #6366f1; background: rgba(99,102,241,0.1);">
                         <i class="fas fa-envelope"></i>
@@ -45,7 +40,6 @@
                     </div>
                 </div>
 
-                <!-- Phone -->
                 <div class="info-card">
                     <div class="info-icon-orbit" style="color: #8b5cf6; background: rgba(139,92,246,0.1);">
                         <i class="fas fa-phone"></i>
@@ -60,7 +54,6 @@
                     </div>
                 </div>
 
-                <!-- Location -->
                 <div class="info-card">
                     <div class="info-icon-orbit" style="color: #06b6d4; background: rgba(6,182,212,0.1);">
                         <i class="fas fa-map-marker-alt"></i>
@@ -72,7 +65,6 @@
                     </div>
                 </div>
 
-                <!-- Availability -->
                 <div class="availability-orbit">
                     <div class="availability-pulse">
                         <div class="pulse-ring"></div>
@@ -85,9 +77,7 @@
                 </div>
             </div>
 
-            <!-- Right - Form Terminal -->
             <div class="form-terminal" id="formTerminal">
-                <!-- Terminal Header -->
                 <div class="terminal-header">
                     <span class="terminal-dot red"></span>
                     <span class="terminal-dot yellow"></span>
@@ -98,8 +88,6 @@
                     </span>
                 </div>
 
-                <!-- Form -->
-                <!-- Form -->
                 <form id="contactForm" novalidate>
                     @csrf
                     <div class="form-group">
@@ -153,7 +141,6 @@
             </div>
         </div>
 
-        <!-- Social Orbit -->
         <div class="social-orbit-section">
             <p class="social-orbit-title">Or Connect Via</p>
             <div class="social-orbit-ring">
@@ -176,7 +163,6 @@
             </div>
         </div>
 
-        <!-- Success Overlay -->
         <div class="success-overlay" id="successOverlay">
             <div class="success-modal">
                 <div class="success-icon">
