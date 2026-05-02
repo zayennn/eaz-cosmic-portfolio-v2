@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-crosshairs',
             color: '#FD4556',
             stats: ['300+h played', 'Platinum Rank', 'Raze/Jett main'],
-            x: 1230, y: 280
+            x: 1230, y: 580
         },
         {
             id: 'ac-valhalla',
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-feather',
             color: '#B8860B',
             stats: ['150+h played', 'AC Revelations', 'Would replay forever'],
-            x: 280, y: 180
+            x: 480, y: 380
         },
         {
             id: 'valorant-fav',
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-bullseye',
             color: '#FD4556',
             stats: ['400+h played', 'Raze/Jett main', 'Competitive focus'],
-            x: 1720, y: 220
+            x: 1720, y: 420
         },
         {
             id: 'skyrim-fav',
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-hat-wizard',
             color: '#2F4F4F',
             stats: ['600+h played', 'Battlemage style', 'Timeless classic'],
-            x: 1380, y: 530
+            x: 1380, y: 430
         },
         {
             id: 'ghost-tsushima',
