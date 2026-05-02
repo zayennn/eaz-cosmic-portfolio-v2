@@ -73,6 +73,17 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         {
             id: 8,
+            title: 'StreamingNime',
+            type: 'personal',
+            image: '/images/projects/streamingnime.png',
+            desc: 'Anime streaming platform dengan filter canggih, UI modern, dan animasi smooth. Built with Laravel 10 + vanilla JS/CSS.',
+            tech: ['Laravel 10', 'HTML', 'CSS', 'JavaScript', 'Swiper.js', 'Paroller.js'],
+            github: 'https://github.com/zayennn/streamingnime',
+            live: 'https://streamingnime.great-site.net/',
+            featured: true
+        },
+        {
+            id: 9,
             title: 'Python Learning Platform',
             type: 'personal',
             image: '/images/projects/python learning.png',
@@ -83,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             featured: true
         },
         {
-            id: 9,
+            id: 10,
             title: 'Vite Portfolio',
             type: 'personal',
             image: '/images/projects/vite-portfolio.png',
@@ -94,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
             featured: false
         },
         {
-            id: 10,
+            id: 11,
             title: 'React Js Portfolio',
             type: 'personal',
             image: '/images/projects/react portfolio.png',
@@ -105,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             featured: false
         },
         {
-            id: 11,
+            id: 12,
             title: 'Cosmic Portfolio',
             type: 'personal',
             image: '/images/projects/react cosmic.png',
@@ -116,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             featured: false
         },
         {
-            id: 12,
+            id: 13,
             title: 'Cafe Coffee Website',
             type: 'freelance',
             image: '/images/projects/freelance-3.png',
@@ -166,9 +177,21 @@ document.addEventListener('DOMContentLoaded', function () {
             group.classList.add('orbit-group', 'og' + (i + 1));
             orreryContainer.appendChild(group);
 
-            const positions = ['pos-0', 'pos-1', 'pos-2'];
+            // Adjust positions based on number of projects in this orbit
+            const projectsInOrbit = distributed[i].length;
+            const positions = [];
+            if (projectsInOrbit === 3) {
+                positions.push('pos-0', 'pos-1', 'pos-2');
+            } else if (projectsInOrbit === 4) {
+                // For 4 projects, use custom angles
+                positions.push('pos-0', 'pos-1', 'pos-2', 'pos-3');
+            } else {
+                positions.push('pos-0', 'pos-1', 'pos-2');
+            }
+
             distributed[i].forEach((project, pIndex) => {
-                const planet = createPlanetElement(project, positions[pIndex]);
+                const pos = positions[pIndex % positions.length];
+                const planet = createPlanetElement(project, pos, pIndex, projectsInOrbit);
                 group.appendChild(planet);
                 allPlanets.push({ el: planet, project });
             });
@@ -178,9 +201,14 @@ document.addEventListener('DOMContentLoaded', function () {
         updatePlanetScale();
     }
 
-    function createPlanetElement(project, posClass) {
+    function createPlanetElement(project, posClass, index, total) {
         const wrapper = document.createElement('div');
         wrapper.classList.add('planet-wrapper', posClass);
+        
+        // For 4 projects, adjust positioning
+        if (total === 4) {
+            wrapper.classList.add('pos-' + index);
+        }
 
         const planet = document.createElement('div');
         planet.classList.add('project-planet');
