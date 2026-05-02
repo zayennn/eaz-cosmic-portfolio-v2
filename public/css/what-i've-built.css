@@ -573,9 +573,6 @@
     font-weight: 500;
 }
 
-/* ============================================
-   ZOOM CONTROLS - FIXED, 6 BUTTONS
-   ============================================ */
 .zoom-controls {
     position: fixed;
     bottom: 24px;
