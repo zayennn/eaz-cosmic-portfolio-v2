@@ -915,7 +915,6 @@
     }
 }
 
-/* Gravity wells between nodes */
 .gravity-well {
     position: absolute;
     width: 60px;
