@@ -192,19 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedStar = null;
     let activeCategory = 'all';
 
-    // Background stars
-    const bgStars = [];
-    for (let i = 0; i < 200; i++) {
-        bgStars.push({
-            x: Math.random() * worldWidth,
-            y: Math.random() * worldHeight,
-            radius: Math.random() * 1.5 + 0.5,
-            opacity: Math.random() * 0.5 + 0.2,
-            twinkleSpeed: Math.random() * 0.02 + 0.005,
-            twinkleOffset: Math.random() * Math.PI * 2
-        });
-    }
-
     // ============================================
     // RESIZE HANDLER
     // ============================================
@@ -227,31 +214,15 @@ document.addEventListener('DOMContentLoaded', function() {
         camera.y += (camera.targetY - camera.y) * 0.1;
         camera.zoom += (camera.targetZoom - camera.zoom) * 0.1;
 
+        // Clear with transparent - star-field is the background
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Background gradient
-        const gradient = ctx.createRadialGradient(
-            canvas.width / 2, canvas.height / 2, 0,
-            canvas.width / 2, canvas.height / 2, canvas.width * 0.7
-        );
-        gradient.addColorStop(0, '#0f172a');
-        gradient.addColorStop(1, '#06080d');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         ctx.save();
-        ctx.translate(-camera.x * camera.zoom + canvas.width / 2 * (1 - camera.zoom) + canvas.width / 2 * camera.zoom,
-                      -camera.y * camera.zoom + canvas.height / 2 * (1 - camera.zoom) + canvas.height / 2 * camera.zoom);
+        ctx.translate(
+            -camera.x * camera.zoom + canvas.width / 2 * (1 - camera.zoom) + canvas.width / 2 * camera.zoom,
+            -camera.y * camera.zoom + canvas.height / 2 * (1 - camera.zoom) + canvas.height / 2 * camera.zoom
+        );
         ctx.scale(camera.zoom, camera.zoom);
-
-        // Draw background stars
-        bgStars.forEach(star => {
-            const opacity = star.opacity + Math.sin(timestamp * star.twinkleSpeed + star.twinkleOffset) * 0.2;
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.1, opacity)})`;
-            ctx.fill();
-        });
 
         // Draw constellation lines
         drawConstellationLines();
@@ -389,7 +360,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const dy = s1.y - s2.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Connect stars within 400px
                 if (dist < 400) {
                     const opacity = (1 - dist / 400) * 0.2;
                     ctx.beginPath();
@@ -416,7 +386,6 @@ document.addEventListener('DOMContentLoaded', function() {
         minimapCtx.fillStyle = 'rgba(10, 10, 20, 0.8)';
         minimapCtx.fillRect(0, 0, mw, mh);
 
-        // Draw stars on minimap
         filteredStars.forEach(star => {
             const mx = (star.x / worldWidth) * mw;
             const my = (star.y / worldHeight) * mh;
@@ -427,7 +396,6 @@ document.addEventListener('DOMContentLoaded', function() {
             minimapCtx.fill();
         });
 
-        // Draw viewport
         const vx = (camera.x / worldWidth) * mw;
         const vy = (camera.y / worldHeight) * mh;
         const vw = (window.innerWidth / camera.zoom / worldWidth) * mw;
@@ -570,10 +538,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // If barely moved, treat as click
             if (dx < 5 && dy < 5 && hoveredStar) {
-                showPopup(hoveredStar, 
-                    hoveredStar.x * camera.zoom + canvas.width / 2 - camera.x * camera.zoom,
-                    hoveredStar.y * camera.zoom + canvas.height / 2 - camera.y * camera.zoom
-                );
+                const screenX = (hoveredStar.x - camera.x) * camera.zoom + canvas.width / 2;
+                const screenY = (hoveredStar.y - camera.y) * camera.zoom + canvas.height / 2;
+                showPopup(hoveredStar, screenX, screenY);
             }
         }
         
@@ -581,22 +548,10 @@ document.addEventListener('DOMContentLoaded', function() {
         page.classList.remove('panning');
     });
 
+    // DISABLE SCROLL WHEEL ZOOM - only buttons
     canvas.addEventListener('wheel', (e) => {
         e.preventDefault();
-        
-        const zoomAmount = e.deltaY > 0 ? 0.9 : 1.1;
-        const newZoom = camera.targetZoom * zoomAmount;
-        
-        camera.targetZoom = Math.max(0.3, Math.min(3, newZoom));
-        
-        // Zoom towards mouse
-        const mouseWorldX = (e.clientX - canvas.width / 2) / camera.zoom + camera.x;
-        const mouseWorldY = (e.clientY - canvas.height / 2) / camera.zoom + camera.y;
-        
-        camera.targetX = mouseWorldX - (e.clientX - canvas.width / 2) / camera.targetZoom;
-        camera.targetY = mouseWorldY - (e.clientY - canvas.height / 2) / camera.targetZoom;
-        
-        hidePopup();
+        // Do nothing - zoom only via buttons
     }, { passive: false });
 
     // Touch events
@@ -623,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isPanning = false;
     });
 
-    // Zoom controls
+    // Zoom controls - BUTTONS ONLY
     document.getElementById('zoomIn').addEventListener('click', () => {
         camera.targetZoom = Math.min(3, camera.targetZoom * 1.3);
     });
@@ -665,15 +620,19 @@ document.addEventListener('DOMContentLoaded', function() {
         switch(e.key) {
             case '+':
             case '=':
+                e.preventDefault();
                 camera.targetZoom = Math.min(3, camera.targetZoom * 1.2);
                 break;
             case '-':
+                e.preventDefault();
                 camera.targetZoom = Math.max(0.3, camera.targetZoom * 0.8);
                 break;
             case '0':
+                e.preventDefault();
                 camera.targetX = worldWidth / 2 - window.innerWidth / 2;
                 camera.targetY = worldHeight / 2 - window.innerHeight / 2;
                 camera.targetZoom = 1;
+                hidePopup();
                 break;
             case 'Escape':
                 hidePopup();
@@ -694,5 +653,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     requestAnimationFrame(render);
-    console.log('🌌 Cosmic Memory Constellation initialized - Drag to explore!');
+    console.log('🌌 Cosmic Memory Constellation initialized - Zoom only via buttons!');
 });

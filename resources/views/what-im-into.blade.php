@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="into-page" id="intoPage">
-        <!-- Star Map Canvas -->
+        <!-- Star Map Canvas (transparent - star-field is background) -->
         <canvas id="starMapCanvas"></canvas>
 
         <!-- Header Overlay -->
@@ -16,7 +16,7 @@
                 What I'm <span class="highlight">Into</span>
             </h1>
             <p class="into-hint">
-                <i class="fas fa-mouse"></i> Drag to explore &bull; Scroll to zoom &bull; Click stars to discover
+                <i class="fas fa-mouse"></i> Drag to explore &bull; Use buttons to zoom &bull; Click stars to discover
             </p>
         </div>
 

@@ -20,7 +20,7 @@
 }
 
 /* ============================================
-   STAR FIELD CANVAS
+   STAR MAP CANVAS - Transparent background
    ============================================ */
 #starMapCanvas {
     position: absolute;
@@ -63,6 +63,11 @@
 .into-badge i {
     color: #fbbf24;
     animation: star-spin 3s linear infinite;
+}
+
+@keyframes star-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .into-title {
@@ -232,21 +237,6 @@
 }
 
 /* ============================================
-   CONSTELLATION LINES
-   ============================================ */
-.constellation-line {
-    position: absolute;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.constellation-line.visible {
-    opacity: 0.3;
-}
-
-/* ============================================
    ZOOM CONTROLS
    ============================================ */
 .map-controls {
@@ -333,34 +323,6 @@
 .legend-dot.gaming { background: #FD4556; box-shadow: 0 0 10px rgba(253, 69, 86, 0.6); }
 .legend-dot.music { background: #1DB954; box-shadow: 0 0 10px rgba(29, 185, 84, 0.6); }
 .legend-dot.all { background: #fbbf24; box-shadow: 0 0 10px rgba(251, 191, 36, 0.6); }
-
-/* ============================================
-   SHOOTING STAR NAVIGATION
-   ============================================ */
-.nav-shooting-star {
-    position: fixed;
-    pointer-events: none;
-    z-index: 25;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
-    border-radius: 1px;
-    animation: nav-star-fly 0.6s ease-out forwards;
-    transform-origin: left center;
-}
-
-@keyframes nav-star-fly {
-    0% {
-        width: 0;
-        opacity: 1;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        width: 200px;
-        opacity: 0;
-    }
-}
 
 /* ============================================
    RESPONSIVE
