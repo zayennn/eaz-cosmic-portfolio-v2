@@ -14,7 +14,7 @@
             <a href="{{ route('get-in-touch') }}" class="nav-link {{ request()->routeIs('get-in-touch') ? 'active' : '' }}">Get In Touch</a>
         </div>
 
-        <a href="#" class="nav-cv-btn">Download CV</a>
+        <a href="https://drive.google.com/uc?export=download&id=11wosUfp3EdpWZaOVFNSYJbLB9EYEds2G" class="nav-cv-btn">Download CV</a>
 
         <!-- Hamburger Button -->
         <label class="hamburger" id="hamburger">
@@ -45,7 +45,7 @@
                 <a href="{{ route('what-im-into') }}" class="mobile-nav-link {{ request()->routeIs('what-im-into') ? 'active' : '' }}">What I'm Into</a>
                 <a href="{{ route('behind-the-code') }}" class="mobile-nav-link {{ request()->routeIs('behind-the-code') ? 'active' : '' }}">Behind The Code</a>
                 <a href="{{ route('get-in-touch') }}" class="mobile-nav-link {{ request()->routeIs('get-in-touch') ? 'active' : '' }}">Get In Touch</a>
-                <a href="#" class="mobile-cv-btn">
+                <a href="https://drive.google.com/uc?export=download&id=11wosUfp3EdpWZaOVFNSYJbLB9EYEds2G" class="mobile-cv-btn">
                     Download CV 
                     <i class="fa-solid fa-download"></i>
                 </a>
