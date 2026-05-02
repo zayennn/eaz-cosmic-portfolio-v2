@@ -316,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // GSAP SCROLL ANIMATIONS
     // ============================================
     function initAnimations() {
-        // Header
         gsap.from('.behind-badge', {
             scrollTrigger: { trigger: '.behind-header', start: 'top 85%' },
             opacity: 0, y: -30, duration: 0.8, ease: 'power3.out'
@@ -326,13 +325,11 @@ document.addEventListener('DOMContentLoaded', function() {
             opacity: 0, y: 30, duration: 0.8, delay: 0.2, ease: 'power3.out'
         });
 
-        // Profile card
         gsap.from('.profile-card', {
             scrollTrigger: { trigger: '.profile-section', start: 'top 80%' },
             opacity: 0, y: 40, scale: 0.95, duration: 0.8, ease: 'power3.out'
         });
 
-        // Sections
         document.querySelectorAll('.contribution-card, .snake-card, .lang-card, .weekly-card, .productive-card, .cta-card').forEach(el => {
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: 'top 85%' },
@@ -340,7 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Activity cards
         document.querySelectorAll('.activity-card').forEach((card, i) => {
             gsap.from(card, {
                 scrollTrigger: { trigger: card, start: 'top 85%' },
@@ -350,9 +346,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // INITIALIZE
-    // ============================================
     fetchGitHubData();
     createDayBars();
     createTimeBars();
