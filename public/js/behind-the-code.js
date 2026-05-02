@@ -1,18 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // ============================================
-    // GITHUB API DATA
-    // ============================================
     const GITHUB_USERNAME = 'zayennn';
 
-    // Featured repos (fallback)
     const CUSTOM_FEATURED_REPOS = [
         'portfolio', 'react-web-python-learning', 'face-scanning',
         'camera-sensor-scrolling', 'convert-speedtest', 'sales-management-system'
     ];
 
-    // Language colors
     const langColors = {
         JavaScript: '#f1e05a', TypeScript: '#2b7489', Python: '#3572A5',
         Java: '#b07219', PHP: '#4F5D95', CSS: '#563d7c', HTML: '#e34c26',
