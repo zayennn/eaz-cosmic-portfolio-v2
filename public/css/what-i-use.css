@@ -317,7 +317,6 @@
     to { transform: rotate(360deg); }
 }
 
-/* Node Icon */
 .node-icon {
     position: absolute;
     top: 50%;
