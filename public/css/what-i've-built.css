@@ -273,7 +273,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* SCALE EVERYTHING TOGETHER */
     transform: scale(var(--planet-scale));
     transform-origin: center center;
     transition: transform 0.15s ease;
