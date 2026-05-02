@@ -22,6 +22,6 @@ Route::get('/what-ive-built', function() {
 
 Route::get('/what-im-into', function() {
     return view('what-im-into', [
-        'starsCount' => 300
+        'starsCount' => 10
     ]);
 })->name('what-im-into');
