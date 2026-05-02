@@ -204,9 +204,6 @@
     to { transform: rotate(360deg); }
 }
 
-/* ============================================
-   CENTRAL SUN
-   ============================================ */
 .central-sun {
     position: absolute;
     top: 50%;
