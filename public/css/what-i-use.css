@@ -891,7 +891,6 @@
     50% { transform: scale(1.5); opacity: 0; }
 }
 
-/* Trailing particles when filter changes */
 .filter-particle {
     position: absolute;
     width: 4px;
