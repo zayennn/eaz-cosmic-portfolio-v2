@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ============================================
     // STAR DATA - Constellation Objects
-    // ============================================
     const starData = [
         // GAMING - Currently Playing
         {
@@ -170,9 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // ============================================
     // CANVAS SETUP
-    // ============================================
     const page = document.getElementById('intoPage');
     const canvas = document.getElementById('starMapCanvas');
     const ctx = canvas.getContext('2d');
@@ -206,9 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let hasSizedCanvas = false;
 
-    // ============================================
     // SVG IMAGE CACHE
-    // ============================================
     const svgCache = {};
     const svgLoading = {};
 
@@ -290,9 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedStar = null;
     let activeCategory = 'all';
 
-    // ============================================
     // RESIZE HANDLER
-    // ============================================
     function resize() {
         const previousTargetCenterX = hasSizedCanvas
             ? camera.targetX + (canvas.width / camera.targetZoom) / 2
@@ -318,18 +310,14 @@ document.addEventListener('DOMContentLoaded', function() {
     resize();
     window.addEventListener('resize', resize);
 
-    // ============================================
     // CONSTELLATION LINE OPACITY CALCULATOR
-    // ============================================
     function getConstellationBaseOpacity() {
         const zoom = camera.zoom;
         const base = Math.exp(-0.8 * (zoom - minZoom));
         return Math.max(0.08, Math.min(0.85, base));
     }
 
-    // ============================================
     // MAIN RENDER LOOP
-    // ============================================
     function render(timestamp) {
         // Smooth camera
         camera.x += (camera.targetX - camera.x) * 0.1;
@@ -363,9 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(render);
     }
 
-    // ============================================
     // DRAW STAR NODE
-    // ============================================
     function drawStarNode(star, timestamp) {
         const isHovered = hoveredStar === star;
         const isSelected = selectedStar === star;
@@ -444,9 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
     // DRAW SVG ICON
-    // ============================================
     function drawSVGIcon(star, scale) {
         const img = svgCache[star.icon];
         
@@ -474,9 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
     // CONSTELLATION LINES (Dynamic Opacity)
-    // ============================================
     function drawConstellationLines() {
         const filteredStars = activeCategory === 'all' 
             ? starData 
@@ -511,9 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
     // MINIMAP
-    // ============================================
     function drawMinimap(filteredStars) {
         const mw = minimapCanvas.width;
         const mh = minimapCanvas.height;
@@ -544,9 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
         viewport.style.height = vh + 'px';
     }
 
-    // ============================================
     // SCREEN TO WORLD COORDINATES
-    // ============================================
     function screenToWorld(screenX, screenY) {
         const rect = canvas.getBoundingClientRect();
         return {
@@ -555,9 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // ============================================
     // FIND STAR AT POSITION
-    // ============================================
     function findStarAt(worldX, worldY) {
         const filteredStars = activeCategory === 'all' 
             ? starData 
@@ -579,9 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    // ============================================
     // POPUP SMOOTHING SYSTEM (LERPed)
-    // ============================================
     function startPopupSmoothing(startX, startY) {
         popupCurrent.x = startX;
         popupCurrent.y = startY;
@@ -625,9 +599,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
     // SHOW POPUP
-    // ============================================
     function showPopup(star, screenX, screenY) {
         selectedStar = star;
 
@@ -674,9 +646,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ============================================
     // EVENT LISTENERS
-    // ============================================
     canvas.addEventListener('mousedown', (e) => {
         isPanning = true;
         panStart.x = e.clientX;
@@ -808,9 +778,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ============================================
     // INITIALIZE
-    // ============================================
     // Preload all SVG icons
     preloadAllSVGs();
 
