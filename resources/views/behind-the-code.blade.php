@@ -4,7 +4,6 @@
 
 @section('content')
 <section class="behind-page">
-    <!-- Header -->
     <div class="behind-header">
         <div class="behind-badge">
             <i class="fas fa-code-branch"></i> GitHub Analytics
@@ -215,4 +214,8 @@
         </div>
     </div>
 </section>
+
+<script>
+    window.WAKATIME_API_URL = "{{ url('/api/wakatime') }}";
+</script>
 @endsection

@@ -219,6 +219,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    async function fetchWakaTimeData() {
+        try {
+            const apiUrl = window.WAKATIME_API_URL || '/api/wakatime';
+            const res = await fetch(apiUrl);
+            if (res.ok) {
+                const json = await res.json();
+                
+                const statsData = json.stats?.data;
+                if (statsData) {
+                    document.getElementById('weeklyCodeTime').textContent = statsData.decimal || (statsData.total_seconds / 3600).toFixed(1);
+                    if (statsData.languages && statsData.languages.length > 0) {
+                        document.getElementById('weeklyTopLang').textContent = statsData.languages[0].name;
+                    }
+                    if (statsData.editors && statsData.editors.length > 0) {
+                        document.getElementById('weeklyEditor').textContent = statsData.editors[0].name;
+                    }
+                }
+
+                const sumData = json.summaries?.data;
+                if (sumData && sumData.length > 0) {
+                    updateDayBars(sumData);
+                } else {
+                    createDayBars();
+                }
+            } else {
+                createDayBars(); // fallback
+            }
+        } catch (err) {
+            console.error('Failed to fetch WakaTime data:', err);
+            createDayBars(); // fallback
+        }
+    }
+
+    function updateDayBars(summaries) {
+        const dayBars = document.getElementById('dayBars');
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
+        const totalSeconds = summaries.reduce((acc, day) => acc + day.grand_total.total_seconds, 0);
+        
+        const dayData = summaries.map(day => {
+            const date = new Date(day.range.date);
+            const dayName = days[date.getDay()];
+            const seconds = day.grand_total.total_seconds;
+            const percent = totalSeconds > 0 ? ((seconds / totalSeconds) * 100).toFixed(1) : 0;
+            const color = percent > 20 ? '#8b5cf6' : (percent > 10 ? '#6366f1' : '#a5b4fc');
+            
+            return {
+                day: dayName,
+                percent: parseFloat(percent),
+                color: color
+            };
+        });
+
+        dayBars.innerHTML = dayData.map(d => `
+            <div class="day-bar-wrap">
+                <span class="day-percent">${d.percent}%</span>
+                <div class="day-bar" style="height:0;background:${d.color};box-shadow:0 0 10px ${d.color}40;" data-height="${d.percent * 3}px"></div>
+                <span class="day-label">${d.day}</span>
+            </div>
+        `).join('');
+
+        setTimeout(() => {
+            document.querySelectorAll('.day-bar').forEach(bar => {
+                gsap.to(bar, {
+                    height: bar.dataset.height,
+                    duration: 1.2, delay: Math.random() * 0.5,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: bar, start: 'top 90%' }
+                });
+            });
+        }, 300);
+    }
+
     function createDayBars() {
         const dayBars = document.getElementById('dayBars');
         const data = [
@@ -314,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     fetchGitHubData();
-    createDayBars();
+    fetchWakaTimeData();
     createTimeBars();
     initAnimations();
 
