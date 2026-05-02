@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'playing',
             description: 'Parisian parkour and revolutionary intrigue in 18th century France.',
-            icon: 'fa-user-secret',
+            icon: 'user-secret-solid-full.svg',
             color: '#8B0000',
             stats: ['25h played', '65% complete', 'PC'],
             x: 780, y: 370
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'playing',
             description: 'Tactical FPS with precise gunplay and unique agent abilities. Competitive mode main.',
-            icon: 'fa-crosshairs',
+            icon: 'crosshairs-solid-full.svg',
             color: '#FD4556',
             stats: ['300+h played', 'Platinum Rank', 'Raze/Jett main'],
             x: 1230, y: 580
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'playing',
             description: 'Viking adventure through Dark Ages England. Massive open world to explore.',
-            icon: 'fa-helmet-battle',
+            icon: 'helmet-battle (2).png',
             color: '#003366',
             stats: ['80h played', '45% complete', 'PC'],
             x: 470, y: 620
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'playing',
             description: 'Endless adventures in Tamriel. Currently deep into modding with 50+ mods installed.',
-            icon: 'fa-dragon',
+            icon: 'dragon-solid-full.svg',
             color: '#2F4F4F',
             stats: ['500+h played', '50+ mods', 'Battlemage build'],
             x: 1520, y: 530
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'playing',
             description: 'Epic medieval sandbox with massive battles, kingdom management, and deep strategy.',
-            icon: 'fa-chess-rook',
+            icon: 'bullseye-solid-full.svg',
             color: '#8B6914',
             stats: ['40h played', 'Vlandia Campaign', 'Warsails'],
             x: 1050, y: 720
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'favorite',
             description: 'Nothing is true, everything is permitted. The greatest Assassin\'s Creed story ever told.',
-            icon: 'fa-feather',
+            icon: 'feather-solid-full.svg',
             color: '#B8860B',
             stats: ['150+h played', 'AC Revelations', 'Would replay forever'],
             x: 480, y: 380
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'favorite',
             description: 'My go-to competitive shooter. Nothing beats the rush of a clutch round.',
-            icon: 'fa-bullseye',
+            icon: 'bullseye-solid-full.svg',
             color: '#FD4556',
             stats: ['400+h played', 'Raze/Jett main', 'Competitive focus'],
             x: 1720, y: 420
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'favorite',
             description: 'A game I can always return to. Every playthrough is a new adventure.',
-            icon: 'fa-hat-wizard',
+            icon: 'hat-wizard-solid-full.svg',
             color: '#2F4F4F',
             stats: ['600+h played', 'Battlemage style', 'Timeless classic'],
             x: 1380, y: 430
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'gaming',
             subType: 'favorite',
             description: 'Visually stunning samurai masterpiece. The combat and visuals are unmatched.',
-            icon: 'fa-wind',
+            icon: 'wind-solid-full.svg',
             color: '#DC143C',
             stats: ['60h played', 'Best combat', 'Beautiful world'],
             x: 620, y: 780
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'music',
             subType: 'playlist',
             description: 'Melancholic tunes for introspective moments. Perfect for late-night coding.',
-            icon: 'fa-cloud-moon',
+            icon: 'cloud-moon-solid-full.svg',
             color: '#1DB954',
             stats: ['Reflective mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/4v9HS6PjoLBgDrU5L6GexX',
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'music',
             subType: 'playlist',
             description: 'Songs that hit different when you\'re reminiscing about the past.',
-            icon: 'fa-heart-broken',
+            icon: 'heart-broken-solid.svg',
             color: '#1DB954',
             stats: ['Nostalgic mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/5ioXfjHb5peyoN3qJtAvZO',
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'music',
             subType: 'playlist',
             description: 'Melodies for the what-ifs and could-have-beens. Sadboi hours guaranteed.',
-            icon: 'fa-ghost',
+            icon: 'ghost-solid-full.svg',
             color: '#1DB954',
             stats: ['Regretful mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/0K5jIqQY4tp0S8zfX9QIGB',
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'music',
             subType: 'playlist',
             description: 'For those emotionally exhausting days when everything feels heavy.',
-            icon: 'fa-tired',
+            icon: 'tired-solid.svg',
             color: '#1DB954',
             stats: ['Exhausted mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/41cAYIu6YBwvXq9Uq2YQlD',
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'music',
             subType: 'now-playing',
             description: '"I\'ll be timeless, I swear I\'ll be timeless" - Perfect blend of melancholy and hope.',
-            icon: 'fa-headphones',
+            icon: 'headphones-solid-full.svg',
             color: '#fbbf24',
             stats: ['Now Playing', 'The Weeknd', '🌟'],
             x: 1000, y: 470
@@ -205,6 +205,47 @@ document.addEventListener('DOMContentLoaded', function() {
     let popupRAFId = null;
 
     let hasSizedCanvas = false;
+
+    // ============================================
+    // SVG IMAGE CACHE
+    // ============================================
+    const svgCache = {};
+    const svgLoading = {};
+
+    function loadSVGImage(filename) {
+        // Return cached image if already loaded
+        if (svgCache[filename]) {
+            return svgCache[filename];
+        }
+
+        // Return placeholder while loading
+        if (!svgLoading[filename]) {
+            const img = new Image();
+            img.src = `/images/icons/${filename}`;
+            
+            svgLoading[filename] = img;
+            
+            img.onload = () => {
+                svgCache[filename] = img;
+                delete svgLoading[filename];
+            };
+            
+            img.onerror = () => {
+                console.warn(`Failed to load SVG: ${filename}`);
+                svgCache[filename] = null; // Mark as failed
+                delete svgLoading[filename];
+            };
+        }
+        
+        return null;
+    }
+
+    // Preload all SVGs
+    function preloadAllSVGs() {
+        starData.forEach(star => {
+            loadSVGImage(star.icon);
+        });
+    }
 
     function clampAxis(position, worldSize, viewportSize) {
         const maxPosition = worldSize - viewportSize;
@@ -384,28 +425,8 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.fillStyle = coreGradient;
         ctx.fill();
 
-        // Icon
-        ctx.fillStyle = '#fff';
-        ctx.font = `${12 * scale}px "Font Awesome 6 Free"`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        const iconMap = {
-            'fa-user-secret': '\uf21b',
-            'fa-crosshairs': '\uf05b',
-            'fa-helmet-battle': '\uf6bf',
-            'fa-dragon': '\uf6d5',
-            'fa-feather': '\uf52d',
-            'fa-bullseye': '\uf140',
-            'fa-hat-wizard': '\uf6e8',
-            'fa-wind': '\uf72e',
-            'fa-cloud-moon': '\uf6c3',
-            'fa-heart-broken': '\uf7a9',
-            'fa-ghost': '\uf6e2',
-            'fa-tired': '\uf5c8',
-            'fa-headphones': '\uf025',
-            'fa-chess-rook': '\uf447'
-        };
-        ctx.fillText(iconMap[star.icon] || '\uf111', star.x, star.y);
+        // Draw SVG icon inside star
+        drawSVGIcon(star, scale);
 
         // Label
         if (isHovered || isSelected) {
@@ -420,6 +441,36 @@ document.addEventListener('DOMContentLoaded', function() {
                               star.subType === 'playing' ? '🎮 Playing' :
                               star.subType === 'now-playing' ? '🎵 Now Playing' : '🎧 Playlist';
             ctx.fillText(typeLabel, star.x, star.y + 28 * scale);
+        }
+    }
+
+    // ============================================
+    // DRAW SVG ICON
+    // ============================================
+    function drawSVGIcon(star, scale) {
+        const img = svgCache[star.icon];
+        
+        if (img) {
+            // Draw cached SVG image
+            const iconSize = 16 * scale;
+            const x = star.x - iconSize / 2;
+            const y = star.y - iconSize / 2;
+            
+            ctx.save();
+            // Use white color for icon via globalCompositeOperation or draw with white tint
+            ctx.globalAlpha = 0.9;
+            ctx.drawImage(img, x, y, iconSize, iconSize);
+            ctx.restore();
+        } else {
+            // Loading state - draw a small dot
+            ctx.fillStyle = '#fff';
+            ctx.font = `${10 * scale}px "Exo 2", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('●', star.x, star.y);
+            
+            // Trigger load if not already loading
+            loadSVGImage(star.icon);
         }
     }
 
@@ -551,12 +602,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Smooth lerp towards target
-        const lerpFactor = 0.25; // Higher = faster, lower = smoother
+        const lerpFactor = 0.25;
         popupCurrent.x += (popupTarget.x - popupCurrent.x) * lerpFactor;
         popupCurrent.y += (popupTarget.y - popupCurrent.y) * lerpFactor;
 
-        // Only update DOM if change is significant (prevents layout thrashing)
         const dx = Math.abs(popupTarget.x - popupCurrent.x);
         const dy = Math.abs(popupTarget.y - popupCurrent.y);
 
@@ -593,8 +642,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         popupContent.innerHTML = `
             <div class="popup-header">
-                <div class="popup-icon" style="background: ${star.color}20; color: ${star.color};">
-                    <i class="fas ${star.icon}"></i>
+                <div class="popup-icon" style="background: ${star.color}20;">
+                    <img src="/images/icons/${star.icon}" alt="${star.name}" style="width: 28px; height: 28px; filter: drop-shadow(0 0 4px ${star.color}80);">
                 </div>
                 <div>
                     <div class="popup-name">${star.name}</div>
@@ -608,7 +657,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ${linkHTML}
         `;
 
-        // Start smooth position tracking
         startPopupSmoothing(screenX, screenY);
         popup.classList.add('active');
     }
@@ -657,7 +705,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 canvas.style.cursor = star ? 'pointer' : 'grab';
             }
             
-            // Update popup target position (smoothed)
             if (selectedStar && !isPanning) {
                 updatePopupTarget(e.clientX, e.clientY);
             }
@@ -669,7 +716,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const dx = Math.abs(camera.targetX - cameraStart.x);
             const dy = Math.abs(camera.targetY - cameraStart.y);
             
-            // If barely moved, treat as click
             if (dx < 5 && dy < 5 && hoveredStar) {
                 const screen = worldToScreen(hoveredStar.x, hoveredStar.y);
                 showPopup(hoveredStar, screen.x, screen.y);
@@ -680,13 +726,10 @@ document.addEventListener('DOMContentLoaded', function() {
         page.classList.remove('panning');
     });
 
-    // DISABLE SCROLL WHEEL ZOOM - only buttons
     canvas.addEventListener('wheel', (e) => {
         e.preventDefault();
-        // Do nothing - zoom only via buttons
     }, { passive: false });
 
-    // Touch events
     canvas.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
             isPanning = true;
@@ -711,7 +754,6 @@ document.addEventListener('DOMContentLoaded', function() {
         isPanning = false;
     });
 
-    // Zoom controls - BUTTONS ONLY
     document.getElementById('zoomIn').addEventListener('click', () => {
         zoomCamera(camera.targetZoom * 1.3);
     });
@@ -725,7 +767,6 @@ document.addEventListener('DOMContentLoaded', function() {
         hidePopup();
     });
 
-    // Category legend
     document.querySelectorAll('.legend-item').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.legend-item').forEach(b => b.classList.remove('active'));
@@ -735,7 +776,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Click outside to close popup
     canvas.addEventListener('click', (e) => {
         if (selectedStar && !isPanning) {
             const world = screenToWorld(e.clientX, e.clientY);
@@ -746,7 +786,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Keyboard shortcuts
     window.addEventListener('keydown', (e) => {
         switch(e.key) {
             case '+':
@@ -772,6 +811,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     // INITIALIZE
     // ============================================
+    // Preload all SVG icons
+    preloadAllSVGs();
+
     // Center camera on "now playing"
     const nowPlaying = starData.find(s => s.subType === 'now-playing');
     if (nowPlaying) {
@@ -782,5 +824,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     requestAnimationFrame(render);
-    console.log('🌌 Cosmic Memory Constellation initialized - Smooth popup tracking!');
+    console.log('🌌 Cosmic Memory Constellation initialized - SVG Icons loaded!');
 });
