@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-user-secret',
             color: '#8B0000',
             stats: ['25h played', '65% complete', 'PC'],
-            x: 800, y: 400
+            x: 780, y: 370
         },
         {
             id: 'valorant-playing',
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-crosshairs',
             color: '#FD4556',
             stats: ['300+h played', 'Platinum Rank', 'Raze/Jett main'],
-            x: 1200, y: 300
+            x: 1230, y: 280
         },
         {
             id: 'ac-valhalla',
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-helmet-battle',
             color: '#003366',
             stats: ['80h played', '45% complete', 'PC'],
-            x: 500, y: 650
+            x: 470, y: 620
         },
         {
             id: 'skyrim-playing',
@@ -46,7 +46,18 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-dragon',
             color: '#2F4F4F',
             stats: ['500+h played', '50+ mods', 'Battlemage build'],
-            x: 1500, y: 550
+            x: 1520, y: 530
+        },
+        {
+            id: 'bannerlord',
+            name: 'Mount & Blade II: Bannerlord',
+            type: 'gaming',
+            subType: 'playing',
+            description: 'Epic medieval sandbox with massive battles, kingdom management, and deep strategy.',
+            icon: 'fa-chess-rook',
+            color: '#8B6914',
+            stats: ['40h played', 'Vlandia Campaign', 'Warsails'],
+            x: 1050, y: 720
         },
 
         // GAMING - All Time Favorites
@@ -59,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-feather',
             color: '#B8860B',
             stats: ['150+h played', 'AC Revelations', 'Would replay forever'],
-            x: 300, y: 200
+            x: 280, y: 180
         },
         {
             id: 'valorant-fav',
@@ -70,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-bullseye',
             color: '#FD4556',
             stats: ['400+h played', 'Raze/Jett main', 'Competitive focus'],
-            x: 1700, y: 200
+            x: 1720, y: 220
         },
         {
             id: 'skyrim-fav',
@@ -81,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-hat-wizard',
             color: '#2F4F4F',
             stats: ['600+h played', 'Battlemage style', 'Timeless classic'],
-            x: 1000, y: 150
+            x: 1380, y: 530
         },
         {
             id: 'ghost-tsushima',
@@ -92,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-wind',
             color: '#DC143C',
             stats: ['60h played', 'Best combat', 'Beautiful world'],
-            x: 600, y: 800
+            x: 620, y: 780
         },
 
         // MUSIC - Playlists
@@ -106,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             color: '#1DB954',
             stats: ['Reflective mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/4v9HS6PjoLBgDrU5L6GexX',
-            x: 200, y: 1000
+            x: 170, y: 980
         },
         {
             id: 'hurts-to-remember',
@@ -118,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             color: '#1DB954',
             stats: ['Nostalgic mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/5ioXfjHb5peyoN3qJtAvZO',
-            x: 800, y: 950
+            x: 820, y: 910
         },
         {
             id: 'wish-we-never-met',
@@ -130,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             color: '#1DB954',
             stats: ['Regretful mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/0K5jIqQY4tp0S8zfX9QIGB',
-            x: 1600, y: 800
+            x: 1620, y: 820
         },
         {
             id: 'ttcd',
@@ -142,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             color: '#1DB954',
             stats: ['Exhausted mood', 'Spotify'],
             link: 'https://open.spotify.com/playlist/41cAYIu6YBwvXq9Uq2YQlD',
-            x: 1300, y: 1000
+            x: 1280, y: 1010
         },
 
         // MUSIC - Now Playing
@@ -155,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'fa-headphones',
             color: '#fbbf24',
             stats: ['Now Playing', 'The Weeknd', '🌟'],
-            x: 1000, y: 500
+            x: 1000, y: 470
         }
     ];
 
@@ -283,6 +294,23 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', resize);
 
     // ============================================
+    // CONSTELLATION LINE OPACITY CALCULATOR
+    // ============================================
+    // Returns base opacity multiplier based on current zoom level.
+    // zoom = 0.3 (most zoomed out) → opacity ~ 0.8 (very visible)
+    // zoom = 1.0 (default)        → opacity ~ 0.35 (subtle but visible)
+    // zoom = 3.0 (most zoomed in) → opacity ~ 0.1 (faint)
+    function getConstellationBaseOpacity() {
+        const zoom = camera.zoom;
+
+        // Exponential decay curve: high opacity at low zoom, low at high zoom
+        // base = 1.0 * exp(-0.8 * (zoom - 0.3))
+        // clamped between 0.08 and 0.85
+        const base = Math.exp(-0.8 * (zoom - minZoom));
+        return Math.max(0.08, Math.min(0.85, base));
+    }
+
+    // ============================================
     // MAIN RENDER LOOP
     // ============================================
     function render(timestamp) {
@@ -298,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.scale(camera.zoom, camera.zoom);
         ctx.translate(-camera.x, -camera.y);
 
-        // Draw constellation lines
+        // Draw constellation lines (opacity based on zoom)
         drawConstellationLines();
 
         // Draw star nodes
@@ -398,7 +426,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'fa-heart-broken': '\uf7a9',
             'fa-ghost': '\uf6e2',
             'fa-tired': '\uf5c8',
-            'fa-headphones': '\uf025'
+            'fa-headphones': '\uf025',
+            'fa-chess-rook': '\uf447'
         };
         ctx.fillText(iconMap[star.icon] || '\uf111', star.x, star.y);
 
@@ -419,12 +448,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // CONSTELLATION LINES
+    // CONSTELLATION LINES (Dynamic Opacity)
     // ============================================
     function drawConstellationLines() {
         const filteredStars = activeCategory === 'all' 
             ? starData 
             : starData.filter(s => s.type === activeCategory);
+
+        const baseOpacity = getConstellationBaseOpacity();
+
+        // Don't draw if opacity is too low
+        if (baseOpacity < 0.05) return;
 
         for (let i = 0; i < filteredStars.length; i++) {
             for (let j = i + 1; j < filteredStars.length; j++) {
@@ -435,11 +469,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
                 if (dist < 400) {
-                    const opacity = (1 - dist / 400) * 0.2;
+                    // Distance-based opacity multiplied by zoom-based opacity
+                    const distOpacity = 1 - dist / 400;
+                    const finalOpacity = distOpacity * baseOpacity;
+
+                    if (finalOpacity < 0.02) continue;
+                    
                     ctx.beginPath();
                     ctx.moveTo(s1.x, s1.y);
                     ctx.lineTo(s2.x, s2.y);
-                    ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                    ctx.strokeStyle = `rgba(99, 102, 241, ${finalOpacity})`;
                     ctx.lineWidth = 0.5;
                     ctx.setLineDash([4, 8]);
                     ctx.stroke();
@@ -697,6 +736,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 zoomCamera(camera.targetZoom * 1.2);
                 break;
             case '-':
+                e.preventDefault();
                 e.preventDefault();
                 zoomCamera(camera.targetZoom * 0.8);
                 break;
