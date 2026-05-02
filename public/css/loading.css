@@ -440,7 +440,7 @@
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .loader-mars .loader-planet {
         height: 80px;
         width: 80px;
@@ -457,4 +457,4 @@
     .loader-text-content {
         font-size: 1rem;
     }
-}
+} */
