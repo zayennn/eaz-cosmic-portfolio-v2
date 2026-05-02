@@ -26,6 +26,8 @@
         <link rel="stylesheet" href="{{ asset('css/what-im-into.css') }}">
     @elseif(request()->routeIs('behind-the-code'))
         <link rel="stylesheet" href="{{ asset('css/behind-the-code.css') }}">
+    @elseif(request()->routeIs('get-in-touch'))
+        <link rel="stylesheet" href="{{ asset('css/get-in-touch.css') }}">
     @endif
 
     {{-- font awesome --}}
@@ -68,6 +70,8 @@
         <script src="{{ asset('js/what-im-into.js') }}"></script>
     @elseif (request()->routeIs('behind-the-code'))
         <script src="{{ asset('js/behind-the-code.js') }}"></script>
+    @elseif(request()->routeIs('get-in-touch'))
+        <script src="{{ asset('js/get-in-touch.js') }}"></script>
     @endif
 
     <script src="{{ asset('js/script.js') }}"></script>

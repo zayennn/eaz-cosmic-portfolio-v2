@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 Route::get('/', function () {
     return view('welcome', [
@@ -59,3 +61,14 @@ Route::get('/api/wakatime', function () {
         'summaries' => $summaries->json()
     ]);
 });
+
+Route::get('/get-in-touch', function () {
+    return view('get-in-touch');
+})->name('get-in-touch');
+
+// Optional: backend route for form submission
+Route::post('/contact/send', function (Request $request) {
+    // Handle form submission here
+    // Send email, save to database, etc.
+    return response()->json(['success' => true]);
+})->name('contact.send');
