@@ -877,7 +877,6 @@
 .skill-node:nth-child(13).filter-in { animation-delay: 0.1s; }
 .skill-node:nth-child(14).filter-in { animation-delay: 0.35s; }
 
-/* Magnet effect area */
 .magnet-field {
     position: absolute;
     pointer-events: none;
