@@ -812,7 +812,6 @@
     overflow: hidden;
 }
 
-/* Active state */
 .skill-node.active .node-core {
     border-color: rgba(139, 92, 246, 0.8) !important;
     box-shadow: 
