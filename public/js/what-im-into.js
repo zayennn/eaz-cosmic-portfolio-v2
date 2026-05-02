@@ -1,244 +1,698 @@
 document.addEventListener('DOMContentLoaded', function() {
-    gsap.registerPlugin(ScrollTrigger);
+    // ============================================
+    // STAR DATA - Constellation Objects
+    // ============================================
+    const starData = [
+        // GAMING - Currently Playing
+        {
+            id: 'ac-unity',
+            name: "Assassin's Creed Unity",
+            type: 'gaming',
+            subType: 'playing',
+            description: 'Parisian parkour and revolutionary intrigue in 18th century France.',
+            icon: 'fa-user-secret',
+            color: '#8B0000',
+            stats: ['25h played', '65% complete', 'PC'],
+            x: 800, y: 400
+        },
+        {
+            id: 'valorant-playing',
+            name: 'Valorant',
+            type: 'gaming',
+            subType: 'playing',
+            description: 'Tactical FPS with precise gunplay and unique agent abilities. Competitive mode main.',
+            icon: 'fa-crosshairs',
+            color: '#FD4556',
+            stats: ['300+h played', 'Platinum Rank', 'Raze/Jett main'],
+            x: 1200, y: 300
+        },
+        {
+            id: 'ac-valhalla',
+            name: 'AC Valhalla',
+            type: 'gaming',
+            subType: 'playing',
+            description: 'Viking adventure through Dark Ages England. Massive open world to explore.',
+            icon: 'fa-helmet-battle',
+            color: '#003366',
+            stats: ['80h played', '45% complete', 'PC'],
+            x: 500, y: 650
+        },
+        {
+            id: 'skyrim-playing',
+            name: 'Skyrim Anniversary',
+            type: 'gaming',
+            subType: 'playing',
+            description: 'Endless adventures in Tamriel. Currently deep into modding with 50+ mods installed.',
+            icon: 'fa-dragon',
+            color: '#2F4F4F',
+            stats: ['500+h played', '50+ mods', 'Battlemage build'],
+            x: 1500, y: 550
+        },
 
-    // ============================================
-    // DATA
-    // ============================================
-    const cardsData = [
-        // Games
-        { type: 'game', title: 'AC Unity', desc: 'Parisian parkour', image: 'ACUnity.png', badge: 'Story', badgeColor: '#8B0000', stats: ['25h', '65%'], x: 5, y: 10, z: 0 },
-        { type: 'game', title: 'Valorant', desc: 'Tactical FPS', image: 'valorant.png', badge: 'Competitive', badgeColor: '#FD4556', stats: ['300+h', 'Platinum'], x: 25, y: 5, z: 20 },
-        { type: 'game', title: 'AC Valhalla', desc: 'Viking adventure', image: 'ACValhalla.png', badge: 'Open World', badgeColor: '#003366', stats: ['80h', '45%'], x: 45, y: 15, z: -10 },
-        { type: 'game', title: 'Skyrim AE', desc: 'Modding paradise', image: 'The Elder Scrolls V Skyrim.png', badge: 'Modding', badgeColor: '#2F4F4F', stats: ['500+h', '50+ mods'], x: 65, y: 8, z: 15 },
-        
-        // Favorites
-        { type: 'favorite', title: 'Ezio Trilogy', desc: 'Nothing is true, everything is permitted', image: 'ezio-trilogy.png', badge: 'Action/Stealth', badgeColor: '#B8860B', stats: ['150+h', 'AC Revelations'], x: 10, y: 55, z: -20, stars: 5 },
-        { type: 'favorite', title: 'Valorant', desc: 'My go-to competitive shooter', image: 'valorant.png', badge: 'Tactical FPS', badgeColor: '#FD4556', stats: ['400+h', 'Raze/Jett'], x: 35, y: 50, z: 30, stars: 5 },
-        { type: 'favorite', title: 'Skyrim', desc: 'A game I can always return to', image: 'The Elder Scrolls V Skyrim.png', badge: 'RPG/Open World', badgeColor: '#2F4F4F', stats: ['600+h', 'Battlemage'], x: 60, y: 55, z: -25, stars: 5 },
-        { type: 'favorite', title: 'Ghost of Tsushima', desc: 'Samurai masterpiece', image: 'Ghost Of Tsushima.png', badge: 'Action/Adventure', badgeColor: '#DC143C', stats: ['60h', 'Combat & Visuals'], x: 80, y: 52, z: 10, stars: 5 },
-        
-        // Playlists
-        { type: 'playlist', title: 'baskara.', desc: 'Melancholic tunes', image: 'baskara.png', badge: 'Reflective', badgeColor: '#1DB954', link: 'https://open.spotify.com/playlist/4v9HS6PjoLBgDrU5L6GexX', x: 20, y: 80, z: 5 },
-        { type: 'playlist', title: 'hurts to remember', desc: 'Songs for reminiscing', image: 'hurts to remember.png', badge: 'Nostalgic', badgeColor: '#FF6B6B', link: 'https://open.spotify.com/playlist/5ioXfjHb5peyoN3qJtAvZO', x: 45, y: 78, z: -15 },
-        { type: 'playlist', title: 'wish we never met', desc: 'What-ifs and could-have-beens', image: 'wish we never met.png', badge: 'Regretful', badgeColor: '#4ECDC4', link: 'https://open.spotify.com/playlist/0K5jIqQY4tp0S8zfX9QIGB', x: 70, y: 82, z: 20 },
-        { type: 'playlist', title: 'trying, tired...', desc: 'Emotionally exhausting days', image: 'trying, tired, crying, dying.png', badge: 'Exhausted', badgeColor: '#6C5CE7', link: 'https://open.spotify.com/playlist/41cAYIu6YBwvXq9Uq2YQlD', x: 90, y: 75, z: -5 },
+        // GAMING - All Time Favorites
+        {
+            id: 'ezio-trilogy',
+            name: 'Ezio Trilogy',
+            type: 'gaming',
+            subType: 'favorite',
+            description: 'Nothing is true, everything is permitted. The greatest Assassin\'s Creed story ever told.',
+            icon: 'fa-feather',
+            color: '#B8860B',
+            stats: ['150+h played', 'AC Revelations', 'Would replay forever'],
+            x: 300, y: 200
+        },
+        {
+            id: 'valorant-fav',
+            name: 'Valorant',
+            type: 'gaming',
+            subType: 'favorite',
+            description: 'My go-to competitive shooter. Nothing beats the rush of a clutch round.',
+            icon: 'fa-bullseye',
+            color: '#FD4556',
+            stats: ['400+h played', 'Raze/Jett main', 'Competitive focus'],
+            x: 1700, y: 200
+        },
+        {
+            id: 'skyrim-fav',
+            name: 'Skyrim',
+            type: 'gaming',
+            subType: 'favorite',
+            description: 'A game I can always return to. Every playthrough is a new adventure.',
+            icon: 'fa-hat-wizard',
+            color: '#2F4F4F',
+            stats: ['600+h played', 'Battlemage style', 'Timeless classic'],
+            x: 1000, y: 150
+        },
+        {
+            id: 'ghost-tsushima',
+            name: 'Ghost of Tsushima',
+            type: 'gaming',
+            subType: 'favorite',
+            description: 'Visually stunning samurai masterpiece. The combat and visuals are unmatched.',
+            icon: 'fa-wind',
+            color: '#DC143C',
+            stats: ['60h played', 'Best combat', 'Beautiful world'],
+            x: 600, y: 800
+        },
+
+        // MUSIC - Playlists
+        {
+            id: 'baskara',
+            name: 'baskara.',
+            type: 'music',
+            subType: 'playlist',
+            description: 'Melancholic tunes for introspective moments. Perfect for late-night coding.',
+            icon: 'fa-cloud-moon',
+            color: '#1DB954',
+            stats: ['Reflective mood', 'Spotify'],
+            link: 'https://open.spotify.com/playlist/4v9HS6PjoLBgDrU5L6GexX',
+            x: 200, y: 1000
+        },
+        {
+            id: 'hurts-to-remember',
+            name: 'hurts to remember',
+            type: 'music',
+            subType: 'playlist',
+            description: 'Songs that hit different when you\'re reminiscing about the past.',
+            icon: 'fa-heart-broken',
+            color: '#1DB954',
+            stats: ['Nostalgic mood', 'Spotify'],
+            link: 'https://open.spotify.com/playlist/5ioXfjHb5peyoN3qJtAvZO',
+            x: 800, y: 950
+        },
+        {
+            id: 'wish-we-never-met',
+            name: 'wish we never met',
+            type: 'music',
+            subType: 'playlist',
+            description: 'Melodies for the what-ifs and could-have-beens. Sadboi hours guaranteed.',
+            icon: 'fa-ghost',
+            color: '#1DB954',
+            stats: ['Regretful mood', 'Spotify'],
+            link: 'https://open.spotify.com/playlist/0K5jIqQY4tp0S8zfX9QIGB',
+            x: 1600, y: 800
+        },
+        {
+            id: 'ttcd',
+            name: 'trying, tired, crying, dying',
+            type: 'music',
+            subType: 'playlist',
+            description: 'For those emotionally exhausting days when everything feels heavy.',
+            icon: 'fa-tired',
+            color: '#1DB954',
+            stats: ['Exhausted mood', 'Spotify'],
+            link: 'https://open.spotify.com/playlist/41cAYIu6YBwvXq9Uq2YQlD',
+            x: 1300, y: 1000
+        },
+
+        // MUSIC - Now Playing
+        {
+            id: 'timeless',
+            name: 'Timeless - The Weeknd',
+            type: 'music',
+            subType: 'now-playing',
+            description: '"I\'ll be timeless, I swear I\'ll be timeless" - Perfect blend of melancholy and hope.',
+            icon: 'fa-headphones',
+            color: '#fbbf24',
+            stats: ['Now Playing', 'The Weeknd', '🌟'],
+            x: 1000, y: 500
+        }
     ];
 
     // ============================================
-    // CREATE CARDS
+    // CANVAS SETUP
     // ============================================
-    const stage = document.querySelector('.holo-stage');
-    
-    cardsData.forEach((data, index) => {
-        const card = document.createElement('div');
-        card.classList.add('holo-card');
-        card.style.left = data.x + '%';
-        card.style.top = data.y + '%';
-        card.style.transform = `translateZ(${data.z}px)`;
-        card.style.zIndex = Math.floor(data.y);
-        card.dataset.index = index;
-        
-        let statsHTML = data.stats.map(s => `<span class="holo-stat">${s}</span>`).join('');
-        
-        let bottomHTML = '';
-        if (data.stars) {
-            const starsHTML = Array.from({length: data.stars}, () => '<i class="fas fa-star"></i>').join('');
-            bottomHTML = `<div class="holo-stars">${starsHTML}</div>`;
-        }
-        if (data.link) {
-            bottomHTML += `<a href="${data.link}" target="_blank" class="playlist-link"><i class="fab fa-spotify"></i> Spotify</a>`;
-        }
-        
-        card.innerHTML = `
-            <div class="holo-card-corner tl"></div>
-            <div class="holo-card-corner tr"></div>
-            <div class="holo-card-corner bl"></div>
-            <div class="holo-card-corner br"></div>
-            <div class="holo-card-image">
-                <img src="/images/${data.type === 'playlist' ? 'playlist/' : 'games/'}${data.image}" alt="${data.title}">
-                <span class="holo-card-badge" style="background: ${data.badgeColor};">${data.badge}</span>
-            </div>
-            <div class="holo-card-content">
-                <h3 class="holo-card-title">${data.title}</h3>
-                <p class="holo-card-desc">${data.desc}</p>
-                <div class="holo-card-stats">${statsHTML}</div>
-                ${bottomHTML}
-            </div>
-        `;
-        
-        card.addEventListener('click', () => openModal(data));
-        
-        stage.appendChild(card);
-    });
+    const page = document.getElementById('intoPage');
+    const canvas = document.getElementById('starMapCanvas');
+    const ctx = canvas.getContext('2d');
+    const minimapCanvas = document.getElementById('minimapCanvas');
+    const minimapCtx = minimapCanvas.getContext('2d');
+    const popup = document.getElementById('starPopup');
+    const popupContent = document.getElementById('popupContent');
 
-    // ============================================
-    // 3D DRAG TO ROTATE
-    // ============================================
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-    let rotateX = -20;
-    let rotateY = 0;
-    
-    stage.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.holo-card')) return; // Don't drag when clicking card
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        stage.classList.add('dragging');
-    });
-    
-    window.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        
-        const deltaX = (e.clientX - startX) * 0.2;
-        const deltaY = (e.clientY - startY) * 0.2;
-        
-        rotateY += deltaX;
-        rotateX -= deltaY;
-        
-        rotateX = Math.max(-40, Math.min(10, rotateX));
-        
-        stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        
-        startX = e.clientX;
-        startY = e.clientY;
-    });
-    
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-        stage.classList.remove('dragging');
-    });
-    
-    // Touch support
-    stage.addEventListener('touchstart', (e) => {
-        if (e.target.closest('.holo-card')) return;
-        isDragging = true;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-    });
-    
-    window.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const deltaX = (e.touches[0].clientX - startX) * 0.2;
-        const deltaY = (e.touches[0].clientY - startY) * 0.2;
-        rotateY += deltaX;
-        rotateX -= deltaY;
-        rotateX = Math.max(-40, Math.min(10, rotateX));
-        stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-    });
-    
-    window.addEventListener('touchend', () => {
-        isDragging = false;
-    });
+    // World size (virtual space)
+    const worldWidth = 2000;
+    const worldHeight = 1300;
 
-    // Initial rotation
-    stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    stage.style.transition = 'transform 0.5s ease';
+    // Camera state
+    let camera = {
+        x: worldWidth / 2 - window.innerWidth / 2,
+        y: worldHeight / 2 - window.innerHeight / 2,
+        zoom: 1,
+        targetX: worldWidth / 2 - window.innerWidth / 2,
+        targetY: worldHeight / 2 - window.innerHeight / 2,
+        targetZoom: 1
+    };
 
-    // ============================================
-    // CARD FLOAT ANIMATION
-    // ============================================
-    document.querySelectorAll('.holo-card').forEach((card, i) => {
-        gsap.to(card, {
-            y: '-=8',
-            duration: 3 + Math.random() * 2,
-            repeat: -1,
-            yoyo: true,
-            ease: 'power1.inOut',
-            delay: i * 0.2
+    // Interaction state
+    let isPanning = false;
+    let panStart = { x: 0, y: 0 };
+    let cameraStart = { x: 0, y: 0 };
+    let hoveredStar = null;
+    let selectedStar = null;
+    let activeCategory = 'all';
+
+    // Background stars
+    const bgStars = [];
+    for (let i = 0; i < 200; i++) {
+        bgStars.push({
+            x: Math.random() * worldWidth,
+            y: Math.random() * worldHeight,
+            radius: Math.random() * 1.5 + 0.5,
+            opacity: Math.random() * 0.5 + 0.2,
+            twinkleSpeed: Math.random() * 0.02 + 0.005,
+            twinkleOffset: Math.random() * Math.PI * 2
         });
-    });
+    }
 
     // ============================================
-    // MODAL
+    // RESIZE HANDLER
     // ============================================
-    function openModal(data) {
-        const overlay = document.createElement('div');
-        overlay.classList.add('card-modal-overlay');
-        
-        let starsHTML = '';
-        if (data.stars) {
-            starsHTML = Array.from({length: data.stars}, () => '<i class="fas fa-star"></i>').join('');
-        }
-        
-        overlay.innerHTML = `
-            <div class="card-modal">
-                <div class="modal-image" style="position: relative;">
-                    <img src="/images/${data.type === 'playlist' ? 'playlist/' : 'games/'}${data.image}" alt="${data.title}">
-                    <button class="modal-close"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="modal-content">
-                    <span class="holo-card-badge" style="background: ${data.badgeColor}; display: inline-block; margin-bottom: 0.5rem;">${data.badge}</span>
-                    <h3 class="modal-title">${data.title}</h3>
-                    <p class="modal-desc">${data.desc}</p>
-                    <div class="modal-details">
-                        ${data.stats.map(s => `<span class="modal-detail">${s}</span>`).join('')}
-                    </div>
-                    ${starsHTML ? `<div class="holo-stars">${starsHTML}</div>` : ''}
-                    ${data.link ? `<a href="${data.link}" target="_blank" class="playlist-link" style="margin-top: 0.8rem; display: inline-flex;"><i class="fab fa-spotify"></i> Open in Spotify</a>` : ''}
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(overlay);
-        
-        requestAnimationFrame(() => {
-            overlay.classList.add('active');
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        minimapCanvas.width = 180;
+        minimapCanvas.height = 120;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ============================================
+    // MAIN RENDER LOOP
+    // ============================================
+    function render(timestamp) {
+        // Smooth camera
+        camera.x += (camera.targetX - camera.x) * 0.1;
+        camera.y += (camera.targetY - camera.y) * 0.1;
+        camera.zoom += (camera.targetZoom - camera.zoom) * 0.1;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Background gradient
+        const gradient = ctx.createRadialGradient(
+            canvas.width / 2, canvas.height / 2, 0,
+            canvas.width / 2, canvas.height / 2, canvas.width * 0.7
+        );
+        gradient.addColorStop(0, '#0f172a');
+        gradient.addColorStop(1, '#06080d');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.translate(-camera.x * camera.zoom + canvas.width / 2 * (1 - camera.zoom) + canvas.width / 2 * camera.zoom,
+                      -camera.y * camera.zoom + canvas.height / 2 * (1 - camera.zoom) + canvas.height / 2 * camera.zoom);
+        ctx.scale(camera.zoom, camera.zoom);
+
+        // Draw background stars
+        bgStars.forEach(star => {
+            const opacity = star.opacity + Math.sin(timestamp * star.twinkleSpeed + star.twinkleOffset) * 0.2;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.1, opacity)})`;
+            ctx.fill();
         });
+
+        // Draw constellation lines
+        drawConstellationLines();
+
+        // Draw star nodes
+        const filteredStars = activeCategory === 'all' 
+            ? starData 
+            : starData.filter(s => s.type === activeCategory);
+
+        filteredStars.forEach(star => {
+            drawStarNode(star, timestamp);
+        });
+
+        ctx.restore();
+
+        // Draw minimap
+        drawMinimap(filteredStars);
+
+        requestAnimationFrame(render);
+    }
+
+    // ============================================
+    // DRAW STAR NODE
+    // ============================================
+    function drawStarNode(star, timestamp) {
+        const isHovered = hoveredStar === star;
+        const isSelected = selectedStar === star;
+        const scale = isHovered ? 1.3 : isSelected ? 1.2 : 1;
+
+        // Outer glow
+        const glowRadius = 40 * scale;
+        const glowGradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
+        glowGradient.addColorStop(0, star.color + '40');
+        glowGradient.addColorStop(0.5, star.color + '10');
+        glowGradient.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, glowRadius, 0, Math.PI * 2);
+        ctx.fillStyle = glowGradient;
+        ctx.fill();
+
+        // Pulsing ring
+        if (isHovered || isSelected) {
+            const pulse = Math.sin(timestamp * 0.005) * 0.3 + 0.7;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, 35 * scale * pulse, 0, Math.PI * 2);
+            ctx.strokeStyle = star.color + '60';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        // Orbiting particles
+        const particleCount = star.subType === 'favorite' ? 3 : star.subType === 'now-playing' ? 4 : 2;
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (timestamp * 0.002 + (i * Math.PI * 2 / particleCount)) % (Math.PI * 2);
+            const orbitRadius = 25 * scale;
+            const px = star.x + Math.cos(angle) * orbitRadius;
+            const py = star.y + Math.sin(angle) * orbitRadius;
+            
+            ctx.beginPath();
+            ctx.arc(px, py, 2, 0, Math.PI * 2);
+            ctx.fillStyle = star.color;
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(px, py, 5, 0, Math.PI * 2);
+            ctx.fillStyle = star.color + '30';
+            ctx.fill();
+        }
+
+        // Star core
+        const coreRadius = star.subType === 'favorite' ? 16 : star.subType === 'now-playing' ? 18 : 12;
         
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay || e.target.classList.contains('modal-close')) {
-                overlay.classList.remove('active');
-                setTimeout(() => overlay.remove(), 300);
+        // Core gradient
+        const coreGradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, coreRadius * scale);
+        coreGradient.addColorStop(0, '#ffffff');
+        coreGradient.addColorStop(0.3, star.color);
+        coreGradient.addColorStop(0.7, star.color + '80');
+        coreGradient.addColorStop(1, 'transparent');
+        
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, coreRadius * scale, 0, Math.PI * 2);
+        ctx.fillStyle = coreGradient;
+        ctx.fill();
+
+        // Icon
+        ctx.fillStyle = '#fff';
+        ctx.font = `${12 * scale}px "Font Awesome 6 Free"`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const iconMap = {
+            'fa-user-secret': '\uf21b',
+            'fa-crosshairs': '\uf05b',
+            'fa-helmet-battle': '\uf6bf',
+            'fa-dragon': '\uf6d5',
+            'fa-feather': '\uf52d',
+            'fa-bullseye': '\uf140',
+            'fa-hat-wizard': '\uf6e8',
+            'fa-wind': '\uf72e',
+            'fa-cloud-moon': '\uf6c3',
+            'fa-heart-broken': '\uf7a9',
+            'fa-ghost': '\uf6e2',
+            'fa-tired': '\uf5c8',
+            'fa-headphones': '\uf025'
+        };
+        ctx.fillText(iconMap[star.icon] || '\uf111', star.x, star.y);
+
+        // Label
+        if (isHovered || isSelected) {
+            ctx.fillStyle = '#e2e8f0';
+            ctx.font = `bold ${11 * scale}px "Exo 2", sans-serif`;
+            ctx.fillText(star.name, star.x, star.y - 30 * scale);
+
+            // Type indicator
+            ctx.fillStyle = star.color;
+            ctx.font = `${9 * scale}px "Exo 2", sans-serif`;
+            const typeLabel = star.subType === 'favorite' ? '⭐ Favorite' : 
+                              star.subType === 'playing' ? '🎮 Playing' :
+                              star.subType === 'now-playing' ? '🎵 Now Playing' : '🎧 Playlist';
+            ctx.fillText(typeLabel, star.x, star.y + 28 * scale);
+        }
+    }
+
+    // ============================================
+    // CONSTELLATION LINES
+    // ============================================
+    function drawConstellationLines() {
+        const filteredStars = activeCategory === 'all' 
+            ? starData 
+            : starData.filter(s => s.type === activeCategory);
+
+        for (let i = 0; i < filteredStars.length; i++) {
+            for (let j = i + 1; j < filteredStars.length; j++) {
+                const s1 = filteredStars[i];
+                const s2 = filteredStars[j];
+                const dx = s1.x - s2.x;
+                const dy = s1.y - s2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                // Connect stars within 400px
+                if (dist < 400) {
+                    const opacity = (1 - dist / 400) * 0.2;
+                    ctx.beginPath();
+                    ctx.moveTo(s1.x, s1.y);
+                    ctx.lineTo(s2.x, s2.y);
+                    ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.setLineDash([4, 8]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
             }
+        }
+    }
+
+    // ============================================
+    // MINIMAP
+    // ============================================
+    function drawMinimap(filteredStars) {
+        const mw = 180;
+        const mh = 120;
+        
+        minimapCtx.clearRect(0, 0, mw, mh);
+        minimapCtx.fillStyle = 'rgba(10, 10, 20, 0.8)';
+        minimapCtx.fillRect(0, 0, mw, mh);
+
+        // Draw stars on minimap
+        filteredStars.forEach(star => {
+            const mx = (star.x / worldWidth) * mw;
+            const my = (star.y / worldHeight) * mh;
+            
+            minimapCtx.beginPath();
+            minimapCtx.arc(mx, my, 1.5, 0, Math.PI * 2);
+            minimapCtx.fillStyle = star.color;
+            minimapCtx.fill();
         });
+
+        // Draw viewport
+        const vx = (camera.x / worldWidth) * mw;
+        const vy = (camera.y / worldHeight) * mh;
+        const vw = (window.innerWidth / camera.zoom / worldWidth) * mw;
+        const vh = (window.innerHeight / camera.zoom / worldHeight) * mh;
+
+        const viewport = document.getElementById('minimapViewport');
+        viewport.style.left = vx + 'px';
+        viewport.style.top = vy + 'px';
+        viewport.style.width = vw + 'px';
+        viewport.style.height = vh + 'px';
     }
 
     // ============================================
-    // CREATE PROJECTION DOTS
+    // SCREEN TO WORLD COORDINATES
     // ============================================
-    const dotsContainer = document.querySelector('.projection-dots');
-    for (let i = 0; i < 30; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('projection-dot');
-        dot.style.left = Math.random() * 100 + '%';
-        dot.style.top = Math.random() * 100 + '%';
-        dot.style.animationDelay = Math.random() * 4 + 's';
-        dot.style.animationDuration = 3 + Math.random() * 4 + 's';
-        dotsContainer.appendChild(dot);
+    function screenToWorld(screenX, screenY) {
+        return {
+            x: (screenX - canvas.width / 2) / camera.zoom + camera.x,
+            y: (screenY - canvas.height / 2) / camera.zoom + camera.y
+        };
     }
 
     // ============================================
-    // DATA STREAM
+    // FIND STAR AT POSITION
     // ============================================
-    setInterval(() => {
-        const stream = document.querySelector('.data-stream');
-        const particle = document.createElement('span');
-        particle.classList.add('stream-particle');
-        particle.textContent = Math.random() > 0.5 ? '1' : '0';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDuration = 3 + Math.random() * 3 + 's';
-        stream.appendChild(particle);
-        setTimeout(() => particle.remove(), 4000);
-    }, 300);
+    function findStarAt(worldX, worldY) {
+        const filteredStars = activeCategory === 'all' 
+            ? starData 
+            : starData.filter(s => s.type === activeCategory);
+        
+        const threshold = 30 / camera.zoom;
+        
+        for (let i = filteredStars.length - 1; i >= 0; i--) {
+            const star = filteredStars[i];
+            const dx = star.x - worldX;
+            const dy = star.y - worldY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < threshold) {
+                return star;
+            }
+        }
+        
+        return null;
+    }
 
     // ============================================
-    // HEADER ANIMATION
+    // SHOW POPUP
     // ============================================
-    gsap.from('.into-badge', { opacity: 0, y: -20, duration: 0.6, ease: 'power3.out' });
-    gsap.from('.into-title', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
-    gsap.from('.into-subtitle', { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out', delay: 0.4 });
-    
-    gsap.from('.music-bar', { 
-        opacity: 0, 
-        y: 60, 
-        duration: 0.8, 
-        ease: 'power3.out', 
-        delay: 1.5 
+    function showPopup(star, screenX, screenY) {
+        selectedStar = star;
+
+        const statsHTML = star.stats.map(s => 
+            `<span class="popup-stat">${s}</span>`
+        ).join('');
+
+        const linkHTML = star.link ? 
+            `<a href="${star.link}" target="_blank" class="popup-link">
+                <i class="fab fa-spotify"></i> Open in Spotify
+            </a>` : '';
+
+        popupContent.innerHTML = `
+            <div class="popup-header">
+                <div class="popup-icon" style="background: ${star.color}20; color: ${star.color};">
+                    <i class="fas ${star.icon}"></i>
+                </div>
+                <div>
+                    <div class="popup-name">${star.name}</div>
+                    <div class="popup-type" style="color: ${star.color};">
+                        ${star.subType.replace('-', ' ').toUpperCase()}
+                    </div>
+                </div>
+            </div>
+            <p class="popup-desc">${star.description}</p>
+            <div class="popup-stats">${statsHTML}</div>
+            ${linkHTML}
+        `;
+
+        popup.style.left = screenX + 'px';
+        popup.style.top = screenY + 'px';
+        popup.classList.add('active');
+    }
+
+    function hidePopup() {
+        selectedStar = null;
+        popup.classList.remove('active');
+    }
+
+    function updatePopupPosition(screenX, screenY) {
+        if (selectedStar) {
+            popup.style.left = screenX + 'px';
+            popup.style.top = screenY + 'px';
+        }
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    canvas.addEventListener('mousedown', (e) => {
+        isPanning = true;
+        panStart.x = e.clientX;
+        panStart.y = e.clientY;
+        cameraStart.x = camera.targetX;
+        cameraStart.y = camera.targetY;
+        page.classList.add('panning');
     });
 
-    console.log('🌀 AR Hologram Dashboard initialized!');
+    window.addEventListener('mousemove', (e) => {
+        const world = screenToWorld(e.clientX, e.clientY);
+        
+        if (isPanning) {
+            const dx = (e.clientX - panStart.x) / camera.zoom;
+            const dy = (e.clientY - panStart.y) / camera.zoom;
+            camera.targetX = cameraStart.x - dx;
+            camera.targetY = cameraStart.y - dy;
+            
+            // Clamp
+            camera.targetX = Math.max(0, Math.min(worldWidth - window.innerWidth / camera.zoom, camera.targetX));
+            camera.targetY = Math.max(0, Math.min(worldHeight - window.innerHeight / camera.zoom, camera.targetY));
+            
+            hidePopup();
+        } else {
+            const star = findStarAt(world.x, world.y);
+            
+            if (star !== hoveredStar) {
+                hoveredStar = star;
+                canvas.style.cursor = star ? 'pointer' : 'grab';
+            }
+            
+            if (selectedStar && !isPanning) {
+                updatePopupPosition(e.clientX, e.clientY);
+            }
+        }
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isPanning) {
+            const dx = Math.abs(camera.targetX - cameraStart.x);
+            const dy = Math.abs(camera.targetY - cameraStart.y);
+            
+            // If barely moved, treat as click
+            if (dx < 5 && dy < 5 && hoveredStar) {
+                showPopup(hoveredStar, 
+                    hoveredStar.x * camera.zoom + canvas.width / 2 - camera.x * camera.zoom,
+                    hoveredStar.y * camera.zoom + canvas.height / 2 - camera.y * camera.zoom
+                );
+            }
+        }
+        
+        isPanning = false;
+        page.classList.remove('panning');
+    });
+
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        
+        const zoomAmount = e.deltaY > 0 ? 0.9 : 1.1;
+        const newZoom = camera.targetZoom * zoomAmount;
+        
+        camera.targetZoom = Math.max(0.3, Math.min(3, newZoom));
+        
+        // Zoom towards mouse
+        const mouseWorldX = (e.clientX - canvas.width / 2) / camera.zoom + camera.x;
+        const mouseWorldY = (e.clientY - canvas.height / 2) / camera.zoom + camera.y;
+        
+        camera.targetX = mouseWorldX - (e.clientX - canvas.width / 2) / camera.targetZoom;
+        camera.targetY = mouseWorldY - (e.clientY - canvas.height / 2) / camera.targetZoom;
+        
+        hidePopup();
+    }, { passive: false });
+
+    // Touch events
+    canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            isPanning = true;
+            panStart.x = e.touches[0].clientX;
+            panStart.y = e.touches[0].clientY;
+            cameraStart.x = camera.targetX;
+            cameraStart.y = camera.targetY;
+        }
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (isPanning && e.touches.length === 1) {
+            const dx = (e.touches[0].clientX - panStart.x) / camera.zoom;
+            const dy = (e.touches[0].clientY - panStart.y) / camera.zoom;
+            camera.targetX = cameraStart.x - dx;
+            camera.targetY = cameraStart.y - dy;
+        }
+    });
+
+    canvas.addEventListener('touchend', () => {
+        isPanning = false;
+    });
+
+    // Zoom controls
+    document.getElementById('zoomIn').addEventListener('click', () => {
+        camera.targetZoom = Math.min(3, camera.targetZoom * 1.3);
+    });
+
+    document.getElementById('zoomOut').addEventListener('click', () => {
+        camera.targetZoom = Math.max(0.3, camera.targetZoom * 0.7);
+    });
+
+    document.getElementById('resetView').addEventListener('click', () => {
+        camera.targetX = worldWidth / 2 - window.innerWidth / 2;
+        camera.targetY = worldHeight / 2 - window.innerHeight / 2;
+        camera.targetZoom = 1;
+        hidePopup();
+    });
+
+    // Category legend
+    document.querySelectorAll('.legend-item').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.legend-item').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            activeCategory = this.dataset.category;
+            hidePopup();
+        });
+    });
+
+    // Click outside to close popup
+    canvas.addEventListener('click', (e) => {
+        if (selectedStar && !isPanning) {
+            const world = screenToWorld(e.clientX, e.clientY);
+            const clickedStar = findStarAt(world.x, world.y);
+            if (!clickedStar || clickedStar !== selectedStar) {
+                hidePopup();
+            }
+        }
+    });
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+        switch(e.key) {
+            case '+':
+            case '=':
+                camera.targetZoom = Math.min(3, camera.targetZoom * 1.2);
+                break;
+            case '-':
+                camera.targetZoom = Math.max(0.3, camera.targetZoom * 0.8);
+                break;
+            case '0':
+                camera.targetX = worldWidth / 2 - window.innerWidth / 2;
+                camera.targetY = worldHeight / 2 - window.innerHeight / 2;
+                camera.targetZoom = 1;
+                break;
+            case 'Escape':
+                hidePopup();
+                break;
+        }
+    });
+
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    // Center camera on "now playing"
+    const nowPlaying = starData.find(s => s.subType === 'now-playing');
+    if (nowPlaying) {
+        camera.targetX = nowPlaying.x - window.innerWidth / 2;
+        camera.targetY = nowPlaying.y - window.innerHeight / 2;
+        camera.x = camera.targetX;
+        camera.y = camera.targetY;
+    }
+
+    requestAnimationFrame(render);
+    console.log('🌌 Cosmic Memory Constellation initialized - Drag to explore!');
 });

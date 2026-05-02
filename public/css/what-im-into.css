@@ -1,51 +1,75 @@
 /* ============================================
-   AR HOLOGRAM DASHBOARD
+   COSMIC MEMORY CONSTELLATION
    ============================================ */
 
 .into-page {
     min-height: 100vh;
-    padding: 6rem 2rem 2rem;
+    padding: 6rem 0 0;
     position: relative;
     overflow: hidden;
     background: transparent;
-    perspective: 2000px;
+    cursor: grab;
+}
+
+.into-page:active {
+    cursor: grabbing;
+}
+
+.into-page.panning {
+    cursor: grabbing;
 }
 
 /* ============================================
-   HEADER
+   STAR FIELD CANVAS
    ============================================ */
-.into-header {
+#starMapCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* ============================================
+   HEADER - OVERLAY
+   ============================================ */
+.into-header-overlay {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
     text-align: center;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 2;
+    pointer-events: none;
 }
 
 .into-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.4rem 1.2rem;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 0.5rem 1.5rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(99, 102, 241, 0.3);
     border-radius: 50px;
     color: #a5b4fc;
     font-size: 0.8rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
     font-family: 'Exo 2', sans-serif;
     letter-spacing: 1px;
     backdrop-filter: blur(10px);
+    margin-bottom: 0.8rem;
+}
+
+.into-badge i {
+    color: #fbbf24;
+    animation: star-spin 3s linear infinite;
 }
 
 .into-title {
     font-size: 3.5rem;
     font-family: 'Audiowide', cursive;
-    color: transparent;
-    background: linear-gradient(135deg, #e2e8f0 0%, #a5b4fc 50%, #818cf8 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    line-height: 1.2;
+    color: #fff;
+    text-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
     margin-bottom: 0.5rem;
 }
 
@@ -56,540 +80,286 @@
     -webkit-text-fill-color: transparent;
 }
 
-.into-subtitle {
+.into-hint {
     color: #64748b;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-family: 'Exo 2', sans-serif;
+    animation: hint-pulse 3s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
 }
 
 /* ============================================
-   MUSIC PLAYER BAR (Fixed Bottom)
+   MINIMAP
    ============================================ */
-.music-bar {
+.minimap {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    background: rgba(15, 23, 42, 0.9);
+    bottom: 30px;
+    right: 30px;
+    width: 180px;
+    height: 120px;
+    background: rgba(15, 23, 42, 0.8);
     border: 1px solid rgba(99, 102, 241, 0.3);
-    border-radius: 60px;
-    padding: 0.8rem 1.5rem;
+    border-radius: 16px;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.minimap canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.minimap-viewport {
+    position: absolute;
+    border: 2px solid rgba(99, 102, 241, 0.6);
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+/* ============================================
+   STAR DETAIL POPUP
+   ============================================ */
+.star-popup {
+    position: fixed;
+    z-index: 30;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.star-popup.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup-content {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 20px;
+    padding: 1.5rem;
     backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.2);
+    min-width: 280px;
+    max-width: 350px;
+}
+
+.popup-header {
     display: flex;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.15);
-    min-width: 400px;
+    margin-bottom: 1rem;
 }
 
-.music-bar-cover {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-}
-
-.music-bar-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.music-bar-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.music-bar-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.8rem;
-    color: #e2e8f0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.music-bar-artist {
-    font-size: 0.7rem;
-    color: #64748b;
-    font-family: 'Exo 2', sans-serif;
-}
-
-.music-bar-controls {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.bar-btn {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
-    cursor: pointer;
+.popup-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
+    flex-shrink: 0;
 }
 
-.bar-btn:hover {
-    background: rgba(99, 102, 241, 0.2);
-    color: #fff;
-}
-
-.bar-btn.play-btn {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    border: none;
-    color: #fff;
-}
-
-/* ============================================
-   MAIN 3D CONTAINER
-   ============================================ */
-.holo-stage {
-    position: relative;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    height: 70vh;
-    min-height: 500px;
-    transform-style: preserve-3d;
-    cursor: grab;
-    z-index: 2;
-}
-
-.holo-stage:active {
-    cursor: grabbing;
-}
-
-.holo-stage.dragging {
-    cursor: grabbing;
-}
-
-/* ============================================
-   HOLOGRAM CARDS
-   ============================================ */
-.holo-card {
-    position: absolute;
-    width: 220px;
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(99, 102, 241, 0.25);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.holo-card:hover {
-    border-color: rgba(99, 102, 241, 0.6);
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.4),
-        0 0 30px rgba(99, 102, 241, 0.3),
-        0 0 60px rgba(99, 102, 241, 0.1);
-    z-index: 20 !important;
-}
-
-/* Scanline effect */
-.holo-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(99, 102, 241, 0.02) 2px,
-        rgba(99, 102, 241, 0.02) 4px
-    );
-    z-index: 5;
-    pointer-events: none;
-    border-radius: 20px;
-}
-
-/* Holographic flicker */
-.holo-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        135deg,
-        transparent 40%,
-        rgba(99, 102, 241, 0.05) 50%,
-        transparent 60%
-    );
-    z-index: 6;
-    pointer-events: none;
-    border-radius: 20px;
-    animation: holo-sweep 3s ease-in-out infinite;
-}
-
-@keyframes holo-sweep {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
-}
-
-/* Card Image */
-.holo-card-image {
-    height: 130px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px 20px 0 0;
-}
-
-.holo-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.holo-card-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 0.2rem 0.7rem;
-    border-radius: 50px;
-    font-size: 0.6rem;
+.popup-name {
     font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    margin-bottom: 0.2rem;
+}
+
+.popup-type {
+    font-size: 0.7rem;
+    font-family: 'Exo 2', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #fff;
-    z-index: 3;
 }
 
-.holo-card-hours {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 0.2rem 0.7rem;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 50px;
-    font-size: 0.6rem;
-    color: #e2e8f0;
-    font-family: 'Exo 2', sans-serif;
-    z-index: 3;
-    backdrop-filter: blur(5px);
-}
-
-/* Card Content */
-.holo-card-content {
-    padding: 1rem;
-    position: relative;
-    z-index: 2;
-}
-
-.holo-card-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    color: #e2e8f0;
-    margin-bottom: 0.3rem;
-    line-height: 1.3;
-}
-
-.holo-card-desc {
+.popup-desc {
     color: #94a3b8;
-    font-size: 0.7rem;
-    line-height: 1.5;
+    font-size: 0.8rem;
+    line-height: 1.6;
     font-family: 'Exo 2', sans-serif;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
 }
 
-.holo-card-stats {
+.popup-stats {
     display: flex;
+    gap: 0.8rem;
     flex-wrap: wrap;
-    gap: 0.4rem;
 }
 
-.holo-stat {
-    padding: 0.2rem 0.6rem;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.15);
+.popup-stat {
+    padding: 0.3rem 0.8rem;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
     border-radius: 50px;
     color: #a5b4fc;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     font-family: 'Exo 2', sans-serif;
     display: flex;
     align-items: center;
     gap: 0.3rem;
 }
 
-/* Card corner accents */
-.holo-card-corner {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    z-index: 4;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.holo-card:hover .holo-card-corner {
-    opacity: 1;
-}
-
-.holo-card-corner.tl {
-    top: 8px;
-    left: 8px;
-    border-top: 1.5px solid rgba(0, 255, 255, 0.5);
-    border-left: 1.5px solid rgba(0, 255, 255, 0.5);
-}
-
-.holo-card-corner.tr {
-    top: 8px;
-    right: 8px;
-    border-top: 1.5px solid rgba(0, 255, 255, 0.5);
-    border-right: 1.5px solid rgba(0, 255, 255, 0.5);
-}
-
-.holo-card-corner.bl {
-    bottom: 8px;
-    left: 8px;
-    border-bottom: 1.5px solid rgba(0, 255, 255, 0.5);
-    border-left: 1.5px solid rgba(0, 255, 255, 0.5);
-}
-
-.holo-card-corner.br {
-    bottom: 8px;
-    right: 8px;
-    border-bottom: 1.5px solid rgba(0, 255, 255, 0.5);
-    border-right: 1.5px solid rgba(0, 255, 255, 0.5);
-}
-
-/* Spotify link card */
-.playlist-link {
+.popup-link {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.35rem 0.8rem;
-    background: rgba(29, 185, 84, 0.1);
+    margin-top: 1rem;
+    padding: 0.4rem 1rem;
+    background: rgba(29, 185, 84, 0.15);
     border: 1px solid rgba(29, 185, 84, 0.3);
     border-radius: 50px;
     color: #1DB954;
     text-decoration: none;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-family: 'Exo 2', sans-serif;
     font-weight: 600;
+    pointer-events: auto;
     transition: all 0.3s ease;
 }
 
-.playlist-link:hover {
-    background: rgba(29, 185, 84, 0.2);
+.popup-link:hover {
+    background: rgba(29, 185, 84, 0.25);
 }
 
 /* ============================================
-   STAR RATING
+   CONSTELLATION LINES
    ============================================ */
-.holo-stars {
+.constellation-line {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.constellation-line.visible {
+    opacity: 0.3;
+}
+
+/* ============================================
+   ZOOM CONTROLS
+   ============================================ */
+.map-controls {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 20;
     display: flex;
-    gap: 0.15rem;
-    margin-top: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.holo-stars i {
-    color: #fbbf24;
-    font-size: 0.6rem;
-    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.5));
+.map-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.5);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.map-btn:active {
+    transform: scale(0.9);
 }
 
 /* ============================================
-   HOLOGRAM GRID LINES (Background)
+   CATEGORY LEGEND
    ============================================ */
-.holo-grid-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.03;
-    background-image: 
-        linear-gradient(rgba(99, 102, 241, 0.5) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.5) 1px, transparent 1px);
-    background-size: 60px 60px;
-    transform: rotateX(60deg) translateZ(-100px);
-    transform-origin: center bottom;
+.category-legend {
+    position: fixed;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
-/* ============================================
-   PROJECTION DOTS
-   ============================================ */
-.projection-dots {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.7rem;
+    color: #94a3b8;
 }
 
-.projection-dot {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #6366f1;
+.legend-item:hover,
+.legend-item.active {
+    border-color: rgba(99, 102, 241, 0.5);
+    color: #fff;
+    background: rgba(99, 102, 241, 0.15);
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    animation: dot-float 4s ease-in-out infinite;
+    flex-shrink: 0;
 }
 
-@keyframes dot-float {
-    0%, 100% { 
-        transform: translateY(0);
-        opacity: 0.3;
-    }
-    50% { 
-        transform: translateY(-20px);
-        opacity: 0.8;
-    }
-}
+.legend-dot.gaming { background: #FD4556; box-shadow: 0 0 10px rgba(253, 69, 86, 0.6); }
+.legend-dot.music { background: #1DB954; box-shadow: 0 0 10px rgba(29, 185, 84, 0.6); }
+.legend-dot.all { background: #fbbf24; box-shadow: 0 0 10px rgba(251, 191, 36, 0.6); }
 
 /* ============================================
-   DATA STREAM PARTICLES
+   SHOOTING STAR NAVIGATION
    ============================================ */
-.data-stream {
-    position: absolute;
+.nav-shooting-star {
+    position: fixed;
     pointer-events: none;
-    z-index: 1;
+    z-index: 25;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+    border-radius: 1px;
+    animation: nav-star-fly 0.6s ease-out forwards;
+    transform-origin: left center;
 }
 
-.stream-particle {
-    position: absolute;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.5rem;
-    color: rgba(99, 102, 241, 0.4);
-    animation: stream-rise 4s linear infinite;
-}
-
-@keyframes stream-rise {
+@keyframes nav-star-fly {
     0% {
-        transform: translateY(100%) translateX(0);
-        opacity: 0;
+        width: 0;
+        opacity: 1;
     }
-    20% {
-        opacity: 0.6;
-    }
-    80% {
-        opacity: 0.6;
+    50% {
+        opacity: 1;
     }
     100% {
-        transform: translateY(-100%) translateX(30px);
+        width: 200px;
         opacity: 0;
     }
-}
-
-/* ============================================
-   EXPANDED CARD MODAL
-   ============================================ */
-.card-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(6, 8, 13, 0.8);
-    backdrop-filter: blur(8px);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.card-modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.card-modal {
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    border-radius: 24px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 50px rgba(99, 102, 241, 0.2);
-    transform: scale(0.8) translateY(30px);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.card-modal-overlay.active .card-modal {
-    transform: scale(1) translateY(0);
-}
-
-.modal-image {
-    height: 200px;
-    border-radius: 24px 24px 0 0;
-    overflow: hidden;
-}
-
-.modal-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.modal-close:hover {
-    background: rgba(239, 68, 68, 0.5);
-}
-
-.modal-content {
-    padding: 1.5rem;
-}
-
-.modal-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.3rem;
-    color: #e2e8f0;
-    margin-bottom: 0.8rem;
-}
-
-.modal-desc {
-    color: #94a3b8;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    font-family: 'Exo 2', sans-serif;
-    margin-bottom: 1rem;
-}
-
-.modal-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-}
-
-.modal-detail {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: #a5b4fc;
-    font-size: 0.8rem;
-    font-family: 'Exo 2', sans-serif;
 }
 
 /* ============================================
@@ -597,47 +367,59 @@
    ============================================ */
 @media (max-width: 768px) {
     .into-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
     
-    .holo-stage {
-        height: 60vh;
-        min-height: 400px;
+    .category-legend {
+        left: 10px;
+        gap: 0.3rem;
     }
     
-    .holo-card {
-        width: 180px;
+    .legend-item {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.6rem;
     }
     
-    .holo-card-image {
-        height: 100px;
+    .minimap {
+        width: 120px;
+        height: 80px;
+        bottom: 80px;
+        right: 10px;
     }
     
-    .music-bar {
-        min-width: auto;
-        width: 90%;
-        padding: 0.6rem 1rem;
+    .map-controls {
+        bottom: 80px;
+        left: 10px;
+    }
+    
+    .map-btn {
+        width: 36px;
+        height: 36px;
     }
 }
 
 @media (max-width: 480px) {
+    .category-legend {
+        display: none;
+    }
+    
+    .minimap {
+        display: none;
+    }
+    
     .into-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     
-    .holo-card {
-        width: 150px;
+    .star-popup {
+        left: 50% !important;
+        bottom: 20px !important;
+        top: auto !important;
+        transform: translate(-50%, 0) !important;
     }
     
-    .holo-card-image {
-        height: 85px;
-    }
-    
-    .holo-card-content {
-        padding: 0.7rem;
-    }
-    
-    .holo-card-title {
-        font-size: 0.7rem;
+    .popup-content {
+        min-width: auto;
+        max-width: 90vw;
     }
 }
