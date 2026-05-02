@@ -388,9 +388,6 @@
 .planet-type-dot.personal { background: #8b5cf6; box-shadow: 0 0 4px #8b5cf6; }
 .planet-type-dot.certification { background: #22c55e; box-shadow: 0 0 4px #22c55e; }
 
-/* ============================================
-   COUNTER-ROTATION - KEEPS PLANET UPRIGHT
-   ============================================ */
 .orbit-group.og1 .planet-wrapper { animation: counter-spin-18 18s linear infinite; }
 .orbit-group.og2 .planet-wrapper { animation: counter-spin-26 26s linear infinite; }
 .orbit-group.og3 .planet-wrapper { animation: counter-spin-34 34s linear infinite; }
