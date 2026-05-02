@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome', [
-        'starsCount' => 300
+        'starsCount' => 30
     ]);
 })->name('home');
 
@@ -16,12 +16,12 @@ Route::get('/what-i-use', function() {
 
 Route::get('/what-ive-built', function() {
     return view('what-ive-built', [
-        'starsCount' => 100
+        'starsCount' => 200
     ]);
 })->name('what-ive-built');
 
 Route::get('/what-im-into', function() {
     return view('what-im-into', [
-        'starsCount' => 10
+        'starsCount' => 300
     ]);
 })->name('what-im-into');
