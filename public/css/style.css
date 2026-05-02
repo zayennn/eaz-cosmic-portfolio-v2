@@ -379,9 +379,6 @@
     }
 }
 
-/* ============================================
-   SECTION TITLES
-   ============================================ */
 .section-title {
     font-size: 2.5rem;
     font-family: "audiowide";
@@ -417,9 +414,6 @@
     margin: 30px auto 50px auto;
 }
 
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
 .about {
     padding: 5rem 2rem;
     max-width: 1300px;
