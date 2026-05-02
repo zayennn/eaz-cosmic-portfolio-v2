@@ -54,6 +54,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/about-image.js') }}"></script>
     <script src="{{ asset('js/navbar.js') }}"></script>
     <script src="{{ asset('js/loading.js') }}"></script>
     <script src="{{ asset('js/what-i-use.js') }}"></script>

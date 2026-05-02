@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section("title", "Me, Basically")
+@section('title', 'Me, Basically')
 
 @section('content')
     <section id="home" class="hero fade-in">
@@ -129,9 +129,86 @@
             </div>
 
             <div class="about-right">
-                <div class="about-image-wrapper">
-                    <img src="{{ asset('images/hero-vector.svg') }}" alt="Elang Atha Zahran">
-                    <div class="image-glow"></div>
+                <!-- Cyberpunk AR Identity Card -->
+                <div class="ar-card">
+                    <!-- Border Glow -->
+                    <div class="ar-border-glow"></div>
+
+                    <!-- Projection Light -->
+                    <div class="ar-projection"></div>
+
+                    <!-- Layer 1: Matrix Background -->
+                    <div class="ar-layer ar-matrix">
+                        <canvas class="matrix-canvas"></canvas>
+                    </div>
+
+                    <!-- Layer 2: Photo -->
+                    <div class="ar-layer ar-photo">
+                        <img src="{{ asset('images/hero-vector.svg') }}" alt="Elang Atha Zahran">
+                    </div>
+
+                    <!-- Layer 3: Circuit Overlay -->
+                    <div class="ar-layer ar-circuit">
+                        <svg class="circuit-svg" viewBox="0 0 360 440" preserveAspectRatio="none"></svg>
+                    </div>
+
+                    <!-- Layer 4: Identity Data -->
+                    <div class="ar-layer ar-data">
+                        <div class="data-header">
+                            <div class="data-id">/// IDENTITY_CARD ///</div>
+                            <div class="data-barcode"></div>
+                        </div>
+                        <div class="data-info">
+                            <div class="data-row">
+                                <span class="data-label">Name</span>
+                                <span class="data-value">ELANG.A.ZAHRAN</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Role</span>
+                                <span class="data-value">FULLSTACK_DEV</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Level</span>
+                                <span class="data-value">JUNIOR.ELITE</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Status</span>
+                                <span class="data-value">
+                                    <span class="data-status">
+                                        <span class="status-indicator"></span>
+                                        ACTIVE
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Auth</span>
+                                <span class="data-value">0x7F3A...9B2C</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layer 5: Holographic Grid -->
+                    <div class="ar-layer ar-grid"></div>
+
+                    <!-- Layer 6: Glitch Effect -->
+                    <div class="ar-layer ar-glitch"></div>
+
+                    <!-- Corner Brackets -->
+                    <div class="ar-corners">
+                        <div class="ar-corner tl"></div>
+                        <div class="ar-corner tr"></div>
+                        <div class="ar-corner bl"></div>
+                        <div class="ar-corner br"></div>
+                    </div>
+
+                    <!-- Scanning Line -->
+                    <div class="ar-scanner"></div>
+
+                    <!-- Data Particles -->
+                    <div class="ar-particles"></div>
+
+                    <!-- Access Flash -->
+                    <div class="ar-flash"></div>
                 </div>
             </div>
         </div>
