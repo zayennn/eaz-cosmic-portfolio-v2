@@ -415,9 +415,6 @@
 .planet-wrapper.pos-1 { top: 50%; right: 0; left: auto; }
 .planet-wrapper.pos-2 { bottom: 0; left: 50%; top: auto; }
 
-/* ============================================
-   FALLING / RISING ANIMATION
-   ============================================ */
 .project-planet.falling {
     animation: planet-fall 0.9s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
     pointer-events: none;
