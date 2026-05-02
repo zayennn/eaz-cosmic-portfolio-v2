@@ -13,7 +13,7 @@
 
     <div class="skills-header">
         <div class="skills-badge">
-            <i class="fas fa-star"></i> Tech Constellation
+            Tech Constellation
         </div>
         <h1 class="skills-title">
             What I <span class="highlight">Use</span>
