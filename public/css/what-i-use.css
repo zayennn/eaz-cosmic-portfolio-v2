@@ -334,7 +334,6 @@
     transform: translate(-50%, -50%) scale(1.2);
 }
 
-/* Node Ring */
 .node-ring {
     position: absolute;
     top: 50%;
