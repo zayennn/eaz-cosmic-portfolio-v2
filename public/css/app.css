@@ -36,7 +36,6 @@ html {
     width: 0px;
 }
 
-/* Fade-in Animation */
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
