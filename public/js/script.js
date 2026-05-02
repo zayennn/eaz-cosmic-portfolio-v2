@@ -120,45 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     smoother.init();
 
-    // navbar
-    const navbar = document.getElementById('navbar');
-
-    ScrollTrigger.create({
-        start: 50,
-        end: 99999,
-        onEnter: () => navbar.classList.add('scrolled'),
-        onLeaveBack: () => navbar.classList.remove('scrolled')
-    });
-
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-    }
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-        });
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const target = document.querySelector(targetId);
-            if (target) {
-                e.preventDefault();
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                smoother.scrollTo(targetPosition, 1.2);
-            }
-        });
-    });
-
     // typing
     const typingText = document.getElementById('typing-text');
     const roles = [
