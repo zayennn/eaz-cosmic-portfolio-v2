@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             img.onerror = () => {
                 console.warn(`Failed to load SVG: ${filename}`);
-                svgCache[filename] = null; // Mark as failed
+                svgCache[filename] = null;
                 delete svgLoading[filename];
             };
         }
@@ -222,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    // Preload all SVGs
     function preloadAllSVGs() {
         starData.forEach(star => {
             loadSVGImage(star.icon);
@@ -264,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Interaction state
     let isPanning = false;
     let panStart = { x: 0, y: 0 };
     let cameraStart = { x: 0, y: 0 };
@@ -272,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedStar = null;
     let activeCategory = 'all';
 
-    // RESIZE HANDLER
     function resize() {
         const previousTargetCenterX = hasSizedCanvas
             ? camera.targetX + (canvas.width / camera.targetZoom) / 2
@@ -298,31 +295,25 @@ document.addEventListener('DOMContentLoaded', function() {
     resize();
     window.addEventListener('resize', resize);
 
-    // CONSTELLATION LINE OPACITY CALCULATOR
     function getConstellationBaseOpacity() {
         const zoom = camera.zoom;
         const base = Math.exp(-0.8 * (zoom - minZoom));
         return Math.max(0.08, Math.min(0.85, base));
     }
 
-    // MAIN RENDER LOOP
     function render(timestamp) {
-        // Smooth camera
         camera.x += (camera.targetX - camera.x) * 0.1;
         camera.y += (camera.targetY - camera.y) * 0.1;
         camera.zoom += (camera.targetZoom - camera.zoom) * 0.1;
 
-        // Clear with transparent - star-field is the background
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.save();
         ctx.scale(camera.zoom, camera.zoom);
         ctx.translate(-camera.x, -camera.y);
 
-        // Draw constellation lines (opacity based on zoom)
         drawConstellationLines();
 
-        // Draw star nodes
         const filteredStars = activeCategory === 'all' 
             ? starData 
             : starData.filter(s => s.type === activeCategory);
@@ -333,19 +324,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         ctx.restore();
 
-        // Draw minimap
         drawMinimap(filteredStars);
 
         requestAnimationFrame(render);
     }
 
-    // DRAW STAR NODE
     function drawStarNode(star, timestamp) {
         const isHovered = hoveredStar === star;
         const isSelected = selectedStar === star;
         const scale = isHovered ? 1.3 : isSelected ? 1.2 : 1;
 
-        // Outer glow
         const glowRadius = 40 * scale;
         const glowGradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
         glowGradient.addColorStop(0, star.color + '40');
@@ -356,7 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.fillStyle = glowGradient;
         ctx.fill();
 
-        // Pulsing ring
         if (isHovered || isSelected) {
             const pulse = Math.sin(timestamp * 0.005) * 0.3 + 0.7;
             ctx.beginPath();
@@ -366,7 +353,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.stroke();
         }
 
-        // Orbiting particles
         const particleCount = star.subType === 'favorite' ? 3 : star.subType === 'now-playing' ? 4 : 2;
         for (let i = 0; i < particleCount; i++) {
             const angle = (timestamp * 0.002 + (i * Math.PI * 2 / particleCount)) % (Math.PI * 2);
@@ -384,10 +370,8 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.fill();
         }
 
-        // Star core
         const coreRadius = star.subType === 'favorite' ? 16 : star.subType === 'now-playing' ? 18 : 12;
         
-        // Core gradient
         const coreGradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, coreRadius * scale);
         coreGradient.addColorStop(0, '#ffffff');
         coreGradient.addColorStop(0.3, star.color);
@@ -399,16 +383,13 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.fillStyle = coreGradient;
         ctx.fill();
 
-        // Draw SVG icon inside star
         drawSVGIcon(star, scale);
 
-        // Label
         if (isHovered || isSelected) {
             ctx.fillStyle = '#e2e8f0';
             ctx.font = `bold ${11 * scale}px "Exo 2", sans-serif`;
             ctx.fillText(star.name, star.x, star.y - 30 * scale);
 
-            // Type indicator
             ctx.fillStyle = star.color;
             ctx.font = `${9 * scale}px "Exo 2", sans-serif`;
             const typeLabel = star.subType === 'favorite' ? '⭐ Favorite' : 
@@ -418,35 +399,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // DRAW SVG ICON
     function drawSVGIcon(star, scale) {
         const img = svgCache[star.icon];
         
         if (img) {
-            // Draw cached SVG image
             const iconSize = 16 * scale;
             const x = star.x - iconSize / 2;
             const y = star.y - iconSize / 2;
             
             ctx.save();
-            // Use white color for icon via globalCompositeOperation or draw with white tint
             ctx.globalAlpha = 0.9;
             ctx.drawImage(img, x, y, iconSize, iconSize);
             ctx.restore();
         } else {
-            // Loading state - draw a small dot
             ctx.fillStyle = '#fff';
             ctx.font = `${10 * scale}px "Exo 2", sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText('●', star.x, star.y);
             
-            // Trigger load if not already loading
             loadSVGImage(star.icon);
         }
     }
 
-    // CONSTELLATION LINES (Dynamic Opacity)
     function drawConstellationLines() {
         const filteredStars = activeCategory === 'all' 
             ? starData 
@@ -481,7 +456,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // MINIMAP
     function drawMinimap(filteredStars) {
         const mw = minimapCanvas.width;
         const mh = minimapCanvas.height;
@@ -512,7 +486,6 @@ document.addEventListener('DOMContentLoaded', function() {
         viewport.style.height = vh + 'px';
     }
 
-    // SCREEN TO WORLD COORDINATES
     function screenToWorld(screenX, screenY) {
         const rect = canvas.getBoundingClientRect();
         return {
@@ -521,7 +494,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // FIND STAR AT POSITION
     function findStarAt(worldX, worldY) {
         const filteredStars = activeCategory === 'all' 
             ? starData 
@@ -543,7 +515,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    // POPUP SMOOTHING SYSTEM (LERPed)
     function startPopupSmoothing(startX, startY) {
         popupCurrent.x = startX;
         popupCurrent.y = startY;
@@ -587,7 +558,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // SHOW POPUP
     function showPopup(star, screenX, screenY) {
         selectedStar = star;
 
@@ -634,7 +604,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // EVENT LISTENERS
     canvas.addEventListener('mousedown', (e) => {
         isPanning = true;
         panStart.x = e.clientX;
@@ -766,8 +735,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // INITIALIZE
-    // Preload all SVG icons
     preloadAllSVGs();
 
     const nowPlaying = starData.find(s => s.subType === 'now-playing');
