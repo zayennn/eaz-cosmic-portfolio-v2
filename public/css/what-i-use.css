@@ -293,7 +293,6 @@
         0 0 90px rgba(99, 102, 241, 0.1);
 }
 
-/* Glare Effect */
 .node-core::after {
     content: '';
     position: absolute;
