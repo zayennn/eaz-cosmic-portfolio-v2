@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // STAR DATA - Constellation Objects
     const starData = [
-        // GAMING - Currently Playing
         {
             id: 'ac-unity',
             name: "Assassin's Creed Unity",
@@ -58,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             x: 1050, y: 720
         },
 
-        // GAMING - All Time Favorites
         {
             id: 'ezio-trilogy',
             name: 'Ezio Trilogy',
@@ -104,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
             x: 620, y: 780
         },
 
-        // MUSIC - Playlists
         {
             id: 'baskara',
             name: 'baskara.',
@@ -154,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
             x: 1280, y: 1010
         },
 
-        // MUSIC - Now Playing
         {
             id: 'timeless',
             name: 'Timeless - The Weeknd',
@@ -168,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // CANVAS SETUP
     const page = document.getElementById('intoPage');
     const canvas = document.getElementById('starMapCanvas');
     const ctx = canvas.getContext('2d');
@@ -178,13 +172,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const popup = document.getElementById('starPopup');
     const popupContent = document.getElementById('popupContent');
 
-    // World size (virtual space)
     const worldWidth = 2000;
     const worldHeight = 1300;
     const minZoom = 0.3;
     const maxZoom = 3;
 
-    // Camera state
     let camera = {
         x: 0,
         y: 0,
@@ -194,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
         targetZoom: 1
     };
 
-    // Popup smoothing state
     let popupCurrent = { x: 0, y: 0 };
     let popupTarget = { x: 0, y: 0 };
     let popupActive = false;
@@ -202,17 +193,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let hasSizedCanvas = false;
 
-    // SVG IMAGE CACHE
     const svgCache = {};
     const svgLoading = {};
 
     function loadSVGImage(filename) {
-        // Return cached image if already loaded
         if (svgCache[filename]) {
             return svgCache[filename];
         }
 
-        // Return placeholder while loading
         if (!svgLoading[filename]) {
             const img = new Image();
             img.src = `/images/icons/${filename}`;
@@ -782,7 +770,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Preload all SVG icons
     preloadAllSVGs();
 
-    // Center camera on "now playing"
     const nowPlaying = starData.find(s => s.subType === 'now-playing');
     if (nowPlaying) {
         centerCameraOn(nowPlaying.x, nowPlaying.y, 1);
