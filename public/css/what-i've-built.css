@@ -630,9 +630,6 @@
     transform: scale(0.88);
 }
 
-/* ============================================
-   CLICK SPARKLES
-   ============================================ */
 .click-sparkle {
     position: fixed;
     pointer-events: none;
@@ -645,9 +642,6 @@
     100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 768px) {
     .projects-title { font-size: 2.2rem; }
     .projects-subtitle { font-size: 0.85rem; }
