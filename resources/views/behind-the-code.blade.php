@@ -178,27 +178,21 @@
         </div>
     </div>
 
-    <!-- Most Productive Time -->
     <div class="productive-section">
         <div class="productive-grid">
-            <!-- Day of Week -->
             <div class="productive-card">
                 <h4><i class="fas fa-calendar-week"></i> Most Productive Day</h4>
                 <div class="day-bars" id="dayBars">
-                    <!-- Filled by JS -->
                 </div>
             </div>
-            <!-- Time of Day -->
             <div class="productive-card">
                 <h4><i class="fas fa-sun"></i> Coding Schedule</h4>
                 <div class="time-bars" id="timeBars">
-                    <!-- Filled by JS -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CTA -->
     <div class="cta-section">
         <div class="cta-card">
             <h3>Want to see more?</h3>
