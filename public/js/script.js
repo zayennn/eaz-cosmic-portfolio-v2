@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const totalDelta = touchStartY - lastTouchY;
                 
                 if (Math.abs(totalDelta) > 10 || Math.abs(touchVelocity) > 0.3) {
-                    const momentum = touchVelocity * 80; // Reduced from 100 for smoother feel
+                    const momentum = touchVelocity * 80;
                     smoother.target += momentum;
                     
                     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
