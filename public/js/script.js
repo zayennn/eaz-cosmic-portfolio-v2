@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
         target: 0,
         ease: 0.030,
         isScrolling: false,
+        touchActive: false,
+        touchMoved: false,
 
         init: function () {
             this.current = window.pageYOffset;
@@ -31,7 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function () {
+            // Desktop wheel
             window.addEventListener('wheel', (e) => {
+                if (smoother.touchActive) return; // Skip wheel if touch is active
                 e.preventDefault();
                 const delta = e.deltaY;
                 smoother.target += delta;
@@ -39,44 +43,102 @@ document.addEventListener('DOMContentLoaded', function () {
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             }, { passive: false });
 
+            // Mobile touch - COMPLETELY REWRITTEN
             let touchStartY = 0;
-            let touchVelocity = 0;
+            let touchStartTime = 0;
             let lastTouchY = 0;
             let lastTouchTime = 0;
+            let touchVelocity = 0;
+            let touchStartTarget = 0;
+            let touchId = null;
 
             window.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) return; // Only handle single finger
+                
+                smoother.touchActive = true;
+                smoother.touchMoved = false;
+                
                 touchStartY = e.touches[0].clientY;
                 lastTouchY = touchStartY;
-                lastTouchTime = Date.now();
-                smoother.target = smoother.current;
+                touchStartTime = Date.now();
+                lastTouchTime = touchStartTime;
+                touchVelocity = 0;
+                touchStartTarget = smoother.target;
+                touchId = e.touches[0].identifier;
             }, { passive: true });
 
             window.addEventListener('touchmove', (e) => {
+                if (!smoother.touchActive || e.touches.length !== 1) return;
+                
                 const touchMoveY = e.touches[0].clientY;
-                const delta = touchStartY - touchMoveY;
-
+                const delta = touchStartY - touchMoveY; // Positive = scroll down
+                
+                // Mark as moved (to prevent click on release)
+                if (Math.abs(delta) > 3) {
+                    smoother.touchMoved = true;
+                }
+                
+                // Calculate velocity
                 const now = Date.now();
                 const dt = now - lastTouchTime;
                 if (dt > 0) {
-                    touchVelocity = (lastTouchY - touchMoveY) / dt;
+                    touchVelocity = (lastTouchY - touchMoveY) / dt; // pixels per ms
                 }
                 lastTouchY = touchMoveY;
                 lastTouchTime = now;
-
-                smoother.target += delta * 0.5;
+                
+                // Direct 1:1 scrolling - NO multiplier
+                smoother.target = touchStartTarget + delta;
+                
+                // Clamp
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-                touchStartY = touchMoveY;
             }, { passive: true });
 
-            window.addEventListener('touchend', () => {
-                const momentum = touchVelocity * 100;
-                smoother.target += momentum;
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
+            window.addEventListener('touchend', (e) => {
+                if (!smoother.touchActive) return;
+                
+                // Apply inertia momentum ONLY if the swipe was fast enough
+                const dt = Date.now() - touchStartTime;
+                const totalDelta = touchStartY - lastTouchY;
+                
+                // Only apply momentum if:
+                // 1. Significant movement (> 10px)
+                // 2. OR fast swipe (velocity > 0.3 px/ms)
+                if (Math.abs(totalDelta) > 10 || Math.abs(touchVelocity) > 0.3) {
+                    const momentum = touchVelocity * 80; // Reduced from 100 for smoother feel
+                    smoother.target += momentum;
+                    
+                    // Clamp
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
+                }
+                
+                // Reset touch state after a small delay
+                setTimeout(() => {
+                    smoother.touchActive = false;
+                    smoother.touchMoved = false;
+                    touchVelocity = 0;
+                    touchId = null;
+                }, 100);
+            }, { passive: true });
+
+            // Handle touch cancel (e.g., incoming call)
+            window.addEventListener('touchcancel', () => {
+                smoother.touchActive = false;
+                smoother.touchMoved = false;
                 touchVelocity = 0;
+                touchId = null;
             });
 
+            // Prevent pull-to-refresh on mobile
+            document.body.addEventListener('touchmove', function(e) {
+                if (e.target === document.body || e.target === document.documentElement) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Keyboard
             window.addEventListener('keydown', (e) => {
                 const keys = {
                     'ArrowDown': 100,
@@ -119,6 +181,27 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     smoother.init();
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                smoother.scrollTo(targetPosition, 1.0); // Faster for anchor clicks
+            }
+        });
+        
+        anchor.addEventListener('touchend', function(e) {
+            if (smoother.touchMoved) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    });
 
     // typing
     const typingText = document.getElementById('typing-text');
@@ -679,8 +762,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const config = blackholeConfigs[configType];
 
-            console.log(`Creating ${configType} blackhole at (${x.toFixed(0)}, ${y.toFixed(0)}) with gravity radius: ${config.gravityRadius}px`);
-
             const blackhole = document.createElement('div');
             blackhole.classList.add('blackhole');
             blackhole.style.left = `${x}px`;
@@ -797,7 +878,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isSpawning) return;
 
             const delay = 8000 + Math.random() * 15000;
-            console.log(`Next blackhole in ${(delay/1000).toFixed(1)}s`);
 
             spawnTimeout = setTimeout(() => {
                 createBlackhole();
@@ -829,6 +909,5 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
         const blackholeSystem = initBlackholeSystem();
         window.blackholeSystem = blackholeSystem;
-        console.log('Blackhole system with singularity initialized');
     }, 2000);
 });
