@@ -9,12 +9,12 @@
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="/">Me, Basically</a></li>
-                    <li><a href="/">What I Use</a></li>
-                    <li><a href="/">What I've Built</a></li>
-                    <li><a href="/">What I'm Into</a></li>
-                    <li><a href="/">Behind the Code</a></li>
-                    <li><a href="/">Get In Touch</a></li>
+                    <li><a href="{{ route('home') }}">Me, Basically</a></li>
+                    <li><a href="{{ route('what-i-use') }}">What I Use</a></li>
+                    <li><a href="{{ route('what-ive-built') }}">What I've Built</a></li>
+                    <li><a href="{{ route('what-im-into') }}">What I'm Into</a></li>
+                    <li><a href="{{ route('behind-the-code') }}">Behind the Code</a></li>
+                    <li><a href="{{ route('get-in-touch') }}">Get In Touch</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
@@ -30,7 +30,7 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Elang Atha Zahran. All rights reserved.</p>
-            <p>Made with ❤️ and ☕</p>
+            <p>Made with <span style="color: #ef4444;">❤️</span> and <span style="color: #fbbf24;">☕</span></p>
         </div>
     </div>
 </footer>
