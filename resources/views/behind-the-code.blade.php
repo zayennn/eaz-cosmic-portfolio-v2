@@ -109,12 +109,10 @@
                 <i class="fas fa-code"></i> Top Languages
             </h3>
             <div class="lang-grid" id="langGrid">
-                <!-- Filled by JS -->
             </div>
         </div>
     </div>
 
-    <!-- Featured Repos -->
     <div class="repos-section">
         <div class="section-head">
             <h3>Featured Repos</h3>
@@ -123,11 +121,9 @@
             </a>
         </div>
         <div class="repos-grid" id="reposGrid">
-            <!-- Filled by JS -->
         </div>
     </div>
 
-    <!-- Development Insights -->
     <div class="activity-section">
         <div class="activity-grid">
             <div class="activity-card">
@@ -154,7 +150,6 @@
         </div>
     </div>
 
-    <!-- Weekly Insights -->
     <div class="weekly-section">
         <div class="weekly-card">
             <h3><i class="fas fa-clock"></i> This Week's Activity</h3>
