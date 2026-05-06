@@ -73,12 +73,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const touchMoveY = e.touches[0].clientY;
                 const delta = touchStartY - touchMoveY; // Positive = scroll down
                 
-                // Mark as moved (to prevent click on release)
                 if (Math.abs(delta) > 3) {
                     smoother.touchMoved = true;
                 }
                 
-                // Calculate velocity
                 const now = Date.now();
                 const dt = now - lastTouchTime;
                 if (dt > 0) {
@@ -87,10 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 lastTouchY = touchMoveY;
                 lastTouchTime = now;
                 
-                // Direct 1:1 scrolling - NO multiplier
                 smoother.target = touchStartTarget + delta;
                 
-                // Clamp
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             }, { passive: true });
@@ -102,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const totalDelta = touchStartY - lastTouchY;
                 
                 if (Math.abs(totalDelta) > 10 || Math.abs(touchVelocity) > 0.3) {
-                    const momentum = touchVelocity * 80;
                     smoother.target += momentum;
                     
                     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
