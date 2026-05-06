@@ -98,23 +98,17 @@ document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('touchend', (e) => {
                 if (!smoother.touchActive) return;
                 
-                // Apply inertia momentum ONLY if the swipe was fast enough
                 const dt = Date.now() - touchStartTime;
                 const totalDelta = touchStartY - lastTouchY;
                 
-                // Only apply momentum if:
-                // 1. Significant movement (> 10px)
-                // 2. OR fast swipe (velocity > 0.3 px/ms)
                 if (Math.abs(totalDelta) > 10 || Math.abs(touchVelocity) > 0.3) {
                     const momentum = touchVelocity * 80; // Reduced from 100 for smoother feel
                     smoother.target += momentum;
                     
-                    // Clamp
                     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                     smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
                 }
                 
-                // Reset touch state after a small delay
                 setTimeout(() => {
                     smoother.touchActive = false;
                     smoother.touchMoved = false;
@@ -123,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, 100);
             }, { passive: true });
 
-            // Handle touch cancel (e.g., incoming call)
             window.addEventListener('touchcancel', () => {
                 smoother.touchActive = false;
                 smoother.touchMoved = false;
@@ -131,14 +124,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 touchId = null;
             });
 
-            // Prevent pull-to-refresh on mobile
             document.body.addEventListener('touchmove', function(e) {
                 if (e.target === document.body || e.target === document.documentElement) {
                     e.preventDefault();
                 }
             }, { passive: false });
 
-            // Keyboard
             window.addEventListener('keydown', (e) => {
                 const keys = {
                     'ArrowDown': 100,
@@ -191,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (target) {
                 e.preventDefault();
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                smoother.scrollTo(targetPosition, 1.0); // Faster for anchor clicks
+                smoother.scrollTo(targetPosition, 1.0);
             }
         });
         
