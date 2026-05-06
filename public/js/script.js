@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let touchId = null;
 
             window.addEventListener('touchstart', (e) => {
-                if (e.touches.length !== 1) return; // Only handle single finger
+                if (e.touches.length !== 1) return;
                 
                 smoother.touchActive = true;
                 smoother.touchMoved = false;
