@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const now = Date.now();
                 const dt = now - lastTouchTime;
                 if (dt > 0) {
-                    touchVelocity = (lastTouchY - touchMoveY) / dt; // pixels per ms
+                    touchVelocity = (lastTouchY - touchMoveY) / dt;
                 }
                 lastTouchY = touchMoveY;
                 lastTouchTime = now;
