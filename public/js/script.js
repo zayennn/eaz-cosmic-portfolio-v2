@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!smoother.touchActive || e.touches.length !== 1) return;
                 
                 const touchMoveY = e.touches[0].clientY;
-                const delta = touchStartY - touchMoveY; // Positive = scroll down
+                const delta = touchStartY - touchMoveY;
                 
                 if (Math.abs(delta) > 3) {
                     smoother.touchMoved = true;
