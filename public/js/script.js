@@ -2,7 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) || window.innerWidth <= 1024;
+    // Deteksi touch device: tablet & handphone dimatikan smooth scroll
+    function checkIsTouchOrSmallScreen() {
+        const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isMobileUA = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isSmallScreen = window.innerWidth <= 1024;
+        return hasCoarsePointer || isMobileUA || isSmallScreen;
+    }
+
+    const isMobile = checkIsTouchOrSmallScreen();
 
     const smoother = {
         current: 0,
@@ -10,17 +18,21 @@ document.addEventListener('DOMContentLoaded', function () {
         ease: 0.030,
         isScrolling: false,
         enabled: !isMobile,
+        rafActive: false,
+        wheelHandler: null,
+        keyHandler: null,
 
         init: function () {
             if (!this.enabled) return;
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
+            this.rafActive = true;
             this.raf();
             this.bindEvents();
         },
 
         raf: function () {
-            if (!smoother.enabled) return;
+            if (!smoother.enabled || !smoother.rafActive) return;
 
             smoother.current += (smoother.target - smoother.current) * smoother.ease;
             window.scrollTo(0, smoother.current);
@@ -38,15 +50,15 @@ document.addEventListener('DOMContentLoaded', function () {
         bindEvents: function () {
             if (!this.enabled) return;
 
-            window.addEventListener('wheel', (e) => {
+            this.wheelHandler = (e) => {
                 e.preventDefault();
                 const delta = e.deltaY;
                 smoother.target += delta;
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-            }, { passive: false });
+            };
 
-            window.addEventListener('keydown', (e) => {
+            this.keyHandler = (e) => {
                 const keys = {
                     'ArrowDown': 100,
                     'ArrowUp': -100,
@@ -62,7 +74,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                     smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
                 }
-            });
+            };
+
+            window.addEventListener('wheel', this.wheelHandler, { passive: false });
+            window.addEventListener('keydown', this.keyHandler);
+        },
+
+        destroy: function () {
+            this.enabled = false;
+            this.rafActive = false;
+            if (this.wheelHandler) {
+                window.removeEventListener('wheel', this.wheelHandler);
+                this.wheelHandler = null;
+            }
+            if (this.keyHandler) {
+                window.removeEventListener('keydown', this.keyHandler);
+                this.keyHandler = null;
+            }
         },
 
         scrollTo: function (targetY, duration = 1.5) {
@@ -93,6 +121,20 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     smoother.init();
+
+    // Nonaktifkan smooth scroll jika window di-resize ke ukuran tablet/mobile
+    let resizeDebounce;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeDebounce);
+        resizeDebounce = setTimeout(() => {
+            const shouldDisable = checkIsTouchOrSmallScreen();
+            if (shouldDisable && smoother.enabled) {
+                smoother.destroy();
+            }
+            // Catatan: tidak re-enable otomatis saat resize ke desktop
+            // karena membutuhkan page reload untuk inisialisasi ulang yang bersih
+        }, 200);
+    });
 
     const typingText = document.getElementById('typing-text');
     const roles = [
