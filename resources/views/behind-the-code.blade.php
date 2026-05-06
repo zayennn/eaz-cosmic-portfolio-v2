@@ -16,7 +16,6 @@
         </p>
     </div>
 
-    <!-- Profile Card -->
     <div class="profile-section">
         <div class="profile-card">
             <div class="profile-avatar-wrap">
@@ -38,7 +37,6 @@
         </div>
     </div>
 
-    <!-- Stats Orbit -->
     <div class="stats-orbit">
         <h2 class="stats-title">Quick Stats</h2>
         <div class="stats-grid">
@@ -69,7 +67,6 @@
         </div>
     </div>
 
-    <!-- Contribution River -->
     <div class="contribution-section">
         <div class="contribution-card">
             <h3><i class="fas fa-chart-line"></i> Year in Code</h3>
@@ -91,7 +88,6 @@
         </div>
     </div>
 
-    <!-- Snake Animation -->
     <div class="snake-section">
         <div class="snake-card">
             <h3>
@@ -102,7 +98,6 @@
         </div>
     </div>
 
-    <!-- Languages Constellation -->
     <div class="languages-section">
         <div class="lang-card">
             <h3 style="font-family:'Orbitron',sans-serif;font-size:1.2rem;color:#e2e8f0;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem;">
