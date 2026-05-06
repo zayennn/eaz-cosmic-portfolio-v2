@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function () {
-            // Desktop wheel
             window.addEventListener('wheel', (e) => {
                 if (smoother.touchActive) return; // Skip wheel if touch is active
                 e.preventDefault();
