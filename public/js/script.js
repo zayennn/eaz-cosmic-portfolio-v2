@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         bindEvents: function () {
             window.addEventListener('wheel', (e) => {
-                if (smoother.touchActive) return; // Skip wheel if touch is active
+                if (smoother.touchActive) return;
                 e.preventDefault();
                 const delta = e.deltaY;
                 smoother.target += delta;
