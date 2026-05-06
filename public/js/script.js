@@ -2,15 +2,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+    const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) || window.innerWidth <= 1024;
+
     const smoother = {
         current: 0,
         target: 0,
         ease: 0.030,
         isScrolling: false,
-        touchActive: false,
-        touchMoved: false,
+        enabled: !isMobile,
 
         init: function () {
+            if (!this.enabled) return;
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
             this.raf();
@@ -18,8 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         raf: function () {
-            smoother.current += (smoother.target - smoother.current) * smoother.ease;
+            if (!smoother.enabled) return;
 
+            smoother.current += (smoother.target - smoother.current) * smoother.ease;
             window.scrollTo(0, smoother.current);
 
             if (Math.abs(smoother.target - smoother.current) > 0.5) {
@@ -33,94 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function () {
+            if (!this.enabled) return;
+
             window.addEventListener('wheel', (e) => {
-                if (smoother.touchActive) return;
                 e.preventDefault();
                 const delta = e.deltaY;
                 smoother.target += delta;
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-            }, { passive: false });
-
-            let touchStartY = 0;
-            let touchStartTime = 0;
-            let lastTouchY = 0;
-            let lastTouchTime = 0;
-            let touchVelocity = 0;
-            let touchStartTarget = 0;
-            let touchId = null;
-
-            window.addEventListener('touchstart', (e) => {
-                if (e.touches.length !== 1) return;
-                
-                smoother.touchActive = true;
-                smoother.touchMoved = false;
-                
-                touchStartY = e.touches[0].clientY;
-                lastTouchY = touchStartY;
-                touchStartTime = Date.now();
-                lastTouchTime = touchStartTime;
-                touchVelocity = 0;
-                touchStartTarget = smoother.target;
-                touchId = e.touches[0].identifier;
-            }, { passive: true });
-
-            window.addEventListener('touchmove', (e) => {
-                if (!smoother.touchActive || e.touches.length !== 1) return;
-                
-                const touchMoveY = e.touches[0].clientY;
-                const delta = touchStartY - touchMoveY;
-                
-                if (Math.abs(delta) > 3) {
-                    smoother.touchMoved = true;
-                }
-                
-                const now = Date.now();
-                const dt = now - lastTouchTime;
-                if (dt > 0) {
-                    touchVelocity = (lastTouchY - touchMoveY) / dt;
-                }
-                lastTouchY = touchMoveY;
-                lastTouchTime = now;
-                
-                smoother.target = touchStartTarget + delta;
-                
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-            }, { passive: true });
-
-            window.addEventListener('touchend', (e) => {
-                if (!smoother.touchActive) return;
-                
-                const dt = Date.now() - touchStartTime;
-                const totalDelta = touchStartY - lastTouchY;
-                
-                if (Math.abs(totalDelta) > 10 || Math.abs(touchVelocity) > 0.3) {
-                    smoother.target += momentum;
-                    
-                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                    smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-                }
-                
-                setTimeout(() => {
-                    smoother.touchActive = false;
-                    smoother.touchMoved = false;
-                    touchVelocity = 0;
-                    touchId = null;
-                }, 100);
-            }, { passive: true });
-
-            window.addEventListener('touchcancel', () => {
-                smoother.touchActive = false;
-                smoother.touchMoved = false;
-                touchVelocity = 0;
-                touchId = null;
-            });
-
-            document.body.addEventListener('touchmove', function(e) {
-                if (e.target === document.body || e.target === document.documentElement) {
-                    e.preventDefault();
-                }
             }, { passive: false });
 
             window.addEventListener('keydown', (e) => {
@@ -143,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         scrollTo: function (targetY, duration = 1.5) {
+            if (!this.enabled) {
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                return;
+            }
+
             const startTarget = this.target;
             const startTime = performance.now();
 
@@ -166,28 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     smoother.init();
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const target = document.querySelector(targetId);
-            if (target) {
-                e.preventDefault();
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                smoother.scrollTo(targetPosition, 1.0);
-            }
-        });
-        
-        anchor.addEventListener('touchend', function(e) {
-            if (smoother.touchMoved) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        });
-    });
-
-    // typing
     const typingText = document.getElementById('typing-text');
     const roles = [
         'Web Developer',
@@ -255,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const codeContainer = document.querySelector('.code-container');
 
-    if (codeContainer) {
+    if (codeContainer && !isMobile) {
         document.addEventListener('mousemove', (e) => {
             const xAxis = (window.innerWidth / 2 - e.clientX) / 50;
             const yAxis = (window.innerHeight / 2 - e.clientY) / 50;
@@ -291,21 +197,22 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     document.body.appendChild(progressBar);
 
-    gsap.ticker.add(() => {
-        const scrollTop = smoother.current;
+    function updateProgressBar() {
+        const scrollTop = window.pageYOffset;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         progressBar.style.width = Math.min(scrollPercent, 100) + '%';
-    });
+        requestAnimationFrame(updateProgressBar);
+    }
+    updateProgressBar();
 
     document.body.style.visibility = 'visible';
 
-    smoother.target = 0;
-    smoother.current = 0;
     window.scrollTo(0, 0);
 
     let stars = [];
     let activeBlackholes = [];
+
     function generateStars() {
         const container = document.getElementById('star-field');
         if (!container) return [];
@@ -313,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const pageHeight = document.documentElement.scrollHeight;
         container.style.height = pageHeight + 'px';
 
-        const totalStars = parseInt(document.body.dataset.stars) || 200;
+        const totalStars = isMobile ? 100 : parseInt(document.body.dataset.stars) || 200;
         const sizeConfig = [
             { class: 'size-lg', speed: 0.1, mass: 4 },
             { class: 'size-md', speed: 0.25, mass: 2 },
@@ -624,7 +531,6 @@ document.addEventListener('DOMContentLoaded', function () {
         stars = generateStars();
     });
 
-    // shooting stars
     function createShootingStar() {
         const container = document.getElementById('star-field');
         if (!container) return;
@@ -682,7 +588,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function shootingStarLoop() {
-        const delay = Math.random() * 2000 + 1000;
+        const delay = isMobile ? (Math.random() * 4000 + 2000) : (Math.random() * 2000 + 1000);
         setTimeout(() => {
             createShootingStar();
             shootingStarLoop();
@@ -694,11 +600,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function initBlackholeSystem() {
         const container = document.getElementById('star-field');
         if (!container) {
-            console.log('Star field container not found');
             return;
         }
-
-        console.log('Initializing blackhole system with singularity...');
 
         const blackholeConfigs = {
             small: {
@@ -861,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function scheduleNextBlackhole() {
             if (!isSpawning) return;
 
-            const delay = 8000 + Math.random() * 15000;
+            const delay = isMobile ? (15000 + Math.random() * 20000) : (8000 + Math.random() * 15000);
 
             spawnTimeout = setTimeout(() => {
                 createBlackhole();
