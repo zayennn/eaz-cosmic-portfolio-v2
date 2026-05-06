@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             }, { passive: false });
 
-            // Mobile touch - COMPLETELY REWRITTEN
             let touchStartY = 0;
             let touchStartTime = 0;
             let lastTouchY = 0;
