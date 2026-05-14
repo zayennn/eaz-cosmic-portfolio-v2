@@ -2,45 +2,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // Deteksi touch device: tablet & handphone dimatikan smooth scroll
-    function checkIsTouchOrSmallScreen() {
-        const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    function isMobileDevice() {
+        const hasTouchScreen = (
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            window.matchMedia('(pointer: coarse)').matches
+        );
         const isMobileUA = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isSmallScreen = window.innerWidth <= 1024;
-        return hasCoarsePointer || isMobileUA || isSmallScreen;
+        return hasTouchScreen || isMobileUA || isSmallScreen;
     }
 
-    const isMobile = checkIsTouchOrSmallScreen();
+    const isMobile = isMobileDevice();
 
     const smoother = {
         current: 0,
         target: 0,
         ease: 0.030,
         isScrolling: false,
-        enabled: !isMobile,
-        rafActive: false,
         wheelHandler: null,
+        touchHandlers: [],
         keyHandler: null,
 
         init: function () {
-            if (!this.enabled) return;
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
-            this.rafActive = true;
             this.raf();
             this.bindEvents();
         },
 
         raf: function () {
-            if (!smoother.enabled || !smoother.rafActive) return;
-
             smoother.current += (smoother.target - smoother.current) * smoother.ease;
-            window.scrollTo(0, smoother.current);
 
-            if (Math.abs(smoother.target - smoother.current) > 0.5) {
-                smoother.isScrolling = true;
+            if (Math.abs(smoother.target - smoother.current) > 0.3) {
+                window.scrollTo(0, Math.round(smoother.current));
             } else {
-                smoother.isScrolling = false;
                 smoother.current = smoother.target;
             }
 
@@ -48,17 +44,16 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function () {
-            if (!this.enabled) return;
-
             this.wheelHandler = (e) => {
+                if (isMobile) return;
                 e.preventDefault();
-                const delta = e.deltaY;
-                smoother.target += delta;
+                smoother.target += e.deltaY;
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             };
 
             this.keyHandler = (e) => {
+                if (isMobile) return;
                 const keys = {
                     'ArrowDown': 100,
                     'ArrowUp': -100,
@@ -78,11 +73,61 @@ document.addEventListener('DOMContentLoaded', function () {
 
             window.addEventListener('wheel', this.wheelHandler, { passive: false });
             window.addEventListener('keydown', this.keyHandler);
+
+            if (!isMobile) return;
+
+            let touchStartY = 0;
+            let touchVelocity = 0;
+            let lastTouchY = 0;
+            let lastTouchTime = 0;
+
+            const touchStartHandler = (e) => {
+                touchStartY = e.touches[0].clientY;
+                lastTouchY = touchStartY;
+                lastTouchTime = Date.now();
+                smoother.target = smoother.current;
+            };
+
+            const touchMoveHandler = (e) => {
+                const touchMoveY = e.touches[0].clientY;
+                const delta = touchStartY - touchMoveY;
+
+                const now = Date.now();
+                const dt = now - lastTouchTime;
+                if (dt > 0) {
+                    touchVelocity = (lastTouchY - touchMoveY) / dt;
+                }
+                lastTouchY = touchMoveY;
+                lastTouchTime = now;
+
+                smoother.target += delta * 0.5;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
+                touchStartY = touchMoveY;
+            };
+
+            const touchEndHandler = () => {
+                const momentum = touchVelocity * 100;
+                smoother.target += momentum;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
+                touchVelocity = 0;
+            };
+
+            window.addEventListener('touchstart', touchStartHandler, { passive: true });
+            window.addEventListener('touchmove', touchMoveHandler, { passive: true });
+            window.addEventListener('touchend', touchEndHandler);
+            window.addEventListener('touchcancel', touchEndHandler);
+
+            this.touchHandlers = [
+                { event: 'touchstart', handler: touchStartHandler },
+                { event: 'touchmove', handler: touchMoveHandler },
+                { event: 'touchend', handler: touchEndHandler },
+                { event: 'touchcancel', handler: touchEndHandler }
+            ];
         },
 
         destroy: function () {
-            this.enabled = false;
-            this.rafActive = false;
             if (this.wheelHandler) {
                 window.removeEventListener('wheel', this.wheelHandler);
                 this.wheelHandler = null;
@@ -91,14 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.removeEventListener('keydown', this.keyHandler);
                 this.keyHandler = null;
             }
+            this.touchHandlers.forEach(({ event, handler }) => {
+                window.removeEventListener(event, handler);
+            });
+            this.touchHandlers = [];
         },
 
         scrollTo: function (targetY, duration = 1.5) {
-            if (!this.enabled) {
-                window.scrollTo({ top: targetY, behavior: 'smooth' });
-                return;
-            }
-
             const startTarget = this.target;
             const startTime = performance.now();
 
@@ -122,18 +166,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     smoother.init();
 
-    // Nonaktifkan smooth scroll jika window di-resize ke ukuran tablet/mobile
     let resizeDebounce;
     window.addEventListener('resize', () => {
         clearTimeout(resizeDebounce);
         resizeDebounce = setTimeout(() => {
-            const shouldDisable = checkIsTouchOrSmallScreen();
-            if (shouldDisable && smoother.enabled) {
+            const nowMobile = isMobileDevice();
+            if (nowMobile && smoother.wheelHandler) {
                 smoother.destroy();
+                smoother.init();
             }
-            // Catatan: tidak re-enable otomatis saat resize ke desktop
-            // karena membutuhkan page reload untuk inisialisasi ulang yang bersih
-        }, 200);
+        }, 300);
     });
 
     const typingText = document.getElementById('typing-text');
@@ -641,9 +683,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initBlackholeSystem() {
         const container = document.getElementById('star-field');
-        if (!container) {
-            return;
-        }
+        if (!container) return;
 
         const blackholeConfigs = {
             small: {

@@ -895,8 +895,7 @@
 
 @media (max-width: 768px) {
     .ar-card {
-        width: 300px;
-        height: 380px;
+        display: none;
     }
     
     .ar-corner {
