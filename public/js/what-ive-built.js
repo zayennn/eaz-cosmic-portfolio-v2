@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let targetOrreryZoom = 1;
     let planetScale = 1;
     let targetPlanetScale = 1;
+    let isModalOpen = false;
 
     const TOTAL_ORBITS = 5;
 
@@ -337,17 +338,9 @@ document.addEventListener('DOMContentLoaded', function () {
     zoomOutPlanet.addEventListener('click', planetZoomOut);
     resetPlanet.addEventListener('click', planetZoomReset);
 
-    function lockScroll() {
-        document.body.style.overflow = 'hidden';
-        document.body.style.paddingRight = (window.innerWidth - document.documentElement.clientWidth) + 'px';
-    }
-
-    function unlockScroll() {
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-    }
-
     function openDetail(project, event) {
+        if (isModalOpen) return;
+
         const typeColors = { freelance: '#3b82f6', personal: '#8b5cf6', certification: '#22c55e' };
         const color = typeColors[project.type] || '#6366f1';
         createSparkles(event.clientX, event.clientY, color);
@@ -401,13 +394,40 @@ document.addEventListener('DOMContentLoaded', function () {
             detailLinks.innerHTML = linksHTML;
         }
 
+        isModalOpen = true;
         detailOverlay.classList.add('active');
-        lockScroll();
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.touchAction = 'none';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${window.scrollY}px`;
+        document.body.dataset.scrollY = window.scrollY;
+
+        if (window.smoother && window.smoother.enabled) {
+            window.smoother.pause();
+        }
     }
 
     function closeDetailModal() {
+        if (!isModalOpen) return;
+
+        isModalOpen = false;
         detailOverlay.classList.remove('active');
-        unlockScroll();
+        
+        const scrollY = parseInt(document.body.dataset.scrollY || '0');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.touchAction = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        document.body.dataset.scrollY = '';
+        window.scrollTo(0, scrollY);
+
+        if (window.smoother && window.smoother.enabled) {
+            window.smoother.resume(scrollY);
+        }
         
         const detailImage = document.getElementById('detailImage');
         const fallbackIcon = detailImage.querySelector('.fallback-icon');
@@ -421,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeDetail.addEventListener('click', (e) => { e.stopPropagation(); closeDetailModal(); });
     detailOverlay.addEventListener('click', (e) => { if (e.target === detailOverlay) closeDetailModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && detailOverlay.classList.contains('active')) closeDetailModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isModalOpen) closeDetailModal(); });
 
     function createSparkles(x, y, color) {
         const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
