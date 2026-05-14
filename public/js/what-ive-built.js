@@ -152,6 +152,15 @@ document.addEventListener('DOMContentLoaded', function () {
             tech: ['Laravel 10', 'Blade', 'GSAP', 'JavaScript', 'CSS3'],
             github: 'https://github.com/zayennn/eaz-cosmic-portfolio-v2',
             featured: true
+        },
+        {
+            id: 16,
+            title: 'Food E-Commerce',
+            type: 'freelance',
+            image: '/images/projects/food-ecommerce.png',
+            desc: 'A responsive food e-commerce website developed as a freelance project. Features include product listing from a public API, interactive cart sidebar, product detail modal, quantity management, and checkout simulation.',
+            tech: ['HTML5', 'CSS3', 'JavaScript'],
+            featured: true
         }
     ];
 
@@ -328,6 +337,16 @@ document.addEventListener('DOMContentLoaded', function () {
     zoomOutPlanet.addEventListener('click', planetZoomOut);
     resetPlanet.addEventListener('click', planetZoomReset);
 
+    function lockScroll() {
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = (window.innerWidth - document.documentElement.clientWidth) + 'px';
+    }
+
+    function unlockScroll() {
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    }
+
     function openDetail(project, event) {
         const typeColors = { freelance: '#3b82f6', personal: '#8b5cf6', certification: '#22c55e' };
         const color = typeColors[project.type] || '#6366f1';
@@ -383,12 +402,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         detailOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        lockScroll();
     }
 
     function closeDetailModal() {
         detailOverlay.classList.remove('active');
-        document.body.style.overflow = '';
+        unlockScroll();
         
         const detailImage = document.getElementById('detailImage');
         const fallbackIcon = detailImage.querySelector('.fallback-icon');
@@ -402,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeDetail.addEventListener('click', (e) => { e.stopPropagation(); closeDetailModal(); });
     detailOverlay.addEventListener('click', (e) => { if (e.target === detailOverlay) closeDetailModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetailModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && detailOverlay.classList.contains('active')) closeDetailModal(); });
 
     function createSparkles(x, y, color) {
         const colors = [color, '#6366f1', '#8b5cf6', '#a5b4fc', '#ffffff', '#fbbf24'];
