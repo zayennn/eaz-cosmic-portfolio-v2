@@ -58,7 +58,7 @@ This portfolio is the culmination of two previous projects:
 |---------|-----|-------|
 | **Cosmic Portfolio v1** | [cosmic-portfolio-iota.vercel.app](https://cosmic-portfolio-iota.vercel.app) | Cosmic theme, parallax animations, star backgrounds |
 | **Fix Portfolio** | [eaz-portfolio.vercel.app](https://eaz-portfolio.vercel.app) | Clean UI, React.js + Framer Motion, professional layout |
-| **Cosmic Portfolio v2** | *(this project)* | **The best of both worlds combined** |
+| **Cosmic Portfolio v2** | [portfolio-cosmic-v2.great-site.net/](https://portfolio-cosmic-v2.great-site.net/) | **The best of both worlds combined** |
 
 I took the immersive cosmic aesthetic from v1 and the clean, modern structure from Fix Portfolio, then leveled everything up with **Laravel 10**, **GSAP animations**, and **fully interactive components**.
 
