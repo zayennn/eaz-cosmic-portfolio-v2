@@ -83,7 +83,6 @@
 
     @stack('json_ld')
 
-    {{-- ========== CSS & FONT AWESOME (YANG SUDAH ADA) ========== --}}
     <link rel="stylesheet" href="{{ asset('css/stars.css') }}">
     <link rel="stylesheet" href="{{ asset('css/loading.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
