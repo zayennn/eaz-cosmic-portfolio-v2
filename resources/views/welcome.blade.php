@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('meta_title', 'Elang Atha Zahran | Junior Fullstack Developer')
+@section('meta_description', 'Meet Elang Atha Zahran — a passionate junior fullstack developer from Indonesia specializing in Laravel, GSAP, and immersive web experiences.')
+@section('meta_keywords', 'Elang Atha Zahran, about, fullstack developer, Indonesia, Laravel, portfolio')
+@section('og_title', 'Elang Atha Zahran — Cosmic Developer')
+@section('og_description', 'Explore the interactive cosmic portfolio of Elang Atha Zahran. Dynamic skills constellation, orbiting projects, and holographic design.')
+@section('og_image', asset('images/about-preview.jpg'))
+
 @section('title', 'Me, Basically')
 
 @section('content')

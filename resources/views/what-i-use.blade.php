@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('meta_title', 'Tech Constellation | What I Use')
+@section('meta_description', 'Explore my interactive constellation of 14+ technologies including Laravel, GSAP, JavaScript, PHP, React.js, and more.')
+@section('og_title', 'EAZ | Tech Constellation Skills')
+@section('og_description', 'Click on any star in the constellation to explore technology details, mastery levels, and real-world usage.')
+
 @section('title', 'What I Use')
 
 @section('content')
