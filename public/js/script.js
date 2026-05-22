@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
             navigator.maxTouchPoints > 0 ||
             window.matchMedia('(pointer: coarse)').matches
         );
+
         const isMobileUA = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isSmallScreen = window.innerWidth <= 1024;
+
         return hasTouchScreen || isMobileUA || isSmallScreen;
     }
 
@@ -19,19 +21,23 @@ document.addEventListener('DOMContentLoaded', function () {
         current: 0,
         target: 0,
         ease: 0.030,
-        isScrolling: false,
         wheelHandler: null,
-        touchHandlers: [],
         keyHandler: null,
 
         init: function () {
             this.current = window.pageYOffset;
             this.target = window.pageYOffset;
-            this.raf();
+
+            if (!isMobile) {
+                this.raf();
+            }
+
             this.bindEvents();
         },
 
         raf: function () {
+            if (isMobile) return;
+
             smoother.current += (smoother.target - smoother.current) * smoother.ease;
 
             if (Math.abs(smoother.target - smoother.current) > 0.3) {
@@ -44,16 +50,18 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function () {
+            if (isMobile) return;
+
             this.wheelHandler = (e) => {
-                if (isMobile) return;
                 e.preventDefault();
+
                 smoother.target += e.deltaY;
+
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
             };
 
             this.keyHandler = (e) => {
-                if (isMobile) return;
                 const keys = {
                     'ArrowDown': 100,
                     'ArrowUp': -100,
@@ -65,7 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (keys[e.key] !== undefined) {
                     e.preventDefault();
+
                     smoother.target += keys[e.key];
+
                     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                     smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
                 }
@@ -73,58 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             window.addEventListener('wheel', this.wheelHandler, { passive: false });
             window.addEventListener('keydown', this.keyHandler);
-
-            if (!isMobile) return;
-
-            let touchStartY = 0;
-            let touchVelocity = 0;
-            let lastTouchY = 0;
-            let lastTouchTime = 0;
-
-            const touchStartHandler = (e) => {
-                touchStartY = e.touches[0].clientY;
-                lastTouchY = touchStartY;
-                lastTouchTime = Date.now();
-                smoother.target = smoother.current;
-            };
-
-            const touchMoveHandler = (e) => {
-                const touchMoveY = e.touches[0].clientY;
-                const delta = touchStartY - touchMoveY;
-
-                const now = Date.now();
-                const dt = now - lastTouchTime;
-                if (dt > 0) {
-                    touchVelocity = (lastTouchY - touchMoveY) / dt;
-                }
-                lastTouchY = touchMoveY;
-                lastTouchTime = now;
-
-                smoother.target += delta * 0.5;
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-                touchStartY = touchMoveY;
-            };
-
-            const touchEndHandler = () => {
-                const momentum = touchVelocity * 100;
-                smoother.target += momentum;
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                smoother.target = Math.max(0, Math.min(smoother.target, maxScroll));
-                touchVelocity = 0;
-            };
-
-            window.addEventListener('touchstart', touchStartHandler, { passive: true });
-            window.addEventListener('touchmove', touchMoveHandler, { passive: true });
-            window.addEventListener('touchend', touchEndHandler);
-            window.addEventListener('touchcancel', touchEndHandler);
-
-            this.touchHandlers = [
-                { event: 'touchstart', handler: touchStartHandler },
-                { event: 'touchmove', handler: touchMoveHandler },
-                { event: 'touchend', handler: touchEndHandler },
-                { event: 'touchcancel', handler: touchEndHandler }
-            ];
         },
 
         destroy: function () {
@@ -132,23 +90,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.removeEventListener('wheel', this.wheelHandler);
                 this.wheelHandler = null;
             }
+
             if (this.keyHandler) {
                 window.removeEventListener('keydown', this.keyHandler);
                 this.keyHandler = null;
             }
-            this.touchHandlers.forEach(({ event, handler }) => {
-                window.removeEventListener(event, handler);
-            });
-            this.touchHandlers = [];
         },
 
         scrollTo: function (targetY, duration = 1.5) {
+            if (isMobile) {
+                window.scrollTo({
+                    top: targetY,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+
             const startTarget = this.target;
             const startTime = performance.now();
 
             const animate = (currentTime) => {
                 const elapsed = (currentTime - startTime) / 1000;
                 const progress = Math.min(elapsed / duration, 1);
+
                 const ease = progress < 0.5
                     ? 2 * progress * progress
                     : -1 + (4 - 2 * progress) * progress;
@@ -167,18 +131,21 @@ document.addEventListener('DOMContentLoaded', function () {
     smoother.init();
 
     let resizeDebounce;
+
     window.addEventListener('resize', () => {
         clearTimeout(resizeDebounce);
+
         resizeDebounce = setTimeout(() => {
             const nowMobile = isMobileDevice();
-            if (nowMobile && smoother.wheelHandler) {
+
+            if (nowMobile) {
                 smoother.destroy();
-                smoother.init();
             }
         }, 300);
     });
 
     const typingText = document.getElementById('typing-text');
+
     const roles = [
         'Web Developer',
         'Problem Solver',
@@ -223,7 +190,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const fadeElements = document.querySelectorAll('.fade-in, .timeline-item, .hero-left > *, .hero-right');
 
     fadeElements.forEach((element, index) => {
-        gsap.fromTo(element,
+        gsap.fromTo(
+            element,
             {
                 opacity: 0,
                 y: 40
@@ -232,11 +200,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 opacity: 1,
                 y: 0,
                 duration: 0.8,
-                ease: "power3.out",
+                ease: 'power3.out',
                 scrollTrigger: {
                     trigger: element,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
                 },
                 delay: index * 0.05
             }
@@ -254,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 rotateX: yAxis * 0.3,
                 rotateY: xAxis * 0.3,
                 duration: 0.8,
-                ease: "power2.out"
+                ease: 'power2.out'
             });
         });
 
@@ -263,12 +231,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 rotateX: 0,
                 rotateY: 0,
                 duration: 0.8,
-                ease: "power2.out"
+                ease: 'power2.out'
             });
         });
     }
 
     const progressBar = document.createElement('div');
+
     progressBar.style.cssText = `
         position: fixed;
         top: 0;
@@ -279,15 +248,19 @@ document.addEventListener('DOMContentLoaded', function () {
         border-radius: 0 2px 2px 0;
         transition: width 0.1s linear;
     `;
+
     document.body.appendChild(progressBar);
 
     function updateProgressBar() {
         const scrollTop = window.pageYOffset;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
         progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+
         requestAnimationFrame(updateProgressBar);
     }
+
     updateProgressBar();
 
     document.body.style.visibility = 'visible';
@@ -299,12 +272,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function generateStars() {
         const container = document.getElementById('star-field');
+
         if (!container) return [];
 
         const pageHeight = document.documentElement.scrollHeight;
+
         container.style.height = pageHeight + 'px';
 
         const totalStars = isMobile ? 100 : parseInt(document.body.dataset.stars) || 200;
+
         const sizeConfig = [
             { class: 'size-lg', speed: 0.1, mass: 4 },
             { class: 'size-md', speed: 0.25, mass: 2 },
@@ -328,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const twinkleDuration = 2 + Math.random() * 4;
             const twinkleDelay = Math.random() * 5;
+
             star.style.animation = `twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite`;
             star.style.opacity = 0.3 + Math.random() * 0.7;
 
@@ -358,15 +335,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateSingularityEffect(timestamp) {
         if (activeBlackholes.length === 0) {
-            stars.forEach(star => {
+            stars.forEach((star) => {
                 if (star.isSucked) {
                     resetStar(star);
                 }
             });
+
             return;
         }
 
-        stars.forEach(star => {
+        stars.forEach((star) => {
             if (!star.el.isConnected) return;
 
             let totalForceX = 0;
@@ -375,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let closestDistance = Infinity;
             let strongestForce = 0;
 
-            activeBlackholes.forEach(bh => {
+            activeBlackholes.forEach((bh) => {
                 if (!bh.el || !bh.el.isConnected) return;
 
                 const bhRect = bh.el.getBoundingClientRect();
@@ -392,16 +370,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (distance < bh.gravityRadius) {
                     isAffectedByAny = true;
-                    
+
                     const G = 10000;
                     const forceMagnitude = (G * star.mass) / (distance * distance);
-                    
+
                     const dirX = dx / distance;
                     const dirY = dy / distance;
-                    
+
                     totalForceX += dirX * forceMagnitude;
                     totalForceY += dirY * forceMagnitude;
-                    
+
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         strongestForce = forceMagnitude;
@@ -423,12 +401,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isAffectedByAny) {
                 const currentTransform = star.el.style.transform || '';
                 const translateMatch = currentTransform.match(/translate\(([^)]+)\)/);
-                
+
                 let currentX = 0;
                 let currentY = 0;
-                
+
                 if (translateMatch) {
-                    const parts = translateMatch[1].split(',').map(s => parseFloat(s.trim()));
+                    const parts = translateMatch[1].split(',').map((s) => parseFloat(s.trim()));
+
                     currentX = parts[0] || 0;
                     currentY = parts[1] || 0;
                 }
@@ -440,10 +419,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 star.el.style.transform = `translate(${newX}px, ${newY}px)`;
 
                 const intensity = Math.min(strongestForce / 50, 1);
+
                 if (intensity > 0.3) {
                     const r = 255;
                     const g = Math.floor(255 - (200 * intensity));
                     const b = Math.floor(255 - (255 * intensity));
+
                     star.el.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
                     star.el.style.boxShadow = `0 0 ${4 + intensity * 10}px ${1 + intensity * 2}px rgba(255, ${Math.floor(100 - intensity * 100)}, 0, ${0.5 + intensity * 0.5})`;
                 }
@@ -451,11 +432,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (star.isSucked && star.suckStartTime > 0) {
                 const elapsed = (timestamp - star.suckStartTime) / 1000;
-                star.suckProgress = Math.min(elapsed / 2, 1);
 
+                star.suckProgress = Math.min(elapsed / 2, 1);
                 star.orbitAngle += (star.orbitSpeed * (1 + star.suckProgress)) * 0.05;
                 star.orbitRadius *= (1 - star.suckProgress * 0.1);
-                
+
                 const spiralX = Math.cos(star.orbitAngle) * star.orbitRadius;
                 const spiralY = Math.sin(star.orbitAngle) * star.orbitRadius;
 
@@ -464,8 +445,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const stretchY = 1 - star.suckProgress * 0.7;
 
                 star.el.style.transform = `translate(${spiralX}px, ${spiralY}px) scale(${stretchX}, ${stretchY})`;
-                star.el.style.opacity = Math.max(0, 1 - star.suckProgress);
-                
+                star.el.style.opacity = Math.max(0, scale);
+
                 if (star.suckProgress > 0.5) {
                     star.el.style.backgroundColor = `rgb(255, ${Math.floor(200 - star.suckProgress * 200)}, 0)`;
                     star.el.style.boxShadow = `0 0 ${star.suckProgress * 15}px ${star.suckProgress * 3}px rgba(255, 100, 0, 0.8)`;
@@ -480,8 +461,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         createConsumptionFlash(star);
                         star.el.remove();
                     }
-                    
+
                     const index = stars.indexOf(star);
+
                     if (index > -1) {
                         stars.splice(index, 1);
                     }
@@ -500,18 +482,23 @@ document.addEventListener('DOMContentLoaded', function () {
         star.el.style.opacity = 0.3 + Math.random() * 0.7;
         star.el.style.backgroundColor = '';
         star.el.style.boxShadow = '';
-        
-        star.trailParticles.forEach(p => {
-            if (p.isConnected) p.remove();
+
+        star.trailParticles.forEach((particle) => {
+            if (particle.isConnected) {
+                particle.remove();
+            }
         });
+
         star.trailParticles = [];
     }
 
     function createSuckTrail(star) {
         const container = document.getElementById('star-field');
+
         if (!container) return;
 
         const trail = document.createElement('div');
+
         trail.style.cssText = `
             position: absolute;
             width: 2px;
@@ -524,37 +511,47 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
 
         const starRect = star.el.getBoundingClientRect();
+
         trail.style.left = starRect.left + starRect.width / 2 + 'px';
         trail.style.top = starRect.top + starRect.height / 2 + 'px';
 
         container.appendChild(trail);
 
-        trail.animate([
-            { opacity: 0.8, transform: 'scale(1)' },
-            { opacity: 0, transform: 'scale(0) translate(-20px, -20px)' }
-        ], {
-            duration: 500 + Math.random() * 500,
-            easing: 'ease-out',
-            fill: 'forwards'
-        }).onfinish = () => {
-            if (trail.isConnected) trail.remove();
+        trail.animate(
+            [
+                { opacity: 0.8, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(0) translate(-20px, -20px)' }
+            ],
+            {
+                duration: 500 + Math.random() * 500,
+                easing: 'ease-out',
+                fill: 'forwards'
+            }
+        ).onfinish = () => {
+            if (trail.isConnected) {
+                trail.remove();
+            }
         };
 
         star.trailParticles.push(trail);
-        
+
         if (star.trailParticles.length > 10) {
             const oldTrail = star.trailParticles.shift();
-            if (oldTrail.isConnected) oldTrail.remove();
+
+            if (oldTrail.isConnected) {
+                oldTrail.remove();
+            }
         }
     }
 
     function createConsumptionFlash(star) {
         const container = document.getElementById('star-field');
+
         if (!container) return;
 
         const flash = document.createElement('div');
         const starRect = star.el.getBoundingClientRect();
-        
+
         flash.style.cssText = `
             position: absolute;
             width: ${10 + star.mass * 5}px;
@@ -571,23 +568,29 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(flash);
 
         setTimeout(() => {
-            if (flash.isConnected) flash.remove();
+            if (flash.isConnected) {
+                flash.remove();
+            }
         }, 500);
     }
 
     function animationLoop(timestamp) {
         const scrollY = window.pageYOffset;
 
-        stars.forEach(star => {
+        stars.forEach((star) => {
             if (!star.el.isConnected || star.isSucked) return;
-            
-            const hasBlackholeEffect = activeBlackholes.some(bh => {
+
+            const hasBlackholeEffect = activeBlackholes.some((bh) => {
                 if (!bh.el || !bh.el.isConnected) return false;
+
                 const bhRect = bh.el.getBoundingClientRect();
                 const starRect = star.el.getBoundingClientRect();
+
                 const dx = bhRect.left + bhRect.width / 2 - starRect.left - starRect.width / 2;
                 const dy = bhRect.top + bhRect.height / 2 - starRect.top - starRect.height / 2;
+
                 const distance = Math.sqrt(dx * dx + dy * dy);
+
                 return distance < bh.gravityRadius;
             });
 
@@ -599,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         updateSingularityEffect(timestamp);
 
-        activeBlackholes = activeBlackholes.filter(bh => bh.el && bh.el.isConnected);
+        activeBlackholes = activeBlackholes.filter((bh) => bh.el && bh.el.isConnected);
 
         requestAnimationFrame(animationLoop);
     }
@@ -608,8 +611,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('resize', () => {
         const container = document.getElementById('star-field');
+
         if (!container) return;
-        
+
         container.innerHTML = '';
         activeBlackholes = [];
         stars = generateStars();
@@ -617,9 +621,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function createShootingStar() {
         const container = document.getElementById('star-field');
+
         if (!container) return;
 
         const star = document.createElement('div');
+
         star.classList.add('shooting-star');
 
         const pageHeight = document.documentElement.scrollHeight;
@@ -640,7 +646,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         star.style.transform = `rotate(${angle}deg)`;
 
-        const duration = (Math.random() * 0.8 + 0.6);
+        const duration = Math.random() * 0.8 + 0.6;
 
         star.animate(
             [
@@ -659,20 +665,25 @@ document.addEventListener('DOMContentLoaded', function () {
             ],
             {
                 duration: duration * 1000,
-                easing: "ease-out",
-                fill: "forwards"
+                easing: 'ease-out',
+                fill: 'forwards'
             }
         );
 
         container.appendChild(star);
 
         setTimeout(() => {
-            if (star.isConnected) star.remove();
+            if (star.isConnected) {
+                star.remove();
+            }
         }, duration * 1000);
     }
 
     function shootingStarLoop() {
-        const delay = isMobile ? (Math.random() * 4000 + 2000) : (Math.random() * 2000 + 1000);
+        const delay = isMobile
+            ? Math.random() * 4000 + 2000
+            : Math.random() * 2000 + 1000;
+
         setTimeout(() => {
             createShootingStar();
             shootingStarLoop();
@@ -683,6 +694,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initBlackholeSystem() {
         const container = document.getElementById('star-field');
+
         if (!container) return;
 
         const blackholeConfigs = {
@@ -725,13 +737,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let configType;
             const sizeRandom = Math.random();
-            if (sizeRandom < 0.7) configType = 'small';
-            else if (sizeRandom < 0.9) configType = 'medium';
-            else configType = 'large';
+
+            if (sizeRandom < 0.7) {
+                configType = 'small';
+            } else if (sizeRandom < 0.9) {
+                configType = 'medium';
+            } else {
+                configType = 'large';
+            }
 
             const config = blackholeConfigs[configType];
 
             const blackhole = document.createElement('div');
+
             blackhole.classList.add('blackhole');
             blackhole.style.left = `${x}px`;
             blackhole.style.top = `${y}px`;
@@ -742,9 +760,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             for (let i = 0; i < config.distortionWaves; i++) {
                 const wave = document.createElement('div');
+
                 wave.classList.add('distortion-wave');
                 wave.style.animationDelay = `${i * 1}s`;
                 wave.style.animationDuration = `${2 + i * 0.5}s`;
+
                 blackhole.appendChild(wave);
             }
 
@@ -780,13 +800,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             for (let i = 0; i < config.particleCount; i++) {
                 const particle = document.createElement('div');
+
                 particle.classList.add('orbiting-particle');
                 particle.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
                 particle.style.animationDelay = `${Math.random()}s`;
+
                 blackhole.appendChild(particle);
             }
 
             const hawkingFlash = document.createElement('div');
+
             hawkingFlash.style.cssText = `
                 position: absolute;
                 width: 30px;
@@ -799,11 +822,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 animation: hawking-flash 0.5s ease-in-out infinite;
                 animation-delay: ${Math.random()}s;
             `;
+
             blackhole.appendChild(hawkingFlash);
 
-            blackhole.style.transform = `scale(0)`;
+            blackhole.style.transform = 'scale(0)';
             blackhole.style.opacity = '0';
-            
+
             container.appendChild(blackhole);
 
             const bhData = {
@@ -824,6 +848,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setTimeout(() => {
                 const index = activeBlackholes.indexOf(bhData);
+
                 if (index > -1) {
                     activeBlackholes.splice(index, 1);
                 }
@@ -831,9 +856,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 blackhole.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 blackhole.style.transform = 'scale(0)';
                 blackhole.style.opacity = '0';
-                
+
                 setTimeout(() => {
-                    if (blackhole.isConnected) blackhole.remove();
+                    if (blackhole.isConnected) {
+                        blackhole.remove();
+                    }
                 }, 1500);
             }, config.duration);
 
@@ -846,7 +873,9 @@ document.addEventListener('DOMContentLoaded', function () {
         function scheduleNextBlackhole() {
             if (!isSpawning) return;
 
-            const delay = isMobile ? (15000 + Math.random() * 20000) : (8000 + Math.random() * 15000);
+            const delay = isMobile
+                ? 15000 + Math.random() * 20000
+                : 8000 + Math.random() * 15000;
 
             spawnTimeout = setTimeout(() => {
                 createBlackhole();
