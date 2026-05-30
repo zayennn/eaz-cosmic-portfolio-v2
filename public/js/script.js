@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ease: 0.030,
         wheelHandler: null,
         keyHandler: null,
+        isProgrammaticScroll: false,
 
         init: function () {
             this.current = window.pageYOffset;
@@ -41,7 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
             smoother.current += (smoother.target - smoother.current) * smoother.ease;
 
             if (Math.abs(smoother.target - smoother.current) > 0.3) {
+                smoother.isProgrammaticScroll = true;
                 window.scrollTo(0, Math.round(smoother.current));
+
+                requestAnimationFrame(() => {
+                    smoother.isProgrammaticScroll = false;
+                });
             } else {
                 smoother.current = smoother.target;
             }
@@ -50,6 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         bindEvents: function () {
+            window.addEventListener('scroll', () => {
+                if (isMobile) return;
+                if (smoother.isProgrammaticScroll) return;
+
+                smoother.current = window.pageYOffset;
+                smoother.target = window.pageYOffset;
+            }, { passive: true });
+
             if (isMobile) return;
 
             this.wheelHandler = (e) => {
@@ -63,12 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             this.keyHandler = (e) => {
                 const keys = {
-                    'ArrowDown': 100,
-                    'ArrowUp': -100,
-                    'PageDown': 500,
-                    'PageUp': -500,
-                    'Home': -smoother.target,
-                    'End': document.documentElement.scrollHeight - window.innerHeight - smoother.target
+                    ArrowDown: 100,
+                    ArrowUp: -100,
+                    PageDown: 500,
+                    PageUp: -500,
+                    Home: -smoother.target,
+                    End: document.documentElement.scrollHeight - window.innerHeight - smoother.target
                 };
 
                 if (keys[e.key] !== undefined) {

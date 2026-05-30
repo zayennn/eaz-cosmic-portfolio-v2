@@ -18,6 +18,14 @@
     --glass-border: rgba(99, 102, 241, 0.15);
 }
 
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 body {
     font-family: 'exo 2', Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-primary);
@@ -26,10 +34,12 @@ body {
     position: relative;
     line-height: 1.6;
     visibility: hidden;
+    touch-action: pan-y;
 }
 
 html {
-    scroll-behavior: auto !important;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 ::-webkit-scrollbar {
