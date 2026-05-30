@@ -31,6 +31,7 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
     line-height: 1.6;
     visibility: hidden;
@@ -38,8 +39,10 @@ body {
 }
 
 html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
