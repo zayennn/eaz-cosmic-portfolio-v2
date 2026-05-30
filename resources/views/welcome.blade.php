@@ -132,7 +132,7 @@
                         <span class="detail-value status-open">Open to Opportunities</span>
                     </div>
                 </div>
-                <a href="#" class="cta-btn primary">Download CV</a>
+                <a href="https://drive.google.com/uc?export=download&id=11wosUfp3EdpWZaOVFNSYJbLB9EYEds2G" class="cta-btn primary">Download CV</a>
             </div>
 
             <div class="about-right">
