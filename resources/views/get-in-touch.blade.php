@@ -13,7 +13,8 @@
 
         <div class="contact-header">
             <div class="contact-badge">
-                <i class="fas fa-satellite"></i> Open Channel
+                {{-- <i class="fas fa-satellite"></i>  --}}
+                Open Channel
             </div>
             <h1 class="contact-title">
                 Get in <span class="highlight">Touch</span>
@@ -141,7 +142,7 @@
             </div>
         </div>
 
-        <div class="social-orbit-section">
+        {{-- <div class="social-orbit-section">
             <p class="social-orbit-title">Or Connect Via</p>
             <div class="social-orbit-ring">
                 <a href="https://www.instagram.com/zaayeenn_/" target="_blank" rel="noopener noreferrer"
@@ -161,7 +162,7 @@
                     <i class="fab fa-tiktok"></i>
                 </a>
             </div>
-        </div>
+        </div> --}}
 
         <div class="success-overlay" id="successOverlay">
             <div class="success-modal">
